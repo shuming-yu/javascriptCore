@@ -17,7 +17,8 @@
   // function clickThis() {
   //   console.log('click');
   // }
-  // $('p').click(clickThis);
+  // // $('p').click() = clickThis;
+  // $('p').click(clickThis);  // 修正為此方式
 
   // 03 作用域觀念
   // var parent = '老爸'
@@ -49,6 +50,7 @@
 
   // 07 非同步範例
   for (var i = 0; i < 3; i++) { // i === 3
+    // i 執行完成到 3時, 才執行 setTimeout
     setTimeout(function() {
       console.log(i); // 請問 i 的值分別是多少？
     }, 0);

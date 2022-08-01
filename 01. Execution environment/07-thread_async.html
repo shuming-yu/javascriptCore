@@ -18,9 +18,9 @@
 
     function callSomeone(someone) {
       console.log('打給' + someone)
-      setTimeout(function () {
+      setTimeout(function () {  // 非同步行為先移到事件佇列
         console.log(someone + '回電');
-      }, 0);
+      }, 2000);
     }
 
     function doWork() {
