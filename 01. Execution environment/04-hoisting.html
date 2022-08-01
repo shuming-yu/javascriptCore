@@ -9,21 +9,8 @@
   <script>
 
   // var a;
-  var a = null;
-  console.log(a);
-
-
-
-
-
-
-
-
-
-
-
-
-
+  // var a = null;
+  // console.log(a);
 
 
     // var Ming; // 創造階段
@@ -85,8 +72,10 @@
     // callName(); // 第一次執行
     // callName(); // 第二次執行
 
+
+
     // 考題：
-    // whosName()
+    // whosName();
     // function whosName() {
     //   if (myName) {
     //     myName = '杰倫';
@@ -95,11 +84,24 @@
     // var myName = '小明';
     // console.log(myName);
     
+    // 創造階段（creation phase）
+    function whosName() { // 函式優先載入
+      if (myName) {
+        myName = '杰倫';
+      }
+    }
+    var myName; // 宣告 myName
+
+    // 執行（execution phase）
+    whosName(); // whosName()執行時 myName 還是 undefined，所以'杰倫'無 assign 給 myName
+    myName = '小明';  // '小明' assign 給 myName
+    console.log(myName);  // output 小明
   </script>
 </head>
 
 <body>
-
+  <h2>函式陳述式 : function callName() </h2>
+  <h2>函式表達式 : var callName = function() </h2>
 </body>
 
 </html>
