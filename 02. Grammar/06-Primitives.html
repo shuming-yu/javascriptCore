@@ -14,7 +14,7 @@
     a = '文字';
     b = true;
     c = {};
-    d = null; // 音標 nʌl
+    d = null; // 音標 nʌl, typeof : object
     console.log(typeof e);
 
     // 原始型別
@@ -22,17 +22,32 @@
 
     a = 'ming ';
     console.log(a.length);
-    console.log(a.toUpperCase());
-    console.log(a.trim());
+    console.log(a.toUpperCase()); // 大寫型式
+    console.log(a.trim());  // 空白修剪
     
-    var e = new String(a);
+    var e = new String(a);  // 包裹物件
     console.log(a, e);
+    console.log(typeof e);  // 物件
     
   </script>
 </head>
 
 <body>
 
+  <h2>原始型別列表</h2>
+  <ul>
+    <li>Boolean 布林</li>
+    <li>Null 空</li>
+    <li>Undefined 未定義</li>
+    <li>Number 數值</li>
+    <li>String 字串</li>
+    <li>BigInt(new) 整數數值(new)</li>
+    <li>Symbol(new) Symbol(new)</li>
+  </ul>
+
+  <img src="./Primitives.PNG" alt="" style="width: 700px;">
+
 </body>
+
 
 </html>
