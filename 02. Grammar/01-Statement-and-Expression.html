@@ -7,17 +7,18 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <script>
-    // expression
+    // expression 表達式
     100 + 100;
     
 
-    // statement
+    // statement 陳述式
     // var ming;
     if (1 === 1) {
       
     }
 
     // ming = '小明';
+
 
     // 函式陳述式、具名函式
     function callName() {
@@ -29,19 +30,29 @@
 
     }
 
+    // Block 語句
     {
       const ming = '小明';
     }
-    console.log(ming)
+    console.log(ming) // ming is not defined : 只有在 Block 語句才能使用
 
     // 物件實字
     var a = {
       ming: '小明'
     }
+    console.log(a.ming);
+
   </script>
 </head>
 
 <body>
+
+  <h2>Statement 陳述式</h2>
+  <div>JavaScript 的語句類型, 用於命令執行指定的一系列操作, 最大的特徵則是不會回傳結果.</div>
+  <br>
+
+  <h2>Expression 表達式</h2>
+  <div>又可稱為表示式、運算式, 經常透過一些符號結合上下語句並運算及回傳結果.</div>
 
 </body>
 

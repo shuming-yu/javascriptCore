@@ -15,19 +15,21 @@
     //
     if (1 > 10) a = 1; else a = 2; console.log(a);
 
-
+    // 立即函式
     (function () {
       console.log('小明')
-    }());
+    }()); // 後面增加(), 會立即執行
 
     (function () {
       console.log('小明')
     }())
+    
   </script>
 </head>
 
 <body>
-
+  <h2>ASI - Automatic Semicolon Insertion</h2>
+  <div>當 JavaScript 語句沒有加上分號時, 則會受到自動插入分號(ASI)規則影響.</div>
 </body>
 
 </html>
