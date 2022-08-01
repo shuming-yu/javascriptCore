@@ -8,6 +8,7 @@
   <title>Document</title>
   <script>
 
+    // 請點選F12檢視 Sources -> 點選F8後重整頁面 -> F11檢視狀態
 
     function openTheDoor(num) {
       return '開第 ' + num + ' 扇門';
@@ -22,25 +23,30 @@
     }
     openDoors();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   </script>
 </head>
 
 <body>
+  <!-- 當網頁一啟用即產生執行環境 -->
+  <h2>1.執行環境</h2>
+  <div>callMe() 函式</div>
+  <ul>
+    <li>限制作用域</li>
+    <li>this</li>
+  </ul>
 
+  <h2>2.全域環境</h2>
+  <div>global 全域執行環境</div>
+  <ul>
+    <li>window, global</li>
+    <li>this</li>
+  </ul>
+  <div>上述兩者相同!</div>
+
+  <br>
+
+  <h2>請點選F12檢視 Sources -> 點選F8後重整頁面 -> F11檢視狀態</h2>
+  <img src="./execution_stack.png" alt="">
 </body>
 
 </html>
