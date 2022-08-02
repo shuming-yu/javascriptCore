@@ -14,7 +14,7 @@
         mom: '老媽',
         ming: '小明'
       },
-      '1': '1',
+      '1': '1', // 屬性定義上一律是字串
       '$-小明家': '$-小明家 string',
 
       callFamily: function() {
@@ -22,29 +22,48 @@
       }
     };
 
+    // 取值
     console.log(family.name);
     console.log(family.members.mom);
+    // console.log(family['name']);  // 小明家
 
     var a = 'name';
+    // console.log(family[a]);
     console.log(family['$-小明家']);
 
     family.callFamily();
     family['callFamily']();
 
+    // 新增
     family.dog = '小白';
     family['kitten'] = '小貓';
     family['$'] = 'money';
+    console.log(family);
     
-
+    // 刪除
     delete family.deposit;
     delete family['$'];
     console.log(family);
 
+    
+    // 額外補充：變數及物件屬性的差異
+    var ab = 123;
+    ac = 251; // 等同於 window.ac
+    console.log(window);
+
+    // 變數無法被刪除, 屬性才可以
+    delete ab;
+    delete ac;
+    console.log(window);
+    
+    console.log(ab);
+    console.log(ac);
   </script>
 </head>
 
 <body>
-
+  <h1>物件取值、新增、刪除</h1>
+  <h1>額外補充：變數及物件屬性的差異</h1>
 </body>
 
 </html>
