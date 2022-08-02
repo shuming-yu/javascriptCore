@@ -11,11 +11,45 @@
     console.log(0 && 1);
     console.log(1 && 0);
 
+    console.log(1 || 0);
+    console.log(0 || 1);
+    console.log(undefined || 1);
+
+    console.log(!0);
+    console.log(!1);
+    console.log(![]);
+
+    // var originCash = 500;
+    // function updateEasyCash(cash){
+    //   console.log(cash);
+    //   cash = cash || 50;
+
+    //   var money = cash + originCash;
+    //   console.log('我有' + money + '元');
+    // }
+    // updateEasyCash();
+
+
+    // 預設值為 0 的解決方法, 使用三元運算子
+    var originCash = 500;
+    function updateEasyCard(cash) {
+      cash = parseInt(cash);  // parseInt 將字串轉為數字型別
+      console.log(cash);
+      // 當 cash 是數值或為 0 時，使用 cash 的數值
+      // 如果 cash 是 NaN 時，則直接套用 500
+      cash = (cash || cash === 0)? cash: 500;
+      var money = cash + originCash;
+      console.log('我有 ' + money + ' 元');
+    }
+    updateEasyCard(0);
+
 
   </script>
 </head>
 
 <body>
+  <h1>邏輯運算子及函式預設值</h1>
+  <h3>邏輯運算子 : <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Expressions_and_Operators#%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E5%AD%90">https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Expressions_and_Operators#%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E5%AD%90</a></h3>
 
 </body>
 

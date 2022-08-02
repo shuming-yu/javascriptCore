@@ -11,27 +11,30 @@
     
     // var a = 1;
     // var b = new Number(1);
+    // console.log(typeof b); // object
     // console.log(a == b);
     // console.log(a === b);
     
     // var a = 1;
     // var b = 0;
-    // console.log(1 || 0);
+    // console.log(1 || 0); // 回傳表達式內容 : 1
     
     // var a = 1;
     // var b = 2;
     // var c = 0;
-    // console.log(a && b && c);
-    // console.log(c || c && c || a);
+    // console.log(a && b && c); // 由左至右判斷, 若為false直接回傳前者, 否則回傳後者
+    // console.log(c || c && c || a); // 先執行 &&, 若為false直接回傳後者
     // console.log(a && b || c && a);
     
     // var a = 1 + 1 === 1;
     // console.log(a);
     
     // console.log(1000 < 10000 < 10);
+    // console.log(true < 10); // true = 1
     
     var a = '1';
     var b = 2;
+    console.log(a + b);
     var c = (a > b) ? a * b : sum(a, b);
     function sum(a, b) {
       return a + b;
@@ -43,7 +46,13 @@
 </head>
 
 <body>
-
+  <h1>總結</h1>
+  <h3>運算子優先序(表格Table) : <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#%E8%A1%A8%E6%A0%BC(table)">https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#%E8%A1%A8%E6%A0%BC(table)</a></h3>
+  
+  <br>
+  
+  <div>&&(AND) 當前者為false會直接回傳, 否則回傳後者</div>
+  <div>||(OR) 當前者為true會直接回傳</div>
 </body>
 
 </html>
