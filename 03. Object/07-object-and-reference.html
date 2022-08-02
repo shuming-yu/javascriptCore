@@ -7,18 +7,36 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <script>
+
+    // 純值
     // var person = '小明';
     // var person2 = person;
     // person2 = '杰倫';
-    // console.log(person, person2);
+    // console.log(person, person2);  // 小明, 杰倫
 
-    // var person = {
-    //   name: '小明'
-    // }
-    // var person2 = person;
-    // person2.name = '杰倫';
-    // console.log(person, person2);
-    // console.log(person === person2);
+
+    // 物件傳參考 特性
+    // 1.
+    var person = {
+      name: '小明'
+    }
+    var person2 = person;
+    person2.name = '杰倫';
+    console.log(person, person2); // 杰倫, 杰倫
+    console.log(person === person2);  // true
+
+    // 2.
+    var person3 = {
+      name: '小明'
+    }
+    var person4 = person3;
+    person4 = {
+      name: '小明'
+    }
+    console.log(person3, person4); // 小明, 小明
+    console.log(person3 === person4);  // false
+
+
 
     // var family = {
     //   name: '小明家',
@@ -36,21 +54,33 @@
     // a.y = a;
     // console.log(a);
 
-    var a = { x: 1 };
-    var b = a;
-    a.y = a = { x: 2 };
-    // 1. a = { x: 2 } 是一個運算式
-    // 2. a.y = a = { x: 2 } 同時執行的
-    // a.y 找的是原本的參考路徑
-    console.log(a.y);
-    console.log(b);
-    console.log(a === b.y);
+    // var a = { x: 1 };
+    // var b = a;
+    // a.y = a = { x: 2 };
+    // // 1. a = { x: 2 } 是一個運算式
+    // // 2. a.y = a = { x: 2 } 同時執行的
+    // // a.y 找的是原本的參考路徑
+    // console.log(a.y);
+    // console.log(b);
+    // console.log(a === b.y);
     
   </script>
 </head>
 
 <body>
+  <h1>物件的參考特性</h1>
 
+  <h3>傳值 & 傳參考</h3>
+  <img src="./object-and-reference.PNG" alt="" style="width: 500px;">
+
+  <h3>傳值</h3>
+  <img src="./object-and-reference2.PNG" alt="" style="width: 500px;">
+
+  <h3>共用同物件</h3>
+  <img src="./object-and-reference3.PNG" alt="" style="width: 500px;">
+
+  <h3>指向另一物件(參考位置), 兩者無關聯性</h3>
+  <img src="./object-and-reference4.PNG" alt="" style="width: 500px;">
 </body>
 
 </html>
