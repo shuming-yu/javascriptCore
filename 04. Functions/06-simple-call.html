@@ -16,7 +16,8 @@
     // callName();
     // 盡可能不要使用 simple 的 this
 
-    // IIFE
+    // 立即函式 IIFE
+    // 不會看你的呼叫位置, 是依據呼叫方式而定
     // (function () {
     //   console.log(this.myName);
     //   function callSomeone() {
@@ -54,7 +55,7 @@
     var family = {
       myName: '小明家',
       callName: function () {
-        var self = this; // vm, that
+        // var self = this; // vm, that
         setTimeout(function () {
           console.log(self.myName);
         }, 1000);
@@ -66,7 +67,9 @@
 </head>
 
 <body>
-
+  <h1>this：簡易呼叫</h1>
+  <h3>simple call 的 this 會指向全域</h3>
+  <h3>forEach 後方 callback function 屬於 simple call</h3>
 </body>
 
 </html>
