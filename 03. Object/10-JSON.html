@@ -24,8 +24,7 @@
     // function getData() {
     //   console.log(this.response);
     //   var data = JSON.parse(this.response);
-    //   console.log(data);
-
+    //   console.log(data);  // 字串型式
     // }
 
     // var oReq = new XMLHttpRequest();
@@ -35,17 +34,19 @@
 
 
     // 框架 AJAX
-    // $.ajax({
-    //   url: "family.json",
-    // }).done(function (data) {
-    //   console.log(data);
-    // });
+    // 自動轉為 javascript 物件, 檢視 F12 -> Network -> family.json -> Response
+    $.ajax({
+      url: "family.json",
+    }).done(function (data) {
+      console.log(data);
+    });
 
   </script>
 </head>
 
 <body>
-
+  <h1>JSON</h1>
+  <h2>請使用 Go Live 功能</h2>
 </body>
 
 </html>

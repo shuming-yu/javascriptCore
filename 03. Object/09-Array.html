@@ -18,24 +18,26 @@
     ];
     
     newArray.push(5);
-    newArray.name = '小明';
+    newArray.name = '小明'; // 加入新的內容, 不影響陣列長度
     newArray[5] = '杰倫';
+    // newArray[6] undefined : javascript 自動補上空值, 會影響陣列長度 
     newArray[7] = '漂亮阿姨';
-    console.log(newArray);
-
+    // console.log(newArray[6]);
+    
+    // 會列出 undefined
     // for (var i = 0; i < newArray.length; i ++) {
     //   console.log(newArray[i])
     // }
 
+    // 不會列出 undefined
     newArray.forEach(function(item) {
       console.log(item);
-      
     })
   </script>
 </head>
 
 <body>
-
+  <h1>陣列</h1>
 </body>
 
 </html>
