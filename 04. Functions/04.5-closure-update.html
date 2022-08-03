@@ -13,19 +13,28 @@
     //   var arr = [];
     //   for (let i = 0; i < 3; i++) {
 
-    //     arr.push(function () {
-    //       console.log(i);
-    //     });
-
-    //   }
-    //   // console.log('i', i);
+    //     // 立即函式 限制作用域
+    //     // (function(j) {
+    //     //   arr.push(function () {
+    //     //     console.log(j);
+    //     //   });
+    //     // })(i)
+        
+    //     // ES6寫法 -> let
+    //     arr.push(function () {  
+    //         console.log(i);
+    //       });
       
+    //   }
+    //   // console.log(arr);
+    //   // console.log('i', i); // let -> var
     //   return arr;
     // }
     // var fn = arrFunction();
     // fn[0]();
     // fn[1]();
     // fn[2]();
+
 
     // 函式工廠
     // 私有方法
@@ -44,27 +53,24 @@
       }
     }
     var MingMoney = storeMoney(100);
-    MingMoney.increase(100);
-    MingMoney.increase(100);
-    MingMoney.increase(100);
-    MingMoney.increase(100);
+    
+    MingMoney.increase(50);
+    // MingMoney.increase(100);
+    // MingMoney.increase(100);
+    // MingMoney.increase(100);
     MingMoney.decrease(25);
     MingMoney.decrease(96);
-    console.log(MingMoney.value());
+    console.log('MingMoney : ', MingMoney.value());
 
     var JayMoney = storeMoney(1000);
     JayMoney.increase(1000);
-    console.log(JayMoney.value());
+    console.log('JayMoney : ', JayMoney.value());
     
-
-
-
-
   </script>
 </head>
 
 <body>
-
+  <h1>閉包進階：工廠模式及私有方法</h1>
 </body>
 
 </html>
