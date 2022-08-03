@@ -18,7 +18,7 @@
     //   console.log(Ming);
     //   // 限制變數的作用域
     // })();
-    // console.log(Ming);
+    // console.log(Ming);  // is not defined
 
 
     // var whereMing = (function (where) {
@@ -27,6 +27,17 @@
     // })('小明在這');
     // console.log(whereMing);
     
+
+
+    // 立即函式傳遞變數手法
+    // var a = {}; // 物件本身具有傳參考特性
+    // (function(b) {
+    //   b.person = 'Ben';
+    // })(a);
+    // (function(c) {
+    //   console.log(c);
+    // })(a)
+
 
     (function(global) {
       global.person = '小明';
@@ -39,6 +50,7 @@
   </script>
 </head>
 <body>
-  
+  <h1>立即函式</h1>
+  <h3>IIFE 術語表 : <a href="https://developer.mozilla.org/zh-TW/docs/Glossary/IIFE">https://developer.mozilla.org/zh-TW/docs/Glossary/IIFE</a></h3>
 </body>
 </html>
