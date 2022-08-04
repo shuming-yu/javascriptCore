@@ -10,7 +10,7 @@
 
     var myName = '全域';
 
-    // // This 的觀念
+    // This 的觀念
     // var person = {
     //   myName: '小明',
     //   getName: function () {
@@ -19,7 +19,8 @@
     // }
     // var getName = person.getName;
     // console.log(getName());
-    // // 這個值為？
+    // 這個值為？ -> ans : getName() 為簡易呼叫 : 全域
+
 
     // bind 的其餘參數
     // var obj = {
@@ -30,15 +31,15 @@
     //   }
     // }
     // var fnA = obj.fn;
-    // var fnB = fnA.bind(null, 0);
+    // var fnB = fnA.bind(null, 0);  // null, undefined 替換成全域變數
     // console.log(fnB(1, 2));
     // 問題 1:
-    // 全域,0,1,2
+    // 全域,0,1,2  -> ans
     // 奇怪的函式,0,1,2
     // null,0,1,2
     // 奇怪的函式,1,2,undefined
 
-    // null,0,1,2 > 這個結果該如何修改程式碼
+    // null,0,1,2 > 這個結果該如何修改程式碼 -> 新增 'use strict';
 
     // This 的觀念
     // var value = 'global';
@@ -59,18 +60,26 @@
 
     // // 直接執行
     // console.log(foo.bar()); // local
-    // // 賦值
-    // console.log((b.a = foo.bar)());
-    // // or
-    // console.log((false || foo.bar)());
+    // // 賦值 : 表達式
+    // console.log((foo.bar = foo.bar)()); // global
+    // // console.log((b.a = foo.bar)()); // global
+    // // or : 表達式
+    // console.log((false || foo.bar)());  // global
 
-    var arr = ['10', '2', '11'].map(function(item, i) {
-      return parseInt(item, i); // 3, 2
-    });
+
+
+    // 1.
+    // var arr = ['1', '2', '3'].map(parseInt);  // [1, NaN, NaN]
+    // 2.
     // var arr = ['1', '2', '3'].map(function(item, i) {
     //   console.log(item, i);
+    //               // 數值, 10進位
     //   return parseInt(item, 10);
     // });
+    // 3.
+    var arr = ['10', '2', '11'].map(function(item, i) {
+      return parseInt(item, i); // 10, 0 -> 2, 1 -> 11, 2(進位)
+    });
     console.log(arr);
     // [1, 2, 3]
     // [undefined, undefined, undefined]
@@ -82,7 +91,10 @@
 </head>
 
 <body>
+  <h1>總結：函式的常見陷阱題</h1>
 
+  <h3>Map : <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map</a></h3>
+  <h3>parseInt() : 將輸入的字串轉成整數 <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/parseInt">https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/parseInt</a></h3>
 </body>
 
 </html>
