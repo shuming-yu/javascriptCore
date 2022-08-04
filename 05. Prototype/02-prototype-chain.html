@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <script>
-    
+  
   var a = [1, 2, 3];
   // console.log(a, a[1], a.length);
   
@@ -16,15 +16,17 @@
   // });
 
   var b = [4, 5, 6];
+  // 取得最後一數值
   a.__proto__.getLast = function () {
     return this[this.length -1];
   }
-  console.log(a, b);
-  console.log(a.getLast(), b.getLast());
+  console.log('a:', a, 'b:', b);
+  console.log('a:', a.getLast(), 'b:', b.getLast());
   
   var family = {
     name: '小明家'
   }
+  // 物件的原型下新增 getName 方法
   family.__proto__.getName = function() {
     return this.name;
   }
@@ -33,13 +35,21 @@
   b.name = '陣列的屬性';
   console.log(b.getName());
   console.log(b.toString());
-  
 
   </script>
 </head>
 
 <body>
+  <h1>原型在哪裡？</h1>
 
+  <h2>陣列原型繼承於物件原型下, 可使用物件原型下的方法</h2>
+
+  <h3>原型的特性</h3>
+  <ul>
+    <li>一樣具有物件的特性</li>
+    <li>向上查找</li>
+    <li>原型可共用方法及屬性</li>
+  </ul>
 </body>
 
 </html>
