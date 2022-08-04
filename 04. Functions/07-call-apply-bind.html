@@ -14,28 +14,42 @@
       myName: '小明家',
     }
 
+    // function fn(para1, para2) {
+    //   console.log(this, para1, para2);
+    // }
+
+    // call, apply, bind
+    // fn(1, 2);
+
+    // // 1. call 將參數依序帶入
+    // fn.call(family, 1, 2);
+
+    // // 2. apply 將參數以陣列方式呈現
+    // fn.apply(family, [3, 4]);
+
+    // // 3. bind 不會立刻執行, 參數傳入方式與 call 一致
+    // var fn2 = fn.bind(family, '小明');
+    // fn2(1, 2); // 參數不用另外帶入, 帶入參數也不會有任何變化
+    // // 若 fn2 少值帶入, 會依序改用 fn2(1, 2) 內的值
+
+
+    
+    // 進階觀念
+
     function fn(para1, para2) {
       console.log(this, typeof this, para1, para2);
     }
 
-    // call, apply, bind
-    // fn(1, 2);
-    // fn.call(family, 1, 2);
-    // fn.apply(family, [3, 4]);
-
-
-    // var fn2 = fn.bind(family, '小明');
-    // fn2(1);
-
-    // 進階觀念
+    // 建構式方式呈現 Number{1}, String{'文字'}
     // fn.call(1, '小明', '杰倫');
     // fn.call('文字', '小明', '杰倫');
-    // fn.call(undefined, '小明', '杰倫');
+    // fn.call(undefined, '小明', '杰倫'); // null, undefined 替換成全域變數
     
+    // 嚴格模式
     // (function() {
     //   'use strict';
 
-    //   a = '小明';
+    //   a = '小明'; // a is not defined
       
     // })();
 
@@ -46,7 +60,7 @@
     callStrict.call(1, '小明', '杰倫');
     callStrict.call(undefined, '小明', '杰倫');
 
-    callStrict('小明', '杰倫');
+    callStrict('小明', '杰倫'); // 簡易呼叫
     // 簡易呼叫的 this 盡可能不要調用，它的本質其實是 undefined
 
 
@@ -54,7 +68,16 @@
 </head>
 
 <body>
+  <h1>this：call, apply, bind 與 嚴謹模式</h1>
 
+  <h3>嚴格模式</h3>
+  <ul>
+    <li>加入 'use strict' 即可運作</li>
+    <li>並不會影響不支援嚴格模式的瀏覽器</li>
+    <li>可依據<strong>執行環境設定 'use strict' </strong></li>
+    <li>透過拋出錯誤的方式消除一些安靜的錯誤 (防止小錯誤)</li>
+    <li>禁止使用一些有可能被未來版本 ECMAScript 定義的語法</li>
+  </ul>
 </body>
 
 </html>
