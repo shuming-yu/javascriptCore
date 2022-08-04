@@ -8,6 +8,10 @@
   <title>Document</title>
   <script>
     
+    // var a = [];
+    // // Object > Array > a(實體)
+
+
     // var Bibi = {
     //   name: '比比',
     //   color: '棕色',
@@ -17,11 +21,12 @@
     //   }
     // }
 
-    // // Object.create()
+    // // Object.create(), 使用於 創造多層原型鏈
     // var Pupu = Object.create(Bibi);
     // Pupu.name = '噗噗';
     // console.log(Pupu);
     
+    // Animal
     function Animal(family) {
       this.kingdom = '動物界';
       this.family = family || '人科';
@@ -30,27 +35,28 @@
       console.log(this.name + ' 移動');
     }
 
+    // Dog
     function Dog(name, color, size) {
-      Animal.call(this, '犬科')
+      Animal.call(this, '犬科') // this 將Dog, Animal 綁定在一起 + 傳入 科別
       this.name = name;
       this.color = color || '白色';
       this.size = size || '小';
     }
-    Dog.prototype = Object.create(Animal.prototype);
-    Dog.prototype.constructor = Dog;
+    Dog.prototype = Object.create(Animal.prototype);  // Dog 原型繼承 Animal 原型
+    Dog.prototype.constructor = Dog;  // F12檢查 Dog.Prototype(Animal).constructor -> 因使用 Object.create 覆蓋掉, 後需補回
     Dog.prototype.bark = function () {
       console.log(this.name + ' 吠叫');
     }
 
     var Bibi = new Dog('比比', '棕色', '小');
-    console.log(Bibi);
+    console.log('Bibi:', Bibi);
     Bibi.bark();
     Bibi.move();
     
-    // var newAnimal = new Animal('新物種');
-    // console.log(newAnimal);
+    var newAnimal = new Animal('新物種');
+    console.log(newAnimal);
     
-
+    // Cat
     function Cat(name, color, size) {
       Animal.call(this, '貓科');
       this.name = name;
@@ -66,14 +72,17 @@
     var Kity = new Cat('凱蒂');
     Kity.meow();
     Kity.move();
-    Kity.bark();
+    Kity.bark();  // is not a function
 
 
   </script>
 </head>
 
 <body>
+  <h1>使用 Object.create 建立多層繼承</h1>
 
+  <h3>原型鏈 :</h3>
+  <img src="./Object-Create.png" alt="" style="width: 800px;">
 </body>
 
 </html>
