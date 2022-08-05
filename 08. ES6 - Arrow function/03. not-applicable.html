@@ -10,40 +10,69 @@
 </head>
 
 <body>
+  <h1>常見問題</h1>
+
+  <ul>
+    <li>無法直接回傳物件 ()=> {data: 1}, 需補上 ({data: 1})</li>
+    <li>搭配判斷式時, 後面不能直接接箭頭函式 (結構錯誤)</li>
+    <li>物件內使用方法, 請使用 傳統函式</li>
+  </ul>
+
   <script>
     // 常見錯誤
 
+    // 1.
+    // 無法直接回傳物件 ()=> {data: 1};
     // const arrFn = ()=> ({data: 1});
     // console.log(arrFn())
 
+
+    // 2.
+    // 搭配判斷式時, 後面不能直接接箭頭函式 (結構錯誤)
     // let num = 0;
 
-    // const numFn = num || function () { return 1 };
-    // const numFn = num || (() => 1);
-    // console.log(numFn());
+    // const numFn1 = num || function () { return 1 };
+    // const numFn2 = num || (() => 1);
+    // console.log(numFn1(), numFn2());
 
+
+    // 3.
+    // 物件內使用方法, 請使用 傳統函式
     // const person = {
     //   myName: '小明',
-    //   callName: function () {
+    //   callName1: () => {
+    //     console.log(this.myName);
+    //   },
+    //   callName2: function () {
     //     console.log(this.myName);
     //   },
     // }
-    // person.callName();
+    // person.callName1(); // undefined
+    // person.callName2(); // 小明
 
+
+
+    // 4.
     // const app = new Vue({
     //   data: {
     //     num: 1
     //   },
-    //   created: ()=> {
-    //     console.log(this.num)
+    //   created: function() {
+    //     console.log(this.num) //1
     //   }
+    //   // created: ()=> {
+    //   //   console.log(this.num)  // undefined
+    //   // }
     // })
 
+
+    // 5.
     const Fn2 = function (a) {
       this.name = a;
     }
     Fn2.prototype.protoFn = () => {
-      return this;
+      // return this.name; // 空值
+      return this;  // 指向全域
     }
 
     const newObj = new Fn2('函式');

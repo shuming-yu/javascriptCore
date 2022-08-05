@@ -10,52 +10,98 @@
 </head>
 
 <body>
+  <h1>箭頭函式實戰用法</h1>
+
+  <h3><a href="https://www.casper.tw/javascript/2017/06/29/es6-native-array/">1. JavaScript 陣列處理方法</a></h3>
+  <h3><a href="https://30secondsofknowledge.com/">2. 方法參考</a></h3>
+
+
   <script>
     // 搭配陣列方法
-    // 陣列雙倍
     // 參考：https://wcc723.github.io/javascript/2017/06/29/es6-native-array/
+
+    // 陣列內所有值都需要調整時, 可使用 map
+    // 1. 陣列雙倍
     // const arr = [15, 12, 63, 67, 1421, 124, 567, 235, 12, 45];
-    // const arrDouble = arr.map(function(num) {
-    //   return num * 2;
-    // })
+    // // const arrDouble = arr.map(function(num) {
+    // //   return num * 2;
+    // // })
     // const arrDouble = arr.map(num => num * 2);
     // console.log(arrDouble);
 
-    // 平均數
-    // const average = function () {
-    //   const nums = Array.from(arguments);
-    //   const total = nums.reduce(function (acc, val) {
-    //     return acc + val
-    //   }, 0);
-    //   console.log(total);
 
-    //   return total / nums.length;
-    // }
+    // 2. 平均數
+    // // const average = function () {
+    // //   const nums = Array.from(arguments);
+    // //   const total = nums.reduce(function (acc, val) {
+    // //     return acc + val
+    // //   }, 0);
+    // //   console.log(total);
+
+    // //   return total / nums.length;
+    // // }
     // const average = (...num) => num.reduce((acc, val) => acc + val, 0) / num.length;
     // console.log(average(1, 2, 3, 4, 5, 10));
 
     // 方法參考：https://30secondsofknowledge.com/
 
 
-
+    // 3.
     // 物件內 this
-    const person = {
-      data: {
-      },
-      getData: function() {
-        // const vm = this;
-        $.ajax({
-          url: 'https://randomuser.me/api/',
-          dataType: 'json',
-          success: (data) => {
-            console.log(data);
-            this.data = data.results[0];
-            console.log('person.data', person.data);
-          }
-        });
-      }
+    // const person = {
+    //   data: {
+    //   },
+    //   getData: function() {
+    //     // const vm = this;
+    //     $.ajax({
+    //       url: 'https://randomuser.me/api/',
+    //       dataType: 'json',
+
+    //       // 傳統函式
+    //       // success: function(data) {
+    //       //   console.log(data);
+    //       //   vm.data = data.results[0];
+    //       //   console.log('person.data', person.data);
+    //       // }
+
+    //       // 箭頭函式
+    //       success: (data) => {
+    //         console.log(data);
+    //         this.data = data.results[0];
+    //         console.log('person.data', person.data);
+    //       }
+    //     });
+    //   }
+    // }
+    // person.getData();
+
+
+
+    // 箭頭函式 - 章節作業
+    // 4.
+    Array.prototype.sumData = function() {
+      return this.reduce((acc, val) => acc + val , 0);
     }
-    person.getData();
+    var arr = [1, 23, 5, 8, 52, 53, 63];
+    console.log(arr.sumData());
+
+    // 5.
+    var person = {
+      // 提款記錄
+      withdrawalRecord: [12, 45, 560, 120],
+      // 計算扣除的金額
+      calculate: function() {
+        var total = this.total
+        var sum = this.withdrawalRecord.reduce((acc, val) => acc + val, 0);
+        total = total - sum;
+        this.total = total;
+      },
+      // 剩餘的金額
+      total: 1000
+    }
+    person.calculate();
+    console.log(person.total);
+
   </script>
 </body>
 

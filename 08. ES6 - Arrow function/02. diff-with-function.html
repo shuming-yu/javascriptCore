@@ -9,11 +9,26 @@
 </head>
 
 <body>
+  <h1>與傳統函式不同之處</h1>
+
+  <ul>
+    <li>1. 箭頭函式沒有 arguments 參數, 將以下改寫成 Arrow Function，並觀察差異</li>
+    <li>2. this 綁定的差異, 箭頭函式沒有自己的 this</li>
+    <li>3. this 不同，導致 DOM 的 this 也會指向不同位置</li>
+    <li>4. 也無法透過 call, apply, bind 重新給予 this</li>
+    <li>5. 箭頭函式無法作為建構函式使用 ( prototype 為例 )</li>
+  </ul>
+
   <p>這裡具有一段話</p>
   <script>
 
-    // # 沒有 arguments 參數
+    // # 箭頭函式沒有 arguments 參數
     // 將以下改寫成 Arrow Function，並觀察差異
+    // const x = function() {
+    //   console.log(arguments);
+    // }
+    // x();
+    // // ...arg 其餘參數
     // const nums = (...arg) => {
     //   console.log(arg);
     // }
@@ -25,8 +40,21 @@
     // var myName = '全域'
     // var person = {
     //   myName: '小明',
+
+    //   // 傳統函式
+    //   // callName: function() { 
+    //   //   console.log('1', this.myName); // 1 小明
+    //   //   // setTimeout 簡易呼叫
+    //   //   setTimeout(function() {
+    //   //     console.log('2', this.myName); // 2 全域
+    //   //     console.log('3', this);
+    //   //   }, 10);
+    //   // },
+
+    //   // 箭頭函式
     //   callName: () => { 
-    //     console.log('1', this.myName); // 1 小明
+    //     console.log('1', this.myName); // 1 全域
+    //     // setTimeout 簡易呼叫
     //     setTimeout(() => {
     //       console.log('2', this.myName); // 2 全域
     //       console.log('3', this);
@@ -34,6 +62,7 @@
     //   },
     // }
     // person.callName();
+
 
     // # this 不同，導致 DOM 的 this 也會指向不同位置
     // const ele = document.querySelector('p');
