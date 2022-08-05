@@ -8,22 +8,34 @@
   <title>Document</title>
   <script>
     // Let, Const
-    // for (let i = 0; i < 10; i++) {
-    //   setTimeout(function () {
-    //     console.log('這執行第' + i + '次');
-    //   }, 0);
-    // }
-    // console.log(i);
+    for (let i = 0; i < 10; i++) {
+      setTimeout(function () {
+        console.log('這執行第' + i + '次');
+      }, 0);
+    }
+    // let 不是全域變數
+    // console.log(i); // i is not defined
 
+    // const 常數
+    const person = {
+      name: 'Ben',
+      money: 500
+    }
+    person.name = 'Tiffany';
+    console.log(person);
 
+    Object.freeze(person);
+    person.money = 1000;
+    person = {};  // var, let 依然可修改物件
 
+    console.log(person);
 
 
   </script>
 </head>
 
 <body>
-
+  <h1>Let, Const 實戰運用技巧</h1>
 </body>
 
 </html>

@@ -27,9 +27,9 @@
     // 3. 有創造到執行的概念，但不會預先出現 undefined 而是出現錯誤提示
     // (文件不會表明這與 var 的 Hoisting 相同)
 
-    // console.log(a);
-    console.log(typeof a);
-    console.log(typeof myName);
+    // console.log(a); // a is not defined
+    console.log(typeof a);  // undefined
+    console.log(typeof myName);  // Cannot access 'myName' before initialization
 
     let myName = '';
 
@@ -37,7 +37,14 @@
 </head>
 
 <body>
+  <h1>Let 有沒有 Hoisting？暫時性死區介紹</h1>
 
+  <ul>
+    <li>1. let 一樣會有創造階段</li>
+    <li>2. 但從創造到實際宣告的階段會出現 TDZ，這個區域無法呼叫變數</li>
+    <li>3. 有創造到執行的概念，但不會預先出現 undefined 而是出現錯誤提示
+        <br>(文件不會表明這與 var 的 Hoisting 相同)</li>
+  </ul>
 </body>
 
 </html>

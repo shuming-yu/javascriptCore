@@ -10,27 +10,27 @@
     // Let, Const
 
     let Casper = '卡斯伯';
-
-
-
     
-
+    // 限制在 block 內
     {
-      let Casper = '卡伯';
+      let Casper = '卡稱';
     }
-    // console.log(Casper);
+    console.log(Casper);
 
-    // for (let i = 0; i < 10; i++) {
-    //   console.log(i)
-    // }
-    // console.log(i);
 
-    // var answer = true;
-    // if (answer) {
-    //   let myFeedback = '同意';
-    //   console.log(myFeedback);
-    // }
-    // console.log(myFeedback);
+    for (let i = 0; i < 10; i++) {
+      console.log(i)
+    }
+    // console.log(i); // i is not defined
+
+
+    var answer = true;
+    if (answer) {
+      let myFeedback = '同意';
+      console.log(myFeedback);
+    }
+    // console.log(myFeedback);  // myFeedback is not defined
+
 
     for (let j = 0; j < 10; j++) {
       console.log(j)
@@ -38,17 +38,17 @@
     {
       let j = 0;
     }
-    console.log(j);
-
-
-    
+    console.log(j); // j is not defined
 
 
   </script>
 </head>
 
 <body>
+  <h1>Let, Const 基本概念</h1>
 
+  <h3>1. let 可賦予值</h3>
+  <h3>2. const 不可賦予新值</h3>
 </body>
 
 </html>
