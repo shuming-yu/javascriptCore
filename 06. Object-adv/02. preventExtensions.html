@@ -20,8 +20,8 @@
     // // 1. preventExtensions
     // // 防止擴充
     // Object.preventExtensions(person);
-    // console.log('是否可被擴充', Object.isExtensible(person));
-    // console.log('person a 的屬性特徵', Object.getOwnPropertyDescriptor(person, 'a'));
+    // console.log('是否可被擴充', Object.isExtensible(person));  // isExtensible 驗證
+    // console.log('person a 的屬性特徵', Object.getOwnPropertyDescriptor(person, 'a'));  // getOwnPropertyDescriptor 方法, 查看物件內屬性特徵
 
     // // 調整屬性
     // person.a = 'a';
@@ -112,14 +112,15 @@
   <h2>延伸的三個物件方法 preventExtensions、seal、Freeze</h2>
   <h2>中文語意分別表示 防止擴充、封裝、凍結</h2>
 
-  <h3>preventExtensions : 防止擴充</h3>
-  <h3>seal :</h3>
+  <h3>1. preventExtensions : 防止擴充</h3>
+  <h3>2. seal :</h3>
   <ul>
     <li>物件屬性無法新增刪除，也無法重新配置特徵，但是可以調整目前屬性值</li>
     <li>物件會被加上 preventExtensions</li>
   </ul>
-  <h3>Freeze : 物件會加上 seal，並且無法調整值</h3>
-
+  <h3>3. Freeze : 物件會加上 seal，並且無法調整值</h3>
+  
+  <h3>補充 : Object.getOwnPropertyDescriptor 方法, 查看物件內屬性特徵</h3>
 </body>
 
 </html>

@@ -21,11 +21,11 @@
 
   // console.log(casper.hasOwnProperty('a'));
   // console.log(casper.hasOwnProperty('b'));
-  // console.log(casper.hasOwnProperty('name'));
+  // console.log(casper.hasOwnProperty('name')); // hasOwnProperty 查看當前屬性
 
   for (const key in casper) {
-    if (casper.hasOwnProperty(key)) {
-      
+    console.log(key);
+    if (casper.hasOwnProperty(key)) { 
       
     }
   }
@@ -41,7 +41,9 @@
 </head>
 
 <body>
+  <h1>屬性列舉與原型的關係</h1>
 
+  <h3>補充 : Object.hasOwnProperty 查看當前屬性</h3>
 </body>
 
 </html>

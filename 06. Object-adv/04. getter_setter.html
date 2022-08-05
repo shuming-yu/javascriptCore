@@ -18,28 +18,30 @@
     // }
   }
   // console.log(wallet.save, wallet)
-  // Getter 取得特定值的方法
+  // Getter 取得特定值的方法, 不會傳入參數
   // Setter 存值的方法
+  // wallet.save = 300;  // 使用 = 附值方式直接改變純值方式
+  // console.log(wallet.save);
+
+  
+
+  // Object.defineProperty(wallet, 'save', {
+  //   configurable: true,
+  //   enumerable: true,
+  //   set: function(price) {
+  //     this.total = this.total + price / 2;
+  //   },
+  //   get: function() {
+  //     return this.total / 2;
+  //   }
+  // });
   // wallet.save = 300;
 
-  Object.defineProperty(wallet, 'save', {
-    configurable: true,
-    enumerable: true,
-    set: function(price) {
-      this.total = this.total + price / 2;
-    },
-    get: function() {
-      return this.total / 2;
-    }
-  });
-
-  wallet.save = 300;
-
-  console.log(wallet)
-  console.log(Object.getOwnPropertyDescriptor(wallet, 'save'))
+  // console.log(wallet)
+  // console.log(Object.getOwnPropertyDescriptor(wallet, 'save'))
 
 
-
+  // get 方式取最後一數值
   var a = [1, 2,  3];
   Object.defineProperty(Array.prototype, 'latest', {
     get: function() {
@@ -55,7 +57,10 @@
 </head>
 
 <body>
+  <h1>Getter 與 Setter，賦值運算不使用函式</h1>
 
+  <h2>Getter 取得特定值的方法, 不會傳入參數</h2>
+  <h2>Setter 存值的方法</h2>
 </body>
 
 </html>
