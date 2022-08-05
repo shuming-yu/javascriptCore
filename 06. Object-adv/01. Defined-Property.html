@@ -16,7 +16,7 @@
 
   console.log(person);
 
-  // Object.defineProperty
+  // Object.defineProperty(物件, 屬性, 參數)
   // 屬性，調整屬性的特徵
   // 1. 值、 2. 可否寫入、3. 可否被刪除、4. 可否被列舉
   Object.defineProperty(person, 'a', {
@@ -26,22 +26,26 @@
     enumerable: true
   });
 
-  person.a = 5;
+  person.a = 5; // writable 設定 false, 值不會改變 (靜默錯誤)
+
+  console.log(person);
 
   // (function() {
-  //   'use strict';
+  //   'use strict'; // 嚴謹模式 (跳出錯誤)
   //   person.a = 5;
   // }());
 
   Object.defineProperty(person, 'b', {
-    configurable: false
+    configurable: false // 限制不可刪除
   });
 
   // delete person.a;
   delete person.b;
 
+  console.log(person);
+
   Object.defineProperty(person, 'c', {
-    enumerable: false
+    enumerable: false // 限制不可列舉
   });
 
   for (var key in person) {
@@ -51,30 +55,40 @@
   // 淺層保護
   Object.defineProperty(person, 'd', {
     value: {},
-    writable: false
+    writable: false // 禁止寫入限制於 'd' 屬性
   });
 
-  person.d.a = 6
-
-  Object.defineProperties(person, {
-    a: {
-
-    },
-    b: {
-      
-    }
-  })
-
-
-
-
+  person.d.a = 6  // 但可對裡面值做額外設定
   console.log(person);
+
+  // Object.defineProperties(person, {
+  //   a: {
+
+  //   },
+  //   b: {
+      
+  //   }
+  // })
+
+
+
+
+  // console.log(person);
 
   </script>
 </head>
 
 <body>
+  <h1>物件屬性延伸章節：屬性的特徵</h1>
 
+  <h2>Object.defineProperty(物件, 屬性, 參數)</h2>
+  <ul>
+    <li>屬性，調整屬性的特徵 :</li>
+    <li>1. 值</li>
+    <li>2. 可否寫入 -> 'use strict' 設定 嚴謹模式 ( 跳出錯誤 )</li>
+    <li>3. 可否被刪除</li>
+    <li>4. 可否被列舉 -> 禁止寫入限制於 'x' 屬性, 但可對裡面值做額外設定 ( 淺層保護 )</li>
+  </ul>
 </body>
 
 </html>
