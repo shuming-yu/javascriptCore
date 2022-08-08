@@ -9,15 +9,19 @@
 </head>
 
 <body>
+  <h1>巢狀結構</h1>
+  <h3><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/map">參考 : Array.prototype.map()</a></h3>
+
   <div id="list"></div>
   <script>
+
     // `string text ${expression} string text`
     // const person = {
     //   name: '小明',
     //   cash: 1000
     // }
-    // // const sentence = `我是${person.name}，身上帶有 ${ ((c) => c * 2)(person.cash) } 元`;
-    // const sentence = `我是${person.name}，${ `身上帶有 ${ person.cash }` } 元`;
+    // // const sentence = `我是${person.name}，身上帶有 ${ ((c) => c * 2)(person.cash) } 元`; // 立即函式 + 箭頭函式
+    // const sentence = `我是${person.name}，${ `身上帶有 ${ person.cash }` } 元`; // 巢狀結構
     // console.log(sentence);
 
     const people = [
@@ -41,6 +45,7 @@
     console.log(listString)
 
     document.querySelector('#list').innerHTML = listString;
+
   </script>
 </body>
 

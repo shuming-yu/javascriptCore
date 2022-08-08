@@ -9,8 +9,19 @@
 </head>
 
 <body>
+  <h1>樣板字面值（Template literals）基本介紹</h1>
+
+  <ul>
+    <li>樣板字面值（Template literals）</li>
+    <li>先行版本（Template String）</li>
+  </ul>
+
+  <br>
+
   <div id="list">
+
   </div>
+
   <script>
     // 樣板字面值（Template literals）
     // 先行版本（Template String）
@@ -20,6 +31,7 @@
     // // const sentence = '我的 ' + cash + ' 元掉到水溝裡了，真是' + string;
     // const sentence = `我的 ${ cash } 元掉到水溝裡了，真是${ string || '好生氣啊' }`;
     // console.log(sentence);
+
 
     const people = [
       {
@@ -44,8 +56,6 @@
 
     console.log(listString);
     document.querySelector('#list').innerHTML = listString;
-
-
 
   </script>
 </body>

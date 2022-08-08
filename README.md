@@ -22,3 +22,5 @@
 - parseInt() : https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/parseInt
 
 - new operator : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new
+
+- Array.prototype.map() : https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/map
