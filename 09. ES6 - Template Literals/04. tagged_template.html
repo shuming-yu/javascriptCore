@@ -7,43 +7,112 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 </head>
-
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 <body>
   <h1>標籤樣板字面值</h1>
 
+  <h3><a href="https://book.vue.tw/appendix/es6.html#%E5%B1%95%E9%96%8B%E9%81%8B%E7%AE%97%E5%AD%90-spread-operator-%E5%85%B6%E9%A4%98%E9%81%8B%E7%AE%97%E5%AD%90-rest-operator">參考 : 其餘運算子</a></h3>
+  <div>...arg : 傳入的參數使用陣列方式呈現</div>
+
   <div id="message"></div>
+
+  <div class="container mt-3">
+    <div class="card-columns row mt-5" id="cards">
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
   <script>
+
     // 標籤樣板字面值
+    // (1)
     // function showConsole(strings, ...arg) { // 字串拆解結果, ...arg 其餘參數
     //   console.log(strings, arg)
     // }
-    // const myName = '小明';
 
+    // const myName = '小明';
     // showConsole`您好 ${myName}，餐點已經準備好囉！ ${2} ${ 3 }`;
 
+    // (2)
+    // const myName = '小明';
+    // const highlight = (strings, ...arg) =>
+    //   strings.map((str, i) => `${str}${arg[i] ? `<span>${arg[i]}</span>` : ''}`).join('');
+    //                               // 三元運算子
+    // const sentence = highlight`您好 ${myName}，餐點已經準備好囉！`;
+    // // 您好 <span> 小明 </span > ，餐點已經準備好囉！
+    // console.log(sentence)
 
-    const myName = '小明';
-    const highlight = (strings, ...arg) =>
-      strings.map((str, i) => `${str}${arg[i] ? `<span>${arg[i]}</span>`: ''}`).join('');
-    const sentence = highlight`您好 ${myName}，餐點已經準備好囉！`;
-    // 您好 <span> 小明 </span > ，餐點已經準備好囉！
-    console.log(sentence)
-
-
+    // (3)
     // const messageName = '小明';
-    // const messageName = '<img onload="fetch(\'https://randomuser.me/api/\')" src="https://images.unsplash.com/photo-1577527662848-3ed9b134813c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80">'
-    // document.querySelector('#message').innerHTML = convertHTML`<p>${messageName} 傳來一則訊息</p>`
-    // // document.querySelector('#message').textContent = messageName
-    // // <img onload="fetch('https://randomuser.me/api/')" src="https://images.unsplash.com/photo-1577527662848-3ed9b134813c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"> 傳來一則訊息
-    // // <img onload="fetch('https://randomuser.me/api/')" src="https://images.unsplash.com/photo-1577527662848-3ed9b134813c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80">
-    // function convertHTML(strings, ...keys) {
-    //   return strings.map((str, i) =>
-    //     `${str}${keys[i] ? `${keys[i]
-    //       .replace(/&/g, '&amp;')
-    //       .replace(/</g, '&lt;')
-    //       .replace(/>/g, '&gt;')}` : ''}`
-    //   ).join('');
-    // }
+    const messageName = '<img onload="fetch(\'https://randomuser.me/api/\')" src="https://images.unsplash.com/photo-1577527662848-3ed9b134813c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80">';
+    
+    // 1. 查看 F12 -> Network -> Fetch/XHR -> api/ -> Preview 資訊
+    // document.querySelector('#message').innerHTML = `<p>${messageName} 傳來一則訊息</p>`;
+    // 2. convertHTML 將傳入變數轉為一般的符號
+    document.querySelector('#message').innerHTML = convertHTML`<p>${messageName} 傳來一則訊息</p>`;
+
+    // document.querySelector('#message').textContent = messageName
+    // <img onload="fetch('https://randomuser.me/api/')" src="https://images.unsplash.com/photo-1577527662848-3ed9b134813c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"> 傳來一則訊息
+    // <img onload="fetch('https://randomuser.me/api/')" src="https://images.unsplash.com/photo-1577527662848-3ed9b134813c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80">
+    
+    // 避免 XSS 攻擊, 使用 html 標籤, 並且在裡面插入惡意程式碼
+    // convertHTML 將傳入變數轉為一般的符號
+    function convertHTML(strings, ...keys) {
+      return strings.map((str, i) =>
+        `${str}${keys[i] ? `${keys[i]
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')}` : ''}`
+      ).join('');
+    }
+
+
+    // 標籤樣板字面值作業
+    let allData = [];
+      
+    axios.get('https://randomuser.me/api/?results=5')
+    .then(function (res) {
+      // console.log(res);
+      allData = res.data.results;
+      console.log(allData);
+      render();
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+    function render() {
+      let cards = allData.map((item) => `
+      <div class="col-md-4">
+        <div class="card">
+          <img src="${ item.picture.thumbnail }" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">${ item.name.last } ${ item.name.first }</h5>
+            <p class="card-text">${ item.gender }</p>
+            <p class="card-text">${ item.email }</p>
+            <p class="card-text">${ item.cell }</p>
+            <p class="card-text">${item.location.city} ${item.location.timezone.offset}</p>
+          </div>
+        </div>
+      </div>`).join('');
+      
+      document.querySelector('#cards').innerHTML = cards;
+    }
+    
+    // let cards = `
+    // <div class="card">
+    //   <img src="帶入圖片" class="card-img-top" alt="...">
+    //   <div class="card-body">
+    //     <h5 class="card-title">帶入姓名</h5>
+    //     <p class="card-text">帶入個人描述</p>
+    //   </div>
+    // </div>`;
+
+    // document.querySelector('#cards').innerHTML = cards;
+
   </script>
 </body>
 
