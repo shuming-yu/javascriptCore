@@ -12,42 +12,77 @@
 </head>
 
 <body>
+  <h1>Promise 基礎概念</h1>
+
+  <h3>jQuery: <a href="https://jquery.com/download/">https://jquery.com/download/</a></h3>
+  <div>search -> ajax -> jQuery.ajax()</div>
+  <h3>Axios: <a href="https://github.com/axios/axios">https://github.com/axios/axios</a></h3>
+  <h3>Random User Generator: <a href="https://randomuser.me/documentation#seeds">https://randomuser.me/documentation#seeds</a></h3>
+  <br>
+  <h3>常見的非同步問題（不限於 Ajax）</h3>
+  <ul>
+    <li>回呼地獄</li>
+    <li>寫法不一致</li>
+    <li>無法同時執行（jQuery 有並行寫法，但不直覺）</li>
+  </ul>
+
+  <img src="./Promise.PNG" alt="" style="width: 600px;">
+  <img src="./Promise2.PNG" alt="" style="width: 600px;">
+
+
   <script>
     const url = 'https://randomuser.me/api/';
 
-    // let data = {};
+    let data = {};
 
+    // // 1. Promise 狀況
+    // $.ajax({
+    //   url: url,
+    // }).done(function (res) {
+    //   data = res.results;
+    //   console.log(res);
+    // });
+    // console.log(data);
+
+
+    // // 2. 
     // $.ajax({
     //   url: url,
     // }).done(function (res) {
     //   // console.log(res);
-    //   const seed = res.info.seed;
+    //   const seed = res.info.seed; // 取出 seed
     //   console.log(seed, res);
+
+    //   // 參考 : https://randomuser.me/documentation#seeds
     //   $.ajax({
+    //         // 變數    帶入 const seed 值
     //     url: `${url}?seed=${seed}`,
     //   }).done(function(res2) {
     //     console.log(res2);
     //   })
     // });
 
+
     // 常見的非同步問題（不限於 Ajax）
     // 1. 回呼地獄
     // 2. 寫法不一致
     // 3. 無法同時執行（jQuery 有並行寫法，但不直覺）
-
+    
+    // // 3. 
     // axios.get(url)
     //   .then((res) => {
     //     console.log(1, res)
     //     const seed = res.data.info.seed;
-    //     return axios.get(`${url}?seed=${seed}`)
+    //     return axios.get(`${url}?seed=${seed}`) // return 行為會由下一個 .then 接收
     //   })
     //   .then((res) => {
     //     console.log(2, res)
     //   });
 
+    // 發出多個請求
     Promise.all([axios.get(url), axios.get(url)])
       .then(([res1, res2]) => {
-        console.log(res1, res2)
+        console.log('res1:', res1, 'res2', res2)
       })
 
 

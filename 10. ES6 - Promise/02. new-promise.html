@@ -9,9 +9,15 @@
 </head>
 
 <body>
+<h1>創立自己的 Promise</h1>
+
   <script>
 
+    // console.dir(Promise);
+
+    // // 注意 : 一次只會執行其中一個
     // const a = new Promise((resolve, reject) => {
+    //   // resolve('success')
     //   reject('fail')
     // });
     
@@ -22,7 +28,8 @@
     //   console.log(res)
     // })
 
-
+    
+    // 1. 第一種寫法
     function promiseFn(num) {
       console.log(1)
       return new Promise((resolve, reject) => {
@@ -37,6 +44,14 @@
       })
     }
 
+    // 2. 第二種寫法
+    // const promiseFn2 = () => {
+    //   return new Promise((resolve, reject) => {
+
+    //   })
+    // } 
+
+
     promiseFn(0)
       .then(res => {
         console.log(res);
@@ -47,11 +62,6 @@
     
     console.log('程式碼結束')
 
-    // const promiseFn2 = () => {
-    //   return new Promise((resolve, reject) => {
-
-    //   })
-    // } 
 
 
   </script>
