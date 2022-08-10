@@ -9,6 +9,10 @@
 </head>
 
 <body>
+  <h1>Promise 常用方法</h1>
+  <h3>1. Promise.all 方法 : 只要有一個被拒絕會直接進入 .catch, 並不會執行其他</h3>
+  <h3>2. Promise.race 方法 : 只會回傳第一個完成結果</h3>
+
   <script>
 
     function promiseFn(num, time = 500) {
@@ -23,23 +27,29 @@
       });
     }
 
+    // 1.
     // promiseFn(1, 2000)
     //   .then(res => {
     //     console.log(res)
     //   });
 
+
+    // // 2. Promise.all 方法
     // Promise.all([
     //   promiseFn(1, 500),
-    //   promiseFn(0, 1000),
+    //   promiseFn(0, 1000), // 被拒絕會直接執行 .catch
     //   promiseFn(3, 2000)
     // ])
     //   .then(res => {
+    //     // console.log(res);
     //     console.log(res[0], res[1], res[2])
     //   })
     //   .catch(res => {
     //     console.log(res);
     //   })
 
+
+    // 3. Promise.race 方法 : 只會回傳第一個完成結果
     Promise.race([
       promiseFn(1, 500),
       promiseFn(0, 300),

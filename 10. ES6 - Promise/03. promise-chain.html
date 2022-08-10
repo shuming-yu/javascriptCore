@@ -9,6 +9,10 @@
 </head>
 
 <body>
+  <h1>鏈接技巧</h1>
+  <h3>1. Promise Chain : 執行若失敗直接轉到 .catch 繼續執行 return</h3>
+  <h3>2. .then 同時接收成功 & 失敗結果, 大多數使用成功結果</h3>
+
   <script>
 
     function promiseFn(num) {
@@ -23,11 +27,11 @@
       })
     }
 
-    // Promise Chain
+    // // 1. Promise Chain
     // promiseFn(1)
     //   .then(res => {
     //     console.log(res);
-    //     return promiseFn(0);
+    //     return promiseFn(0); // 失敗直接轉到 .catch 繼續執行 return
     //   })
     //   .then(res => {
     //     console.log(res)
@@ -44,11 +48,13 @@
     //     console.log(res)
     //   })
 
+
+    // 2. 同時接收成功 & 失敗 結果
     promiseFn(1)
-      .then((res)=> {
+      .then((res)=> { // 成功執行 return promiseFn(3)
         console.log('success', res)
         return promiseFn(3)
-      }, (rej)=> {
+      }, (rej)=> {  // 失敗執行 return promiseFn(4)
         console.log('fail', rej)
         return promiseFn(4)
       })

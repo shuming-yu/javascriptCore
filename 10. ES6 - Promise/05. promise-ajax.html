@@ -9,64 +9,74 @@
 </head>
 
 <body>
+  <h1>Promise 與 Ajax</h1>
+
+  <h3>XHR：<a href="https://developer.mozilla.org/zh-TW/docs/Web/API/XMLHttpRequest">https://developer.mozilla.org/zh-TW/docs/Web/API/XMLHttpRequest</a></h3>
+  <h3>JSONPlaceHolder：<a href="https://jsonplaceholder.typicode.com/">https://jsonplaceholder.typicode.com/</a></h3>
+
   <script>
 
-    var url = 'https://jsonplaceholder.typicode.com/todos/1';
+  var url = 'https://jsonplaceholder.typicode.com/todos/1';
 
-    // 定義 Http request(Web API)
-  //   var req = new XMLHttpRequest();
 
-  //   // 定義方法
-  //   req.open('GET', url);
+  // 1.
+  // // 定義 Http request(Web API)
+  // var req = new XMLHttpRequest();
 
-  //   // 當請求完成，則進行函式的結果
-  //   req.onload = function () {
-  //     if (req.status == 200) {
-  //       // 成功直接列出結果
-  //       console.log(req.response);
-  //     } else {
-  //       // 失敗的部分
-  //     }
-  //   };
+  // // 定義方法
+  // req.open('GET', url);
+
+  // // 當請求完成，則進行函式的結果
+  // req.onload = function () {
+  //   if (req.status == 200) {
+  //     // 成功直接列出結果
+  //     console.log(req.response);
+  //   } else {
+  //     // 失敗的部分
+  //   }
+  // };
 
   // // 送出請求
   // req.send();
 
-    function get(url) {
-      return new Promise((resolve, reject) => {
-        var req = new XMLHttpRequest();
 
-        // 定義方法
-        req.open('GET', url);
 
-        // 當請求完成，則進行函式的結果
-        req.onload = function () {
-          if (req.status == 200) {
-            // 成功直接列出結果
-            resolve(req.response);
-            // console.log(req.response);
-          } else {
-            // 失敗的部分
-            reject(req);
-          }
-        };
+  // 2.
+  function get(url) {
+    return new Promise((resolve, reject) => {
+      var req = new XMLHttpRequest();
 
-        // 送出請求
-        req.send();
-      })
-    }
+      // 定義方法
+      req.open('GET', url);
 
-    get(url)
-      .then(res => {
-        console.log('get', res)
-        return get(url);
-      })
-      .then(res => {
-        console.log('get2', res)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+      // 當請求完成，則進行函式的結果
+      req.onload = function () {
+        if (req.status == 200) {
+          // 成功直接列出結果
+          resolve(req.response);
+          // console.log(req.response);
+        } else {
+          // 失敗的部分
+          reject(req);
+        }
+      };
+
+      // 送出請求
+      req.send();
+    })
+  }
+
+  get(url)
+    .then(res => {
+      console.log('get :', res)
+      return get(url);
+    })
+    .then(res => {
+      console.log('get2 :', res)
+    })
+    .catch(err => {
+      console.log(err)
+    })
 
   </script>
 </body>
