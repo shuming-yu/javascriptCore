@@ -7,12 +7,22 @@
     <title>Document</title>
   </head>
   <body>
+    <h1>Class 基礎與建構函式的關係</h1>
+
+    <h3>Class :</h3>
+    <ul>
+      <li>constructor 寫法</li>
+      <li>extends 繼承結構</li>
+      <li>super() 將資料傳到上層</li>
+    </ul>
+
     <script>
+      // 1. 傳統建構函式
       // function Animal(family) {
       //   this.kingdom = '動物界';
       //   this.family = family || '人科';
       // }
-      // Animal.prototype.move = function() {
+      // Animal.prototype.move = function() {  // 建立 走動行為
       //   console.log(`${this.name} 在走`);
       // }
 
@@ -33,20 +43,23 @@
       // Bibi.bark();
       // Bibi.move();
 
+
+    // 2. Class
       class Animal {
         constructor(family) {
           this.kingdom = '動物界';
           this.family = family || '人科';
         }
 
-        move() {
+        move() {  // 未傳入name, 為 undefined
           console.log(`${this.name} 移動`);
         }
       }
 
+      // extends 繼承結構
       class Dog extends Animal {
         constructor(name, color, size) {
-          super('狗科');
+          super('狗科');  // super() 將資料傳到上層
           this.name = name;
           this.color = color;
           this.size = size;
@@ -61,6 +74,6 @@
       console.log(Bibi);
       Bibi.bark();
       Bibi.move();
-    </script>
+    // </script>
   </body>
 </html>
