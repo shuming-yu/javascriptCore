@@ -7,84 +7,104 @@
     <title>Document</title>
   </head>
   <body>
+    <h1>Class 實戰常用方法</h1>
+
+    <h2>Class 一般使用實體化作使用 : new Calculator</h2>
+    <h2>Class 也提供直接取用的方法 : 靜態方法(不能調用 this) - static add(a, b)  &  靜態變數 - static className</h2>
+
+    <br>
+
+    <h3>參考 : <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce">Array.prototype.reduce() : 累加器</a></h3>
+    <h3>參考 : <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Math/round">Math.round() : 四捨五入後的近似值</a></h3>
+    <h3>參考 : <a href="https://www.w3schools.com/jsref/jsref_tofixed.asp">JavaScript Number toFixed() : 取小數點後面幾位</a></h3>
+    <h3>參考 : <a href="https://www.w3schools.com/jsref/jsref_parseint.asp">JavaScript parseInt() : 取整數</a></h3>
+
     <script>
       class Calculator {
-        subtotal = 0;
-        total = 0;
-        serviceFee = 0.05;
-        #shopName = '卡斯伯商行';
+        // 前方不需要 const, let 宣告
+        subtotal = 0; // 小計
+        total = 0;  // 總價
+        serviceFee = 0.05;  // 小費
+        #shopName = '卡斯伯商行'; // # 私有變數
         constructor(items) {
           this.items = items;
-          this.orderName = this.items[0].name;
+          this.orderName = this.items[0].name;  // 第一個商品名稱作為訂單名稱
         }
 
-        addNoddles() {
+        // 方法通常方在 constructor 後面
+        addNoddles() {  // 插入一筆 '加麵' 物件
           this.items.push({
             name: '加麵',
             price: 20,
           });
         }
 
-        sum() {
+        sum() { // 計算 小計
+          // pre : 前一個值, current : 當前值
           this.subtotal = this.items.reduce((pre, current) => {
+            // console.log(pre, current);
             return pre + current.price;
-          }, 0)
+          }, 0) // 0 : 預設值
         }
 
-        withServiceFee() {
-          this.sum();
+        withServiceFee() {  // 計算 小費
+          this.sum(); // 建議運行一次
           this.total = Math.round(this.subtotal * (1 + this.serviceFee));
         }
 
         createOrder() {
           this.withServiceFee();
-          this.orderName = `${this.#shopName} - ${this.items[0].name}`
+          this.orderName = `${this.#shopName} - ${this.items[0].name}`; // class 內可使用私有變數
         }
 
-        set fee(val) {
+        set fee(val) { // 手動寫入費率
           console.log('fee:', val);
           // subtotal 小計的費用，來計算新的服務費
-          this.sum();
-          this.serviceFee = (val / this.subtotal).toFixed(3) * 1;
+          this.sum(); // 先計算小計的費用
+          this.serviceFee = (val / this.subtotal).toFixed(3) * 1; // toFixed 取小數點3位
         }
         get fee() {
           return Number.parseInt(this.subtotal * this.serviceFee);
         }
 
+
+        // 補充 :
         // Class 是否可以提供直接取用的方法
         // 靜態方法(不能調用 this)
         static add(a, b) {
           return a + b;
         }
+        // 靜態變數
         static className = '卡斯伯棒棒的 Class'
       }
 
-      console.log(Calculator.add(1, 2));
+      console.log(Calculator.add(1, 2));  // 建構函式直接呼叫方法
       console.log(Calculator.className);
 
-      // const order = new Calculator([
-      //   {
-      //     name: '鍋燒意麵',
-      //     price: 150,
-      //   },
-      // ]);
-      // order.addNoddles();
+      const order = new Calculator([
+        {
+          name: '鍋燒意麵',
+          price: 150,
+        },
+      ]);
+      console.log(order);
+      order.addNoddles();
 
-      // // class 內的變數
-      // // order.sum();
+      // class 內的變數
+      // order.sum();
+      // order.withServiceFee();
+      order.createOrder();
+
+      // console.log(order.#shopName);  // undefined
+
+
+      // get, setter
+      order.fee = 20;
+      console.log(order.fee); // 無 get 情況下顯示 undefined
+
+
       
-
-      // // console.log(order.#shopName);
-
-      // // get, setter
-      // order.fee = 20;
-      // console.log(order.fee);
-      // order.createOrder();
-
-      // // order.add(1, 2)
-
-      // console.log(order);
-
+      // order.add(1, 2) // 靜態方法 無法被呼叫 -> console.log(Calculator.add(1, 2));
 
     </script>
   </body>
