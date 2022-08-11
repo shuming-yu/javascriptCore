@@ -9,6 +9,11 @@
   </head>
 
   <body>
+    <h1>使用 Async 與基本介紹</h1>
+
+    <div>Async 傳統函式，加入 await 逐行執行</div>
+    <div>Async Function 錯誤捕捉， try , catch</div>
+
     <div id="list"></div>
     <script>
       // 建立具有 Promise 的函式（可帶參數）
@@ -29,16 +34,19 @@
       // promiseFn(1)
       //   .then((res) => {
       //     console.log(res);
-      //     return promiseFn(1);
+      //     return promiseFn(1);  // 透過 return 進行串接
       //   })
       //   .then((res) => {
       //     console.log(2, res);
       //   })
       //   .catch((err)=> {
       //     console.log(err);
+      //     // alert(err);
       //   })
 
-      // Async 函式
+
+      // Async 傳統函式
+      // 加入 await 逐行執行
       // async function asyncFn() {
       //   console.log(1);
       //   const res = await promiseFn(1); // Promise
@@ -48,9 +56,13 @@
       // }
       // asyncFn();
 
+
+      // Async 箭頭函式
       // const asyncArrowFn = async () => {
 
       // }
+
+
 
       // Async Function 錯誤捕捉
       (async () => {
@@ -59,8 +71,17 @@
           console.log(res);
         } catch (error) {
           console.log('error:', error);
+          // alert(error);
         }
-      })(); // IIFE
+      })(); // IIFE 立即函式
+
+      // (async () => {
+      //   try {
+          
+      //   } catch (error) {
+          
+      //   }
+      // })();
 
     </script>
   </body>

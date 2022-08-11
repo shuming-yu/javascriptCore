@@ -9,18 +9,23 @@
   </head>
 
   <body>
+    <h1>使用 Async Function 改寫實戰範例</h1>
+
     <script>
       // https://jsonplaceholder.typicode.com/todos/2
 
+      // 1.
       // axios
       //   .get('https://jsonplaceholder.typicode.com/todo/2')
       //   .then((res) => {
       //     console.log(res);
       //   })
       //   .catch((err) => {
-      //     console.log(err);
+      //     console.log('err:', err);
       //   });
       
+
+      // 2.
       // Promise.all([
       //   axios.get('https://jsonplaceholder.typicode.com/todos/1'),
       //   axios.get('https://jsonplaceholder.typicode.com/todos/2')
@@ -29,22 +34,38 @@
       //     console.log(res);
       //   })
 
-      const getData = async () => {
+
+      // 3.
+      // const getData = async () => {
+      //   try {
+      //     const res = await Promise.all([
+      //       axios.get('https://jsonplaceholder.typicode.com/todos/1'),
+      //       axios.get('https://jsonplaceholder.typicode.com/todos/2')
+      //     ])
+      //     return res;
+      //   } catch (error) {
+      //     // console.log('錯誤:', error);
+      //     throw new Error(error);
+      //   }
+      // }
+      
+      // 4.
+      async function getData() {
         try {
           const res = await Promise.all([
             axios.get('https://jsonplaceholder.typicode.com/todos/1'),
             axios.get('https://jsonplaceholder.typicode.com/todos/2')
-          ])
+          ]);
           return res;
         } catch (error) {
-          // console.log('錯誤:', error);
           throw new Error(error);
         }
       }
-      
+
       // getData().then(res => {
       //   console.log(res);
       // })
+
       (async () => {
         const res = await getData();
         console.log(res);

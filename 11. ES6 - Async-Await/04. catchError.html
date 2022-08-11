@@ -9,6 +9,11 @@
   </head>
 
   <body>
+    <h1>撰寫高可用性高的錯誤捕捉</h1>
+    
+    <h3>第二種寫法，所傳入的 async function 但還沒有被調用</h3>
+    <img src="./Async第二種寫法參考.PNG" alt="">
+
     <script>
       function promiseFn(num) {
         // 這裡可以插入其它程式碼
@@ -23,22 +28,43 @@
         });
       }
 
-      
-      // asyncFn();
+      // async function asyncFn(n) {
+      //   const res = await promiseFn(n);
+      //   console.log(res);
+      //   // try {
+      //   // } catch (error) {
+      //   //   // catch 的行為是一致
+      //   //   console.log('catch:', error);
+      //   // }
+      // }
+      // // asyncFn();
 
-      // 第一種的寫法
-      // 被執行的 async Function
+
+      // // 第一種的寫法
+      // // 被執行的 async Function
       // const catchError = (asFn) => {
       //   // 所傳入的會一個 Promise
       //   return asFn.catch((err) => {
       //     console.log('catch:', err);
       //   });
       // };
-      // catchError(asyncFn(0)); // 執行的 async function
+      // // catchError(asyncFn(0)); // 執行的 async function
+
+      // // 比對使用 catchError 錯誤，改第二種寫法
+      // [1, 2, 3].forEach(async(n) =>{
+      //   // console.log(n);
+      //   const res = await axios.get(`https://jsonplaceholder.typicode.com/todos/${n}`);
+      //   console.log(res);
+      // })
 
 
+      
       // 第二種寫法，所傳入的 async function 但還沒有被調用
-      const catchError = (asFn) => { 
+      const asyncFn = async (n) => {
+        const res = await promiseFn(n);
+        console.log(res);
+      };
+      const catchError = (asFn) => {
         return (n) => {
           console.log('catchError 參數：', n);
           return asFn(n).catch((err) => {
@@ -46,23 +72,17 @@
           });
         }
       };
-      const asyncFn = async (n) => {
-        const res = await promiseFn(n);
-        console.log(res);
-      };
+      
+      [1, 2, 3].forEach(catchError(async(n) => { // 當前的 async function 還未被調用
+        const res = await axios.get(`https://jsonplaceholder.typicode.com/todos/${n}`)
+        // console.log(res);
+      }));
 
-      catchError(asyncFn)(0);
+
+      catchError(asyncFn)(1);
       // const catchFn = catchError(asyncFn); // 閉包
       // catchFn(1);
-      // catchFn(0)
-
-
-      // [1, 2, 3].forEach(catchError(async(n) => { // 當前的 async function 還未被調用
-      //   const res = await axios.get(`https://jsonplaceholder.typicode.com/todos/${n}`)
-      //   console.log(res);
-      // }));
-
-
+      // catchFn(0);
 
     </script>
   </body>
