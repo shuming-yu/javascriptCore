@@ -7,6 +7,8 @@
     <title>Document</title>
   </head>
   <body>
+    <h1>使用 Class 擴充原始陣列方法</h1>
+
     <script>
       const data = [
         {
@@ -38,6 +40,7 @@
 
       class CustomArray extends Array {
         constructor(items) {
+          // super(items)  // 錯誤顯示, 需展開
           super(...items)
         }
 
@@ -45,19 +48,22 @@
           return this.reduce((pre, current) => pre + current[field], 0);
         }
 
-        sortBy(field, ascending = true) {
+        sortBy(field, ascending = true) { // ascending 升/降冪排序 預設 true
           return this.sort((a, b) => ascending ? a[field] - b[field] : b[field] - a[field])
         }
       }
 
       const newData = new CustomArray(data);
-      // newData.forEach(item => console.log(item));
+      newData.forEach(item => console.log(item)); // newData 繼承 Array 所有方法的新結構
+
+
       newData.sumValues('age');
       console.log(newData.sumValues('age'));
 
       console.log(newData.sortBy('age', false));
 
-      // console.log(newData);
+
+      console.log(newData);
       
 
     </script>

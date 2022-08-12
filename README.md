@@ -36,3 +36,7 @@
 - JavaScript Number toFixed()取小數點後面幾位 : https://www.w3schools.com/jsref/jsref_tofixed.asp
 
 - JavaScript parseInt()取整數 : https://www.w3schools.com/jsref/jsref_parseint.asp
+
+- Array.prototype.sort()排序 : https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+
+- Array.prototype.includes()判斷陣列是否包含特定的元素，並以此來回傳 true 或 false : https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/includes

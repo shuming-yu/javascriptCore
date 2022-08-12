@@ -7,6 +7,15 @@
     <title>Document</title>
   </head>
   <body>
+    <h1>Class 與 this 的進階使用技巧 : 串接手法</h1>
+
+    <h2>補充 : 方法後方加入 return this，會傳結果可以做下一件事，可改為串接寫法</h2>
+
+    <h3>參考 : <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/filter">Array.prototype.filter() : 過濾</a></h3>
+    <h3>參考 : <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/sort">Array.prototype.sort() : 排序</a></h3>
+    <h3>參考 : <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/includes">Array.prototype.includes() : 判斷陣列是否包含特定的元素，並以此來回傳 true 或 false。</a></h3>
+
+
     <script>
       const data = [
         {
@@ -38,10 +47,11 @@
 
       class DataFilter {
         constructor(items) {
+          // this.items = [...items]; // 預防修改原始資料，可使用展開型式
           this.items = items;
         }
 
-        filterItems(property, val) {
+        filterItems(property, val) {  // filter age 大於等於 20
           this.items = this.items.filter((item) => item[property] >= 20);
           return this;
         }
@@ -52,11 +62,13 @@
           return this;
         }
 
-        // 其餘參數
+        // 帶入 其餘參數
         limitFields(...fields) {
           this.items = this.items.map((item) => {
-            Object.keys(item).forEach((key) => {
-              if (!fields.includes(key)) {
+            console.log(Object.keys(item)); // 取出欄位名稱 ['name', 'like', 'age']
+
+            Object.keys(item).forEach((key) => {  // key = 單一的'name', 'like', 'age'
+              if (!fields.includes(key)) {  // 外部傳入的 fields 做比對, 沒有的話將屬性清除
                 delete item[key];
               }
             });
@@ -68,10 +80,11 @@
 
       const newData = new DataFilter(data);
 
-      // 過濾出符合條件的特定項目 age
+      // 方法後方加入 return this, 會傳結果可以做下一件事
+      // 可改為串接寫法
       newData
-        .filterItems('age', 20)
-        .sortItems('age')
+        .filterItems('age', 20) // 過濾出符合條件的特定項目 age
+        .sortItems('age') // 排序 age
         .limitFields('name', 'like');
 
       console.log(newData);
