@@ -11,17 +11,23 @@
   var a = [1, 2, 3];
   // console.log(a, a[1], a.length);
   
+  // 取用原型的方法
   // a.forEach(function(i) {
   //   console.log(i);
   // });
 
   var b = [4, 5, 6];
-  // 取得最後一數值
+  // 新增一個方法在原型鍊上, 取得最後一數值
+  // __proto__ 並非正式寫法
   a.__proto__.getLast = function () {
     return this[this.length -1];
   }
+
+  // a & b 陣列同時繼承於陣列的原型
+  // F12查看 Prototype : Array 為陣列的原型, 內層下 Prototype : Object 繼承於物件的原型, 物件原型為最頂層內容
   console.log('a:', a, 'b:', b);
   console.log('a:', a.getLast(), 'b:', b.getLast());
+
   
   var family = {
     name: '小明家'
@@ -32,6 +38,8 @@
   }
   console.log(family, family.getName());
   
+
+  // b 屬於陣列原型下的實體, 依然可以使用物件原型下的方法
   b.name = '陣列的屬性';
   console.log(b.getName());
   console.log(b.toString());
@@ -40,15 +48,31 @@
 </head>
 
 <body>
+  <div>
+    <img src="./PrototypeProp1.png" alt="">
+    <ul>
+      <li>繼承的部分, 可以一段一段向上繼承, 稱為 原型鍊</li>
+      <li>取用原本的實體裡面的屬性, 使用點運算值去取用它 ( ex. obj.Prop1 )</li>
+      <li>原型取用方式也是相同概念, 取用屬性內容時, 可透過原型鍊的方式向上查找, 直到原型鍊的頂端為止</li>
+    </ul>
+  
+    <img src="./PrototypeProp2.png" alt="">
+    <ul>
+      <li>原型另一個特性</li>
+      <li>如果從一個原型新增的兩個實體的話</li>
+      <li>這兩個實體也都會共用同一個原型方法</li>
+    </ul>
+  </div>
+
   <h1>原型在哪裡？</h1>
 
   <h2>陣列原型繼承於物件原型下, 可使用物件原型下的方法</h2>
 
   <h3>原型的特性</h3>
   <ul>
-    <li>一樣具有物件的特性</li>
-    <li>向上查找</li>
-    <li>原型可共用方法及屬性</li>
+    <li>一樣具有物件的特性, 原型一樣具有屬性 & 方法</li>
+    <li>向上查找, 繼承的物件可以透過向上查找, 查到原型的屬性 & 方法</li>
+    <li>原型可共用方法及屬性, 如多個實體都是繼承同一個原型的話, 原型更新時候, 實體所取用到的原型屬性 & 方法也都是更新後的結果</li>
   </ul>
 </body>
 
