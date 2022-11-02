@@ -8,15 +8,15 @@
   <title>Document</title>
   <script>
 
-    // 純值
+    // 傳值 ( call by value ) - 純值
     // var person = '小明';
     // var person2 = person;
     // person2 = '杰倫';
     // console.log(person, person2);  // 小明, 杰倫
 
 
-    // 物件傳參考 特性
-    // 1.
+    // 物件傳參考 特性 ( call by reference )
+    // 1. 共用同物件
     // var person = {
     //   name: '小明'
     // }
@@ -25,7 +25,7 @@
     // console.log(person, person2); // 杰倫, 杰倫
     // console.log(person === person2);  // true
 
-    // // 2.
+    // 2. 指向另一物件(參考位置), 兩者無關聯性
     // var person3 = {
     //   name: '小明'
     // }
@@ -53,10 +53,13 @@
     // member.ming = '大明';
     // console.log(member, family.members);
 
+
+    // a.y 會指向 a 參考物件, 造成無限的循環, 會不斷指向自己
     // var a = { x: 1 };
     // a.y = a;
     // console.log(a);
 
+    
     var a = { x: 1 };
     var b = a;
     a.y = a = { x: 2 };
@@ -82,6 +85,10 @@
 
 <body>
   <h1>物件的參考特性</h1>
+  
+  <h2>call by reference：對物件進行重新賦值，並不會變成新的物件，而是修改參考物件</h2>
+  <h2>call by sharing：則是物件一旦重新賦值，就會變成參考新的物件，舊的參考物件並不會消失</h2>
+  
   <div>
   <h3>傳值 & 傳參考</h3>
   <img src="./object-and-reference.PNG" alt="" style="width: 500px;">
@@ -89,6 +96,7 @@
   <h3>傳值</h3>
   <img src="./object-and-reference2.PNG" alt="" style="width: 500px;">
   </div>
+
   <h3>共用同物件</h3>
   <img src="./object-and-reference3.PNG" alt="" style="width: 500px;">
 
