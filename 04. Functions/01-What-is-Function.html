@@ -8,7 +8,7 @@
   <title>Document</title>
   <script>
 
-    // 函式結構
+    // 1. 函式結構 : 函式可以有被呼叫能力、函式內包含了程式碼的片段
     // function afunction(parameter) {
     //   var localVariable = '區域變數';
     //   console.log(this, localVariable); // This、區域變數
@@ -18,44 +18,53 @@
     // var data = afunction('參數');// 呼叫函式
     // console.log(data);
     
-    // 名稱
-    // 函式陳述式 - 具名函式
+
+    // 2. 名稱
+    // 2.1 函式陳述式 - 具名函式
+    // 透過 function 來宣告一個函式, 必須先補上函式名稱
     // function functionA() {
     //   console.log('函式陳述式', '具名函式');
-    //   console.log(functionA);
+    //   console.log("functionA:", functionA);
     // }
     // functionA();
 
-    // // 函式表達式 - 匿名函式
+    // 2.2 函式表達式 - 匿名函式
+    // 先宣告一個 functionB 變數, 後面再宣告一個函式的物件
     // var functionB = function() {
     //   console.log('函式表達式', '匿名函式');
-    //   console.log(functionB);
+    //   console.log("functionB:", functionB);
     // }
     // functionB();
 
-    // 使用 functionD 名稱
+
+    // 2.3 使用 functionD 名稱
     // var functionC = function functionD() {
-    //   console.log(functionC, functionD);
+    //   console.log("functionC:", functionC);
+    //   console.log("functionD:", functionD);
     //   // 具名函式能夠在函式內被調用
     // }
     // functionC();
     // console.log('functionC :', functionC);
-    // console.log(functionD); // is not defined
+    // console.log(functionD); // is not defined : functionD 無法在函式外被使用
 
+
+    // 範例 1:
     // var num = 1;
     // var giveMeMoney = function giveMoreMoney(coin) {
     //   num += 1;
     //   console.log('執行 giveMeMoney', num, coin);
     //   return coin > 100 ? coin : giveMoreMoney(num * coin);
     // };
-
     // console.log(giveMeMoney(30));
 
-    function callSomeone(fn) {
-      fn();
-      console.log(fn);
-    }
-    callSomeone(function() { console.log('執行函式') });
+    // 範例 2:
+                      // fn 參數接收了匿名函式
+    // function callSomeone(fn) {
+    //   fn();
+    //   console.log(fn);
+    // }
+    //             // 函式不須賦予名稱, 傳入變為參數時, 如同函式表達式
+    // callSomeone(function() { console.log('執行函式') });
   </script>
 </head>
 
