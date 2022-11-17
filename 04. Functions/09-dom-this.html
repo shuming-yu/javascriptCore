@@ -10,6 +10,7 @@
 
 <body>
   <h1>this：DOM</h1>
+  <h2>DOM 的事件監聽, 會直接指向原本觸發事件的元素</h2>
   <h3>參考: <a href="https://www.casper.tw/javascript/2017/12/12/javascript-this/">卡斯伯：JavaScript 的 this 到底是誰？</a></h3>
 
   <ul>
@@ -20,7 +21,10 @@
     <li>5</li>
   </ul>
   
+  <!-- 呈現標籤 -->
   <button onclick="console.log(this)">這是一個按鈕1</button>
+
+  <!-- 呈現物件, 可查看屬性 -->
   <button onclick="console.dir(this)">這是一個按鈕2</button>
 
   <script>
@@ -34,6 +38,7 @@
 
     for (var i = 0; i < els.length; i++) {
       els[i].addEventListener('click', fn);
+      // fn 內的 this 受到監聽器影響, 直接把 this 綁定在元素上
     }
     
   </script>

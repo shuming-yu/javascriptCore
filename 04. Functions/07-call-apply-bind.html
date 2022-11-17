@@ -42,29 +42,37 @@
 
 
     
-    // 進階觀念
+    // 4. 進階觀念
 
-    // function fn(para1, para2) {
-    //   console.log(this, typeof this, para1, para2);
-    // }
+    function fn(para1, para2) {
+      console.log("this:", this);
+      console.log("typeof this:", typeof this);
+      console.log("para1:", para1);
+      console.log("para2:", para2);
+    }
 
-    // 建構式方式呈現 Number{1}, String{'文字'}
-    // fn.call(1, '小明', '杰倫');
-    // fn.call('文字', '小明', '杰倫');
-    // fn.call(undefined, '小明', '杰倫'); // null, undefined 替換成全域變數
+    // 建構式的方式呈現, 物件型別
+    // fn.call(1, '小明', '杰倫');  // Number{1}
+    // fn.call('文字', '小明', '杰倫'); // String{'文字'}
+    // fn.call(undefined, '小明', '杰倫'); // null, undefined 替換成全域變數 window
     
-    // 嚴格模式
+
+
+    // 5. 嚴格模式
     // (function() {
     //   'use strict';
-
     //   a = '小明'; // a is not defined
-      
     // })();
 
-    // function callStrict(para1, para2) {
-    //   'use strict';
-    //   console.log(this, typeof this, para1, para2);
-    // }
+    
+    // 6.
+    function callStrict(para1, para2) {
+      'use strict';
+      console.log("this:", this);
+      console.log("typeof this:", typeof this);
+      console.log("para1:", para1);
+      console.log("para2:", para2);
+    }
     // callStrict.call(1, '小明', '杰倫');
     // callStrict.call(undefined, '小明', '杰倫');
 
@@ -89,11 +97,12 @@
 
   <h3>嚴格模式</h3>
   <ul>
-    <li>加入 'use strict' 即可運作</li>
+    <li>加入 'use strict' ( 字串 )即可運作, 屬於表達式</li>
     <li>並不會影響不支援嚴格模式的瀏覽器</li>
-    <li>可依據<strong>執行環境設定 'use strict' </strong></li>
-    <li>透過拋出錯誤的方式消除一些安靜的錯誤 (防止小錯誤)</li>
-    <li>禁止使用一些有可能被未來版本 ECMAScript 定義的語法</li>
+    <li>可依據<strong>執行環境設定 'use strict' </strong>, 可加在特定函式內. 若加在全域的執行環境下, 代表說所有程式碼都會進入嚴格模式</li>
+    <li>透過拋出錯誤的方式消除一些安靜的錯誤 ( 防止小錯誤 ). 如設定變數前未先定義, 嚴格模式下就會跳出錯誤.</li>
+    <li>禁止使用一些有可能被未來版本 ECMAScript 定義的語法. 注意如在 ES5 環境下加入 'use strict' , ES6 & ES7 可能會被定義的語法會禁止使用</li>
+    <li>嚴格模式在每個瀏覽器上面的執行結果會不太一樣, MDN 文件上提出的錯誤, 可能在目前的瀏覽器上面執行結果會有所不同, 是正常狀態</li>
   </ul>
 </body>
 
