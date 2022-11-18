@@ -6,81 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script>
-    
-    var myName = '全域變數 myName';
-
-    var family = {
-      myName: '小明家',
-    }
-
-    function fn(para1, para2) {
-      console.log("this:", this);
-      console.log("para1:", para1);
-      console.log("para2:", para2);
-    }
-
-    // call, apply, bind
-    // fn(1, 2);
-
-    // // 1. call 將參數依序帶入
-    // fn.call(family, 1, 2);
-    // fn.call(1, family, 2);
-
-    // // 2. apply 將參數以陣列方式呈現
-    // fn.apply(family, [3, 4]);
-    // fn.apply(3, [family, 4]);
-    // fn.apply([3, 4], family);
-
-    // 3. bind 不會立刻執行, 參數傳入方式與 call 一致
-    // fn.bind(family, '小明');
-
-    var fn2 = fn.bind(family, '小明', 123);
-    // fn2();
-    // fn2(1, 2); // 參數不用另外帶入, 帶入參數也不會有任何變化
-    // 若 fn2 少值帶入, 會依序改用 fn2(1, 2) 內的值
-
-
-    
-    // 4. 進階觀念
-
-    function fn(para1, para2) {
-      console.log("this:", this);
-      console.log("typeof this:", typeof this);
-      console.log("para1:", para1);
-      console.log("para2:", para2);
-    }
-
-    // 建構式的方式呈現, 物件型別
-    // fn.call(1, '小明', '杰倫');  // Number{1}
-    // fn.call('文字', '小明', '杰倫'); // String{'文字'}
-    // fn.call(undefined, '小明', '杰倫'); // null, undefined 替換成全域變數 window
-    
-
-
-    // 5. 嚴格模式
-    // (function() {
-    //   'use strict';
-    //   a = '小明'; // a is not defined
-    // })();
-
-    
-    // 6.
-    function callStrict(para1, para2) {
-      'use strict';
-      console.log("this:", this);
-      console.log("typeof this:", typeof this);
-      console.log("para1:", para1);
-      console.log("para2:", para2);
-    }
-    // callStrict.call(1, '小明', '杰倫');
-    // callStrict.call(undefined, '小明', '杰倫');
-
-    // callStrict('小明', '杰倫'); // 簡易呼叫
-    // 簡易呼叫的 this 盡可能不要調用，它的本質其實是 undefined
-
-
-  </script>
 </head>
 
 <body>
@@ -105,5 +30,82 @@
     <li>嚴格模式在每個瀏覽器上面的執行結果會不太一樣, MDN 文件上提出的錯誤, 可能在目前的瀏覽器上面執行結果會有所不同, 是正常狀態</li>
   </ul>
 </body>
-
 </html>
+
+<script>
+  
+  var myName = '全域變數 myName';
+
+  var family = {
+    myName: '小明家',
+  }
+
+  function fn(para1, para2) {
+    'use strict';
+    console.log("this:", this);
+    console.log("para1:", para1);
+    console.log("para2:", para2);
+  }
+  fn(this)
+
+  // call, apply, bind
+  // fn(1, 2);
+
+  // // 1. call 將參數依序帶入
+  // fn.call(family, 1, 2);
+  // fn.call(1, family, 2);
+
+  // // 2. apply 將參數以陣列方式呈現
+  // fn.apply(family, [3, 4]);
+  // fn.apply(3, [family, 4]);
+  // fn.apply([3, 4], family);
+
+  // 3. bind 不會立刻執行, 參數傳入方式與 call 一致
+  // fn.bind(family, '小明');
+
+  var fn2 = fn.bind(family, '小明', 123);
+  // fn2();
+  // fn2(1, 2); // 參數不用另外帶入, 帶入參數也不會有任何變化
+  // 若 fn2 少值帶入, 會依序改用 fn2(1, 2) 內的值
+
+
+  
+  // 4. 進階觀念
+
+  // function fn(para1, para2) {
+  //   console.log("this:", this);
+  //   console.log("typeof this:", typeof this);
+  //   console.log("para1:", para1);
+  //   console.log("para2:", para2);
+  // }
+
+  // 建構式的方式呈現, 物件型別
+  // fn.call(1, '小明', '杰倫');  // Number{1}
+  // fn.call('文字', '小明', '杰倫'); // String{'文字'}
+  // fn.call(undefined, '小明', '杰倫'); // null, undefined 替換成全域變數 window
+  
+
+
+  // 5. 嚴格模式
+  // (function() {
+  //   'use strict';
+  //   a = '小明'; // a is not defined
+  // })();
+
+  
+  // 6.
+  function callStrict(para1, para2) {
+    'use strict';
+    console.log("this:", this);
+    console.log("typeof this:", typeof this);
+    console.log("para1:", para1);
+    console.log("para2:", para2);
+  }
+  // callStrict.call(1, '小明', '杰倫');
+  // callStrict.call(undefined, '小明', '杰倫');
+
+  // callStrict('小明', '杰倫'); // 簡易呼叫
+  // 簡易呼叫的 this 盡可能不要調用，它的本質其實是 undefined
+
+
+</script>

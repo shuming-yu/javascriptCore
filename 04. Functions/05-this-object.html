@@ -10,6 +10,10 @@
 
 <body>
   <h1>最常見的 this：物件的方法調用</h1>
+  <h3>參考 : <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Operators/this">MDN : this - JavaScript</a></h3>
+  <h3>參考 : <a href="https://blog.techbridge.cc/2019/02/23/javascript-this/">淺談 JavaScript 頭號難題 this：絕對不完整，但保證好懂</a></h3>
+  <h3>參考 : <a href="https://github.com/mqyqingfeng/Blog/issues/7">JavaScript深入之从ECMAScript规范解读this</a></h3>
+
 
   <h3>this 基本觀念</h3>
   <ul>
@@ -18,11 +22,15 @@
     <li>不管是全域環境 & 特定函式, 都可以直接調用 this</li>
     <li>注意 : this 通常指向一個可以被運用的物件, 不會使用 this 去調用函式本身</li>
   </ul>
-
-  <h3>this 的用途</h3>
+  
+  <h3>影響函式 this 的調用方式 - 函式呼叫樣式 ( invocation pattern )</h3>
   <ul>
-    <li>this 它的指向跟我們怎麼去 '定義' 它沒有關係</li>
-    <li>可以略過函式的定義方式, 可依據執行的方式取用特定的物件</li>
+    <li>物件中的方法呼叫 ( 最常運用 this 的方法 )</li>
+    <li>簡易呼叫 ( 絕大多數的呼叫方式 ) - 不太建議去調用它的 this</li>
+    <li>call, apply,bind 方法呼叫 - 直接把函式綁定特定的 this 方法</li> 
+    <li>DOM 事件處理器</li>
+    <li>new ( 建構函式呼叫 ) - 建構式的運算值</li>
+    <li>箭頭函式 ( ES6 )</li>
   </ul>
 
   <h3>this : 物件的方法調用 (最常見的形式)</h3>
@@ -31,18 +39,13 @@
     <li>物件的方法調用時, 僅需要關注<strong>是在哪一個物件</strong>下呼叫</li>
   </ul>
   
-  <h3>影響函式 this 的調用方式 - 函式呼叫樣式 ( invocation pattern )</h3>
+  <h3>this 的用途</h3>
   <ul>
-    <li>物件中的方法呼叫 ( 最常運用 this 的方法 )</li>
-    <li>簡易呼叫 ( 絕大多數的呼叫方式 ) - 不太建議去調用它的 this</li>
-    <li>bind, apply, call 方法呼叫 - 直接把函式綁定特定的 this 方法</li>
-    <li>DOM 事件處理器</li>
-    <li>new ( 建構函式呼叫 ) - 建構式的運算值</li>
-    <li>箭頭函式 ( ES6 )</li>
+    <li>this 它的指向跟我們怎麼去 '定義' 它沒有關係</li>
+    <li>可以略過函式的定義方式, 可依據執行的方式取用特定的物件</li>
   </ul>
   
 </body>
-
 </html>
 
 <script>

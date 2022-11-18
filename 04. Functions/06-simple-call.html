@@ -6,102 +6,102 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script>
-    
-    var myName = '全域變數 myName';
-
-    function callName() {
-      console.log("callName() - this:", this);
-      console.log("callName() - this.myName:", this.myName);
-    }
-    // callName();
-    // 盡可能不要使用 Simple Call 的 this
-
-    
-    // 1. 立即函式 IIFE
-    // 不會看你的呼叫位置, 是依據呼叫方式而定
-    // (function () {
-    //   myName: '小明家',
-    //   console.log("function() - this.myName:", this.myName);
-
-    //   function callSomeone() {
-    //     myName: '杰倫家',
-    //     console.log("callSomeone() - this.myName:", this.myName);
-    //   }
-    //   callSomeone(); // Simple Call
-    //   // 全域變數都是掛在 window, 這個全域的物件下
-    //   // 但它不是全域的物件下去執行一個函式, 不等於 window.callSomeone()
-    // })();
-
-
-    // 2.
-    function easyCard(base) {
-      var money = base;
-      var name = '悠遊卡';
-      return function (update) {
-        money = money + update;
-        console.log("this.myName:", this.myName);
-        console.log("money:", money);
-      }
-    }
-    var MingEasyCard = easyCard(100);
-    // MingEasyCard(10);
-    // 直接調用閉包內的函式, 屬於 Simple Call
-
-
-    // 3. callback
-    // function myEasyCard(callback) {
-    //   var myName = '小明家';
-    //   var money = 100;
-    //   // 再另外函式內執行的形式, 屬於 Simple Call
-    //   return callback(money)
-    // }
-
-    // myEasyCard(function (money) {
-    //   // Simple Call 會指向全域
-    //   var myName = '杰倫家';
-    //   console.log("this.myName:", this.myName);
-    //   console.log("money:", money + 100);
-    // });
-
-
-    // 4. forEach 內函式屬於 callback function, 一樣會取到全域變數
-    var a = [1, 2, 3];
-    a.forEach(function(item) {
-      var myName = '小明家';
-      // console.log("this.myName:", this.myName);
-      // console.log("item:", item);
-    })
-    
-
-    // 5. 
-    var family = {
-      myName: '小明家',
-      callName: function () {
-        // 5.1 
-        setTimeout(function () {
-          console.log("setTimeout - this.myName:", this.myName);
-          // 雖然 setTimeout 是在 callName 內, 但是 setTimeout 函式依然屬於 callback function
-          // 不用看函式在哪執行, 重點是函式如何被執行
-        }, 1000);
-
-        // 5.2 嘗試正確取到外層的 this, 定義變數 self 指向 this
-        var self = this; // vm, that
-        console.log("self:", self);
-        setTimeout(function () {
-          console.log("setTimeout - self.myName:", self.myName);
-        }, 1000);
-      }
-    }
-    // family.callName();
-
-  </script>
 </head>
 
 <body>
-  <h1>this：簡易呼叫</h1>
+  <h1>this：簡易呼叫 ( simple call )</h1>
   <h3>simple call 的 this 會指向全域</h3>
   <h3>forEach 後方 callback function 屬於 simple call</h3>
 </body>
-
 </html>
+
+<script>
+  
+  var myName = '全域變數 myName';
+
+  function callName() {
+    console.log("callName() - this:", this);
+    console.log("callName() - this.myName:", this.myName);
+  }
+  // callName();
+  // 盡可能不要使用 Simple Call 的 this
+
+  
+  // 1. 立即函式 IIFE
+  // 不會看你的呼叫位置, 是依據呼叫方式而定
+  // (function () {
+  //   myName: '小明家',
+  //   console.log("function() - this.myName:", this.myName);
+
+  //   function callSomeone() {
+  //     myName: '杰倫家',
+  //     console.log("callSomeone() - this.myName:", this.myName);
+  //   }
+  //   callSomeone(); // Simple Call
+  //   // 全域變數都是掛在 window, 這個全域的物件下
+  //   // 但它不是全域的物件下去執行一個函式, 不等於 window.callSomeone()
+  // })();
+
+
+  // 2.
+  function easyCard(base) {
+    var money = base;
+    var name = '悠遊卡';
+    return function (update) {
+      money = money + update;
+      console.log("this.myName:", this.myName);
+      console.log("money:", money);
+    }
+  }
+  var MingEasyCard = easyCard(100);
+  // MingEasyCard(10);
+  // 直接調用閉包內的函式, 屬於 Simple Call
+
+
+  // 3. callback
+  // function myEasyCard(callback) {
+  //   var myName = '小明家';
+  //   var money = 100;
+  //   // 再另外函式內執行的形式, 屬於 Simple Call
+  //   return callback(money)
+  // }
+
+  // myEasyCard(function (money) {
+  //   // Simple Call 會指向全域
+  //   var myName = '杰倫家';
+  //   console.log("this.myName:", this.myName);
+  //   console.log("money:", money + 100);
+  // });
+
+
+  // 4. forEach 內函式屬於 callback function, 一樣會取到全域變數
+  var a = [1, 2, 3];
+  a.forEach(function(item) {
+    var myName = '小明家';
+    // console.log("this.myName:", this.myName);
+    // console.log("item:", item);
+  })
+  
+
+  // 5. 
+  var family = {
+    myName: '小明家',
+    callName: function () {
+      // 5.1 
+      setTimeout(function () {
+        console.log("setTimeout - this.myName:", this.myName);
+        // 雖然 setTimeout 是在 callName 內, 但是 setTimeout 函式依然屬於 callback function
+        // 不用看函式在哪執行, 重點是函式如何被執行
+      }, 1000);
+
+      // 5.2 嘗試正確取到外層的 this, 定義變數 self 指向 this
+      var self = this; // vm, that
+      console.log("self:", self);
+      setTimeout(function () {
+        console.log("setTimeout - self.myName:", self.myName);
+      }, 1000);
+    }
+  }
+  // family.callName();
+
+</script>
