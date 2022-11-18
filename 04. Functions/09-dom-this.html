@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -14,11 +16,11 @@
   <h3>參考: <a href="https://www.casper.tw/javascript/2017/12/12/javascript-this/">卡斯伯：JavaScript 的 this 到底是誰？</a></h3>
 
   <ul>
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
-    <li>4</li>
-    <li>5</li>
+    <li value="1">1</li>
+    <li value="2">2</li>
+    <li value="3">3</li>
+    <li value="4">4</li>
+    <li value="5">5</li>
   </ul>
   
   <!-- 呈現標籤 -->
@@ -28,19 +30,26 @@
   <button onclick="console.dir(this)">這是一個按鈕2</button>
 
   <script>
+    // js
+    // var fn = function () {
+    //   console.dir(this);
+    //   this.style.backgroundColor = 'orange';
+    // }
+    // var els = document.querySelectorAll('li');
+
+    // for (var i = 0; i < els.length; i++) {
+      //   els[i].addEventListener('click', fn);
+      //   // fn 內的 this 受到監聽器影響, 直接把 this 綁定在元素上
+      // }
+      
     
-    var fn = function () {
+    
+    // jQuery
+    $("li").on("click", function(){
+      // this 受到監聽器影響, 直接把 this 綁定在元素上
       console.dir(this);
       this.style.backgroundColor = 'orange';
-    }
-    var els = document.querySelectorAll('li');
-
-
-    for (var i = 0; i < els.length; i++) {
-      els[i].addEventListener('click', fn);
-      // fn 內的 this 受到監聽器影響, 直接把 this 綁定在元素上
-    }
-    
+    });
   </script>
 </body>
 
