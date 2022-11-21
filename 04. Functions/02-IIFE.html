@@ -5,52 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script>
-  
-    // (function () {
-    //   console.log('立即函式', );
-    //   // 1. 立刻執行
-    //   // 2. 無法在函式外被再次執行
-    // })();
-    
-    // (function() {
-    //   var Ming = '小明';
-    //   console.log(Ming);
-    //   // 限制變數的作用域
-    // })();
-    // console.log(Ming);  // is not defined
-
-
-    // var whereMing = (function (where) {
-    //   console.log(where);
-    //   return where;
-    // })('小明在這');
-    // console.log(whereMing);
-    
-
-
-    // 立即函式傳遞變數手法
-    // var a = {}; // 物件本身具有傳參考特性
-    // (function(b) {
-    //   b.person = 'Ben';
-    // })(a);
-    // (function(c) {
-    //   console.log(c);
-    // })(a)
-
-
-    (function(global) {
-      global.person = '小明';
-    })(window)
-    ;(function(c) {
-      console.log(person);
-      
-    })()
-
-  </script>
 </head>
 <body>
   <h1>立即函式</h1>
   <h3>IIFE 術語表 : <a href="https://developer.mozilla.org/zh-TW/docs/Glossary/IIFE">https://developer.mozilla.org/zh-TW/docs/Glossary/IIFE</a></h3>
 </body>
 </html>
+
+<script>
+  // 1. 立即函式 屬於 表達式
+  (function IIFE() {
+    console.log('立即函式:', IIFE);
+    // 1. 立刻執行
+    // 2. 無法在函式外被再次執行
+  })();
+  
+
+  // 2. 限制變數的作用域
+  (function() {
+    var Ming = '小明';
+    console.log("Ming:", Ming);
+  })();
+  // console.log("Ming:", Ming);  // is not defined
+
+
+  // 3. 透過小括號 (), 將參數往前傳遞至參數變數 where
+  var whereMing = (function (where) {
+    console.log("where:", where);
+    return where;
+  })('小明在這');
+  console.log("whereMing:", whereMing);
+  
+
+  // 4. 立即函式傳遞變數手法
+  var a = {}; // 物件本身具有傳參考特性
+  (function(b) {
+    b.person = 'Ben';
+  })(a);
+  
+  (function(c) {
+    console.log(c);
+    console.log("c.person:", c.person);
+  })(a);
+
+
+  // 5. 透過全域物件傳遞值
+  (function(global) {
+    global.person = 'global - 小明';  // 全域物件掛上 person 屬性
+  })(window)  // window 全域物件
+  ;
+  // 後方立即函式沒帶入任何參數
+  (function(c) {
+    console.log("person:", person);
+  })()
+
+</script>
