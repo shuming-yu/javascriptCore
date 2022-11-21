@@ -8,29 +8,33 @@
   <title>Document</title>
   <script>
     
-    // 回想一下先前的函式記憶體釋放
-    // function randomString(length) {
-    //   var result = '';
-    //   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    //   var charactersLength = characters.length;
-    //   for (var i = 0; i < length; i++) {
-    //     result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    //   }
-    //   return result;
-    // }
+    // 1. 回想一下先前的函式記憶體釋放
+    // F12 -> Memory -> 左方小黑圓點 Take heap snapshot, 測試第二次點選等待10秒查看變化
+    function randomString(length) {
+      var result = '';
+      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var charactersLength = characters.length;
+      for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+      return result;
+    }
     
-    // function getData() {
-    //   var demoData = [];
-    //   for (let i = 0; i < 1000; i++) {
-    //     demoData.push(randomString(1000))
-    //   }
-    //   setTimeout(function() {
-    //     demoData;
-    //   }, 10000);
-    // }
-    // getData();
+    function getData() {
+      var demoData = [];
+      for (let i = 0; i < 1000; i++) {
+        demoData.push(randomString(1000))
+      }
+      setTimeout(function() {
+        // 子函式的部分使用副函式所宣告的變數, 可避免副函式所宣告的變數在沒有任何參照情況下就直接釋放掉
+        demoData;
+      }, 10000);
+    }
+    getData();
 
+    
 
+    // 2.
     function storeMoney() {
       var money = 1000;
       return function(price) {
@@ -38,25 +42,32 @@
         return money;
       }
     }
-    // console.log('storeMoney() : ', storeMoney());
-    // console.log(storeMoney()(100));
+    console.log('storeMoney() : ', storeMoney()); // storeMoney() 屬於表達式, 回傳值是一個 函式
+    console.log(storeMoney()(100));  // 後面加上 (), 執行後方函式
 
-    var MingMoney = storeMoney();
-    console.log('MingMoney : ', MingMoney);
-    console.log(MingMoney(100));
-    console.log(MingMoney(100));
-    console.log(MingMoney(100));
+    // MingMoney, JayMoney 透過閉包概念, 兩個都可執行屬於自己的函式, 並擁有自己的變數
+    function samle_MingMoney(){
+      var MingMoney = storeMoney();
+      console.log('MingMoney : ', MingMoney);  // 函式
+      console.log("MingMoney(100):", MingMoney(100));
+      console.log("MingMoney(100):", MingMoney(100));
+      console.log("MingMoney(100):", MingMoney(100));
+    }
     
-    var JayMoney = storeMoney();
-    console.log(JayMoney(1000));
-    console.log(JayMoney(1000));
-    console.log(JayMoney(1000));
+    function samle_JayMoney(){
+      var JayMoney = storeMoney();
+      console.log("JayMoney:", JayMoney); // 函式
+      console.log("JayMoney(1000):", JayMoney(1000));
+      console.log("JayMoney(1000):", JayMoney(1000));
+      console.log("JayMoney(1000):", JayMoney(1000));
+    }
 
   </script>
 </head>
 
 <body>
   <h1>閉包 Closure</h1>
+  <!-- 包含 : 範圍鍊, 記憶體空間, 表達式, 函式 等觀念-->
 </body>
 
 </html>
