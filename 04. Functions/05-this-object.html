@@ -17,10 +17,9 @@
 
   <h3>this 基本觀念</h3>
   <ul>
-    <li>執行函式時自然產生的, 不需要宣告, this 是一個關鍵字</li>
+    <li>執行函式時自然產生的, 不需要宣告, this 是一個關鍵字 ( JavaScript 的保留字 )</li>
     <li>每個執行環境都有屬於自己的 this 關鍵字。 不同函式被呼叫時, this 的值就會不同</li>
-    <li>不管是全域環境 & 特定函式, 都可以直接調用 this</li>
-    <li>注意 : this 通常指向一個可以被運用的物件, 不會使用 this 去調用函式本身</li>
+    <li>不管是全域環境 & 特定函式環境下, 都可以直接調用 this</li>
   </ul>
   
   <h3>影響函式 this 的調用方式 - 函式呼叫樣式 ( invocation pattern )</h3>
@@ -61,49 +60,55 @@
 
 
   // 1.
-  var family = {
-    myName: '小明家',
-    // callName: callName
-    callName() {
-      console.log("this:", this);
-      console.log("this.myName:", this.myName);
-    }
-  }
-  // family.callName();
-  // 在 family 物件下呼叫 this, 因此 callName() 裡面的 this 會指向 family
-
-  
-  // 2.
-  var family = {
-    myName: '小明家',
-    callName() {
-      console.log("this:", this);
-      console.log("this.myName:", this.myName);
-    },
-    Ming: {
-      myName: '小明',
+  function sample_family(){
+    var family = {
+      myName: '小明家',
+      // callName: callName
       callName() {
         console.log("this:", this);
         console.log("this.myName:", this.myName);
       }
     }
+    family.callName();
+    // 在 family 物件下呼叫 this, 因此 callName() 裡面的 this 會指向 family
   }
-  // family.callName();
-  // family.Ming.callName();
+
+  
+  // 2.
+  function sample_familyMing(){
+    var family = {
+      myName: '小明家',
+      callName() {
+        console.log("this:", this);
+        console.log("this.myName:", this.myName);
+      },
+      Ming: {
+        myName: '小明',
+        callName() {
+          console.log("this:", this);
+          console.log("this.myName:", this.myName);
+        }
+      }
+    }
+    family.callName();
+    family.Ming.callName();
+  }
 
   
   // 3.
-  var family = {
-    myName: '小明家',
-    callName: function () {
-      console.log("this:", this);
-      console.log("this.myName:", this.myName);
+  function sample_simplecall(){
+    var family = {
+      myName: '小明家',
+      callName: function () {
+        console.log("this:", this);
+        console.log("this.myName:", this.myName);
+      }
     }
+    // family.callName();
+    var callNames = family.callName;
+    callNames(); // Simple Call
+    // 不管函式被如何定義, 只看函式如何執行, 目前執行在全域情況下, this 就不會去指向 family 物件
   }
-  // family.callName();
-  var callNames = family.callName;
-  // callNames(); // Simple Call
-  // 不管函式被如何定義, 只看函式如何執行, 目前執行在全域情況下, this 就不會去指向 family 物件
 
 
   

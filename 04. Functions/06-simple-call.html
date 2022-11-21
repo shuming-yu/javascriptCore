@@ -75,33 +75,37 @@
 
 
   // 4. forEach 內函式屬於 callback function, 一樣會取到全域變數
-  var a = [1, 2, 3];
-  a.forEach(function(item) {
-    var myName = '小明家';
-    // console.log("this.myName:", this.myName);
-    // console.log("item:", item);
-  })
+  function sample_foreach(){
+    var a = [1, 2, 3];
+    a.forEach(function(item) {
+      var myName = '小明家';
+      console.log("this:", this);
+      console.log("this.myName:", this.myName);
+    })
+  }
   
 
   // 5. 
-  var family = {
-    myName: '小明家',
-    callName: function () {
-      // 5.1 
-      setTimeout(function () {
-        console.log("setTimeout - this.myName:", this.myName);
-        // 雖然 setTimeout 是在 callName 內, 但是 setTimeout 函式依然屬於 callback function
-        // 不用看函式在哪執行, 重點是函式如何被執行
-      }, 1000);
-
-      // 5.2 嘗試正確取到外層的 this, 定義變數 self 指向 this
-      var self = this; // vm, that
-      console.log("self:", self);
-      setTimeout(function () {
-        console.log("setTimeout - self.myName:", self.myName);
-      }, 1000);
+  function sample_setTimeout(){
+    var family = {
+      myName: '小明家',
+      callName: function () {
+        // 5.1 
+        setTimeout(function () {
+          console.log("setTimeout - this.myName:", this.myName);
+          // 雖然 setTimeout 是在 callName 內, 但是 setTimeout 函式依然屬於 callback function
+          // 不用看函式在哪執行, 重點是函式如何被執行
+        }, 1000);
+  
+        // 5.2 嘗試正確取到外層的 this, 定義變數 self 指向 this
+        var self = this; // vm, that
+        console.log("self:", self);
+        setTimeout(function () {
+          console.log("setTimeout - self.myName:", self.myName);
+        }, 1000);
+      }
     }
+    family.callName();
   }
-  // family.callName();
 
 </script>

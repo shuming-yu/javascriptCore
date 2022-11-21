@@ -41,12 +41,12 @@
   }
 
   function fn(para1, para2) {
-    'use strict';
+    // 'use strict';
     console.log("this:", this);
     console.log("para1:", para1);
     console.log("para2:", para2);
   }
-  fn(this)
+  fn();
 
   // call, apply, bind
   // fn(1, 2);
@@ -65,8 +65,14 @@
 
   var fn2 = fn.bind(family, '小明', 123);
   // fn2();
+  // 3.1
   // fn2(1, 2); // 參數不用另外帶入, 帶入參數也不會有任何變化
   // 若 fn2 少值帶入, 會依序改用 fn2(1, 2) 內的值
+
+  // 3.2
+  var fn3 = fn2.bind({a: '我是fn3!!'}, '小輪', 321);
+  // bind 只能使用一次
+  // fn3();
 
 
   
