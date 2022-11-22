@@ -12,31 +12,32 @@
   // var a = null;
   // console.log(a);
 
-
+    // 1.
     // var Ming; // 創造階段
     // Ming = '小明'; // 執行
     // console.log(Ming);
 
-    // // 創造階段
+    // 2. 創造階段 - 函式陳述式 ( 創造階段時它的記憶體空間內已包含函式完整內容 )
     // function callName() {
     //   console.log('呼叫小明');
     // }
 
-    // // 執行
+    // 執行
     // callName();
+
+
     
-    // ===
-    // // 創造階段
+    // 3. 創造階段 - 函式表達式 ( 必須等待函式賦予到 callName 上, 才能運行函式 )
     // var callName;
 
-    // // 執行
+    // 執行
     // callName = function () {
     //   console.log('呼叫小明');
     // }
     // callName();
     
 
-    // 函式優先
+    // 4. 函式優先 ( 函式陳述式優先執行, 後須執行函式表達式並進行覆蓋 )
     // 創造階段
     // function callName() {
     //   console.log('呼叫小明 1');
@@ -50,7 +51,7 @@
     // callName();
     
 
-    // // 創造
+    // 5. 創造
     // function callName() {
     //   console.log(Ming);
     // }
@@ -60,7 +61,7 @@
     // Ming = '小明';
 
 
-    // // 創造
+    // 創造
     // function callName() {
     //   console.log('小明');
     // }
@@ -68,7 +69,7 @@
     //   console.log('杰倫');
     // }
 
-    // // 執行
+    // 執行
     // callName(); // 第一次執行
     // callName(); // 第二次執行
 
@@ -101,15 +102,15 @@
 
 <body>
   <h1>提升</h1>
-  <h2>函式陳述式 : function callName() </h2>
-  <h2>函式表達式 : var callName = function() </h2>
-
+  <h2>函式陳述式 : function callName() - ( 創造階段時它的記憶體空間內已包含函式完整內容 )</h2>
+  <h2>函式表達式 : var callName = function() - ( 必須等待函式賦予到 callName 上, 才能運行函式 )</h2>
+  
   <br>
 
   <h3>創造階段</h3>
-  <img src="./hoisting1.PNG" alt="">
+  <img src="./hoisting1.PNG" alt="" style="width: 500px;">
   <h3>執行階段</h3>
-  <img src="./hoisting2.PNG" alt="">
+  <img src="./hoisting2.PNG" alt="" style="width: 500px;">
 </body>
 
 </html>
