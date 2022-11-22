@@ -9,6 +9,15 @@
 <body>
   <h1>立即函式</h1>
   <h3>IIFE 術語表 : <a href="https://developer.mozilla.org/zh-TW/docs/Glossary/IIFE">https://developer.mozilla.org/zh-TW/docs/Glossary/IIFE</a></h3>
+
+  <ul>
+    <li>IIFE 是一個定義完馬上就執行的 JavaScript function</li>
+    <li>function 的名稱其實是不用撰寫的，因為沒有必要，但 JavaScript 不會提示你不用寫</li>
+    <li>當它執行完畢之後，你就無法再次呼叫甚至是外層呼叫</li>
+    <li>宣告在裡面的變數，只有在立即函式內可以取用</li>
+    <li>這樣的寫法可以避免裡面的變數污染到 global scope</li>
+    <li>雖然變數是建立在函式內，但 function 卻是直接建立在全域執行環境下, 因此這時候若有一個類似同名的變數或是函式就會發生衝突</li>
+  </ul>
 </body>
 </html>
 
@@ -33,7 +42,7 @@
   }
 
 
-  // 3. 透過小括號 (), 將參數往前傳遞至參數變數 where
+  // 3. 透過小括號 (), 將參數往前傳遞至參數變數 where, 並搭配一個變數來接收 IIFE
   function sample_parentheses(){
     var whereMing = (function (where) {
       console.log("where:", where);

@@ -6,68 +6,131 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script>
-    
-    // 1. 回想一下先前的函式記憶體釋放
-    // F12 -> Memory -> 左方小黑圓點 Take heap snapshot, 測試第二次點選等待10秒查看變化
-    function randomString(length) {
-      var result = '';
-      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      var charactersLength = characters.length;
-      for (var i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-      }
-      return result;
-    }
-    
-    function getData() {
-      var demoData = [];
-      for (let i = 0; i < 1000; i++) {
-        demoData.push(randomString(1000))
-      }
-      setTimeout(function() {
-        // 子函式的部分使用副函式所宣告的變數, 可避免副函式所宣告的變數在沒有任何參照情況下就直接釋放掉
-        demoData;
-      }, 10000);
-    }
-    getData();
-
-    
-
-    // 2.
-    function storeMoney() {
-      var money = 1000;
-      return function(price) {
-        money = money + price;
-        return money;
-      }
-    }
-    console.log('storeMoney() : ', storeMoney()); // storeMoney() 屬於表達式, 回傳值是一個 函式
-    console.log(storeMoney()(100));  // 後面加上 (), 執行後方函式
-
-    // MingMoney, JayMoney 透過閉包概念, 兩個都可執行屬於自己的函式, 並擁有自己的變數
-    function samle_MingMoney(){
-      var MingMoney = storeMoney();
-      console.log('MingMoney : ', MingMoney);  // 函式
-      console.log("MingMoney(100):", MingMoney(100));
-      console.log("MingMoney(100):", MingMoney(100));
-      console.log("MingMoney(100):", MingMoney(100));
-    }
-    
-    function samle_JayMoney(){
-      var JayMoney = storeMoney();
-      console.log("JayMoney:", JayMoney); // 函式
-      console.log("JayMoney(1000):", JayMoney(1000));
-      console.log("JayMoney(1000):", JayMoney(1000));
-      console.log("JayMoney(1000):", JayMoney(1000));
-    }
-
-  </script>
 </head>
 
 <body>
   <h1>閉包 Closure</h1>
+  <h3>參考 : <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Closures">MDN : 閉包- JavaScript</a></h3>
+  <h3>參考 : <a href="https://pjchender.dev/javascript/js-closure/">[JS] 深入淺出 JavaScript 閉包（closure）</a></h3>
+  
+  <ul>
+    <li>讓函式有自己私有變數, 讓變數保留在該函式中而不會被外在環境干擾</li>
+    <li>當你看到一個 function 內 return 了另一個 function，通常就是有用到閉包的概念。</li>
+  </ul>
   <!-- 包含 : 範圍鍊, 記憶體空間, 表達式, 函式 等觀念-->
 </body>
 
 </html>
+
+<script>
+  // 1. 回想一下先前的函式記憶體釋放
+  // F12 -> Memory -> 左方小黑圓點 Take heap snapshot, 測試第二次點選等待10秒查看變化
+  function randomString(length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+  
+  function getData() {
+    var demoData = [];
+    for (let i = 0; i < 1000; i++) {
+      demoData.push(randomString(1000))
+    }
+    setTimeout(function() {
+      // 子函式的部分使用副函式所宣告的變數, 可避免副函式所宣告的變數在沒有任何參照情況下就直接釋放掉
+      demoData;
+    }, 10000);
+  }
+  getData();
+
+
+  // 2. 不使用閉包（closure）的情況
+  function samle_globalCount(){
+    var count = 0;
+    function countDogs() {
+      count += 1;
+      console.log(count + ' dog(s)');
+    }
+  
+    var count = 0;
+    function countCats() {
+      count += 1;
+      console.log(count + ' cat(s)');
+    }
+  
+    countDogs();  // 1 dog(s)
+    countCats();  // 2 cat(s), 我希望是 1 cat(s)
+    countDogs();  // 3 dog(s), 我希望是 2 dog(s)
+    countCats();  // 4 cat(s), 我希望是 2 cat(s)
+  }
+  
+
+  // 3. 透過閉包讓 function 能夠有 private 變數, 透過函式的參數將值代入閉包中
+  function dogHouse(name) {
+    var count = 0;
+    // 3.1
+    // function countDogs() {
+    //   count += 1;
+    //   console.log(count + ' ' + name);
+    // }
+    // return countDogs;
+    
+    // 3.2 簡化程式 - 直接 return function ( 用匿名函式的方式直接把它回傳出來 )
+    return function() {
+      count += 1;
+      console.log(count + ' ' + name);
+    }
+  }
+  
+  // 同樣是使用 dogHouse 但是使用不同的參數
+  function samle_dogHouse(){
+    var countGolden = dogHouse('Golden');
+    countGolden();
+    countGolden();
+    var countPuppy = dogHouse('Puppy');
+    countPuppy();
+    countPuppy();
+  }
+  
+
+
+// 4.
+function storeMoney() {
+  var money = 1000;
+  // 4.1
+  function total(price) {
+    money = money + price;
+    return money;
+  }
+  return total;
+  
+  // 4.2 簡化程式 - 直接 return function ( 用匿名函式的方式直接把它回傳出來 )
+  // return function(price) {
+  //   money = money + price;
+  //   return money;
+  // }
+}
+// console.log('storeMoney() : ', storeMoney()); // storeMoney() 屬於表達式, 回傳值是一個 函式
+// console.log(storeMoney()(100));  // 後面加上 (), 執行後方函式
+
+// MingMoney, JayMoney 透過閉包概念, 兩個都可執行屬於自己的函式, 並擁有自己的變數
+function samle_MingMoney(){
+  var MingMoney = storeMoney();
+  console.log('MingMoney : ', MingMoney);  // 函式
+  console.log("MingMoney(100):", MingMoney(100));
+  console.log("MingMoney(100):", MingMoney(100));
+  console.log("MingMoney(100):", MingMoney(100));
+}
+
+function samle_JayMoney(){
+  var JayMoney = storeMoney();
+  console.log("JayMoney:", JayMoney); // 函式
+  console.log("JayMoney(1000):", JayMoney(1000));
+  console.log("JayMoney(1000):", JayMoney(1000));
+  console.log("JayMoney(1000):", JayMoney(1000));
+}
+</script>
