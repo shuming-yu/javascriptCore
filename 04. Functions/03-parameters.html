@@ -17,84 +17,99 @@
 
 <script>
   // 1. 函式包含哪些變數
-  var family = {
-    myName: '小明家',
-  };
-  var globalVariable = '全域變數';
-  var obj = {
-    aFunction: function(para) {
-      var localVariables = '區域變數';
-      console.log("para:", para); // 外層傳入參數
-      console.log("localVariables:", localVariables); // 區域環境下的變數
-      console.log("arguments:", arguments); // 類陣列, 接收外層傳入的參數
-      console.log("this:", this); // 根據呼叫方式判斷, 指向 obj
-      console.log("globalVariable:", globalVariable); // 全域的變數
-      // 包含傳入的參數
+  function sample_para(){
+    var family = {
+      myName: '小明家',
+    };
+    var globalVariable = '全域變數';
+    var obj = {
+      aFunction: function(para) {
+        var localVariables = '區域變數';
+        console.log("para:", para); // 外層傳入參數
+        console.log("localVariables:", localVariables); // 區域環境下的變數
+        console.log("arguments:", arguments); // 類陣列, 接收外層傳入的參數
+        console.log("this:", this); // 根據呼叫方式判斷, 指向 obj
+        console.log("globalVariable:", globalVariable); // 全域的變數
+        // 包含傳入的參數
+      }
     }
+    obj.aFunction('一段描述', 2, family);
   }
-  // obj.aFunction('一段描述', 2, family);
 
 
   // 2. 函式呼叫與 hoisting 影響
-  function callName(a) {
-    console.log("1:", a);
-    // function a() {}  // 定義函式陳述式執行 hoisting, 會把代碼移動到最前方
-    
-    var a;  // 變數本身存在情況下, 宣告沒有任何作用
-    console.log("2:", a);
-    a = '杰倫'; // 賦予另一個值
-    console.log("3:", a);
+  function sample_hoisting(){
+    function callName(a) {
+      console.log("1:", a);
+      // function a() {}  // 定義函式陳述式執行 hoisting, 會把代碼移動到最前方
+      
+      var a;  // 變數本身存在情況下, 宣告沒有任何作用
+      console.log("2:", a);
+      a = '杰倫'; // 賦予另一個值
+      console.log("3:", a);
+    }
+    callName('小明'); // 定義 a 的值為'小明'
   }
-  // callName('小明'); // 定義 a 的值為'小明'
 
 
   // 3. 參數名稱與傳入的值無關聯性
-  function callMore(d, c, b, a) {
-    console.log(d, c, b, a);
+  function sample_more(){
+    function callMore(d, c, b, a) {
+      console.log("d:", d);
+      console.log("c:", c);
+      console.log("b:", b);
+      console.log("a:", a);
+    }
+    var a = 'a';
+    var b = 'b';
+    var c = 'c';
+    callMore(a, b, c);  // 傳入的數量不足, 會自動帶入 undefined
   }
-  var a = 'a';
-  var b = 'b';
-  var c = 'c';
-  // callMore(a, b, c);  // 傳入的數量不足, 會自動帶入 undefined
 
 
   // 4. 物件維持傳參考的特性
-  function callObject(obj) {
-    obj.name = '杰倫家';
-    // 建議不要調整裡面的屬性參數, 導致原有物件的屬性被做調整
-    // obj = {name: 'Ben!!!!!'};
+  function sample_callObj(){
+    function callObject(obj) {
+      obj.name = '杰倫家';
+      // 建議不要調整裡面的屬性參數, 導致原有物件的屬性被做調整
+      // obj = {name: 'Ben!!!!!'};
+    }
+    var family = {
+      name: '小明家'
+    }
+    callObject(family);
+    console.log("family:", family);
   }
-  var family = {
-    name: '小明家'
-  }
-  callObject(family);
-  // console.log("family:", family);
 
 
   // 5. callback function
-  function callSomeone(name, a) {
-    console.log(name + '你好', a)
+  function sample_callBackfn(){
+    function callSomeone(name, a) {
+      console.log(name + '你好', a)
+    }
+    function functionB(fn) {
+      fn('小明', 1);  // 實際執行位置
+    }
+    functionB(callSomeone);
   }
-  function functionB(fn) {
-    fn('小明', 1);  // 實際執行位置
-  }
-  // functionB(callSomeone)
 
 
   // 6. arguments 類陣列應用
-  function callArg(a) {
-    console.log("a:", a);
-    console.log("arguments:", arguments);
-
-    // arguments 屬於類陣列, 無法使用陣列使用的方法
-    // arguments.forEach(function() {
-
-    // })
-
-    for (let index = 0; index < arguments.length; index++) {
-      console.log(arguments[index]);
+  function sample_arguments(){
+    function callArg(a) {
+      console.log("a:", a);
+      console.log("arguments:", arguments);
+  
+      // arguments 屬於類陣列, 無法使用陣列使用的方法
+      // arguments.forEach(function() {
+  
+      // })
+  
+      for (let index = 0; index < arguments.length; index++) {
+        console.log(arguments[index]);
+      }
     }
+    callArg(1, 2, 3, 'string');
   }
-  // callArg(1, 2, 3, '4');
 
 </script>

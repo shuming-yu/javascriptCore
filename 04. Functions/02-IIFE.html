@@ -14,49 +14,60 @@
 
 <script>
   // 1. 立即函式 屬於 表達式
-  (function IIFE() {
-    console.log('立即函式:', IIFE);
-    // 1. 立刻執行
-    // 2. 無法在函式外被再次執行
-  })();
+  function sample_iife(){
+    (function IIFE() {
+      console.log('立即函式:', IIFE);
+      // 1. 立刻執行
+      // 2. 無法在函式外被再次執行
+    })();
+  }
   
 
   // 2. 限制變數的作用域
-  (function() {
-    var Ming = '小明';
-    console.log("Ming:", Ming);
-  })();
-  // console.log("Ming:", Ming);  // is not defined
+  function sample_scope(){
+    (function() {
+      var Ming = '小明';
+      console.log("Ming:", Ming);
+    })();
+    console.log("Ming:", Ming);  // is not defined
+  }
 
 
   // 3. 透過小括號 (), 將參數往前傳遞至參數變數 where
-  var whereMing = (function (where) {
-    console.log("where:", where);
-    return where;
-  })('小明在這');
-  console.log("whereMing:", whereMing);
+  function sample_parentheses(){
+    var whereMing = (function (where) {
+      console.log("where:", where);
+      return where;
+    })('小明在這');
+    console.log("whereMing:", whereMing);
+  }
   
 
   // 4. 立即函式傳遞變數手法
-  var a = {}; // 物件本身具有傳參考特性
-  (function(b) {
-    b.person = 'Ben';
-  })(a);
-  
-  (function(c) {
-    console.log(c);
-    console.log("c.person:", c.person);
-  })(a);
-
+  function sample_obj(){
+    var a = {}; // 物件本身具有傳參考特性
+    (function(b) {
+      b.person = 'Ben';
+    })(a);
+    console.log("a:", a);
+    
+    (function(c) {
+      c.home = 'home';
+      console.log("c:", c);
+    })(a);
+    console.log("a:", a);
+  }
 
   // 5. 透過全域物件傳遞值
-  (function(global) {
-    global.person = 'global - 小明';  // 全域物件掛上 person 屬性
-  })(window)  // window 全域物件
-  ;
-  // 後方立即函式沒帶入任何參數
-  (function(c) {
-    console.log("person:", person);
-  })()
+  function sample_window(){
+    (function(global) {
+      global.person = 'global - 小明';  // 全域物件掛上 person 屬性
+    })(window)  // window 全域物件
+    ;
+    // 後方立即函式沒帶入任何參數
+    (function(c) {
+      console.log("person:", person);
+    })()
+  }
 
 </script>
