@@ -9,68 +9,74 @@
   <script>
     
     // 申論題
-    // function arrFunction() {
-    //   var arr = [];
-    //   for (let i = 0; i < 3; i++) {
-
-    //     // 立即函式 限制作用域
-    //     // (function(j) {
-    //     //   arr.push(function () {
-    //     //     console.log(j);
-    //     //   });
-    //     // })(i)
-        
-    //     // ES6寫法 -> let
-    //     arr.push(function () {  
-    //         console.log(i);
-    //       });
-      
-    //   }
-    //   // console.log(arr);
-    //   // console.log('i', i); // let -> var
-    //   return arr;
-    // }
-    // var fn = arrFunction();
-    // fn[0]();
-    // fn[1]();
-    // fn[2]();
+    function samle_arrFun(){
+      function arrFunction() {
+        var arr = [];
+        for (var i = 0; i < 3; i++) {
+          // 1. 立即函式 限制作用域
+          (function(j) {
+            arr.push(function () {
+              console.log(j);
+            });
+          })(i)
+          
+          // 2. ES6寫法 -> let
+          // arr.push(function () {  
+          //     console.log(i);
+          // });
+        }
+        // console.log("arr:", arr); // 陣列結構
+        // console.log('i', i); // let -> var
+        return arr;
+      }
+      var fn = arrFunction();
+      fn[0]();
+      fn[1]();
+      fn[2]();
+    }
 
 
     // 函式工廠
     // 私有方法
-    function storeMoney(initValue) {
-      var money = initValue || 1000;
-      return {
-        increase: function(price) {
-          money += price;
-        },
-        decrease: function(price) {
-          money -= price;
-        },
-        value: function() {
-          return money;
+    function samle_sotreMoney(){
+      function storeMoney(initValue) {
+        var money = initValue || 1000;  // 設定預設值, 若無參數則自動給 1000
+        return {
+          increase: function(price) { // 增加
+            money += price;
+          },
+          decrease: function(price) { // 減少
+            money -= price;
+          },
+          value: function() { // 讀取值
+            return money;
+          }
         }
       }
+      console.log("storeMoney:", storeMoney);
+      var MingMoney = storeMoney(100);
+      
+      MingMoney.increase(50);
+      // MingMoney.increase(100);
+      MingMoney.decrease(25);
+      MingMoney.decrease(96);
+      console.log('MingMoney : ', MingMoney.value());
+  
+      var JayMoney = storeMoney(1000);
+      JayMoney.increase(1000);
+      JayMoney.decrease(250);
+      console.log('JayMoney : ', JayMoney.value());
     }
-    var MingMoney = storeMoney(100);
-    
-    MingMoney.increase(50);
-    // MingMoney.increase(100);
-    // MingMoney.increase(100);
-    // MingMoney.increase(100);
-    MingMoney.decrease(25);
-    MingMoney.decrease(96);
-    console.log('MingMoney : ', MingMoney.value());
-
-    var JayMoney = storeMoney(1000);
-    JayMoney.increase(1000);
-    console.log('JayMoney : ', JayMoney.value());
     
   </script>
 </head>
 
 <body>
   <h1>閉包進階：工廠模式及私有方法</h1>
+  <ul>
+    <li>工廠模式 - 依據傳入的變數來定義它的初始值</li>
+    <li>私有方法 - 透過物件形式來對初始值做不同的操作, 大幅增加函式可用性</li>
+  </ul>
 </body>
 
 </html>
