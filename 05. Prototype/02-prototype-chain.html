@@ -7,42 +7,55 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <script>
-  
   var a = [1, 2, 3];
-  // console.log(a, a[1], a.length);
-  
-  // 取用原型的方法
-  // a.forEach(function(i) {
-  //   console.log(i);
-  // });
-
   var b = [4, 5, 6];
-  // 新增一個方法在原型鍊上, 取得最後一數值
-  // __proto__ 並非正式寫法
-  a.__proto__.getLast = function () {
-    return this[this.length -1];
+
+  function sample_arr(){
+    console.log('a:', a,"a[1]:", a[1],"a.length:", a.length);
+    // 陣列的本質是物件
+    // 0,1,2 索引位置, length 屬性 -> 屬於物件屬性
+
+
+    // forEach 屬於陣列的原型內的屬性
+    a.forEach(function(i) {
+      console.log("i:", i);
+    });
   }
-
-  // a & b 陣列同時繼承於陣列的原型
-  // F12查看 Prototype : Array 為陣列的原型, 內層下 Prototype : Object 繼承於物件的原型, 物件原型為最頂層內容
-  console.log('a:', a, 'b:', b);
-  console.log('a:', a.getLast(), 'b:', b.getLast());
-
   
-  var family = {
-    name: '小明家'
-  }
-  // 物件的原型下新增 getName 方法
-  family.__proto__.getName = function() {
-    return this.name;
-  }
-  console.log(family, family.getName());
+  function sample_addNewMethodarr(){
+    // 新增一個方法在原型鍊上, 取得最後一數值
+    // __proto__ 並非正式寫法
+    a.__proto__.getLast = function () {
+      console.log("this:", this);   // array
+      return this[this.length -1];  // 等同於 a[a.length - 1]
+    }
   
+    // a & b 陣列同時繼承於陣列的原型
+    // F12查看 Prototype : Array 為陣列的原型, 內層下 Prototype : Object, 陣列原型繼承於物件的原型, 物件原型為最頂層的原型內容
+    console.log('a:', a, 'b:', b);
+    console.log('a.getLast():', a.getLast());
+    console.log('b.getLast():', b.getLast());
+  }
 
-  // b 屬於陣列原型下的實體, 依然可以使用物件原型下的方法
-  b.name = '陣列的屬性';
-  console.log(b.getName());
-  console.log(b.toString());
+  function sample_addNewMethodobj(){
+    var family = {
+      name: '小明家'
+    }
+    // 物件的原型下新增 getName 方法
+    family.__proto__.getName = function() {
+      console.log("this:", this);
+      return this.name;
+    }
+    console.log("family:", family);
+    console.log("family.getName():", family.getName());
+  }
+  
+  function sample_arrGetName(){
+    // b 屬於陣列原型下的實體, 依然可以使用物件原型下的方法
+    b.name = '陣列的屬性';
+    console.log(b.getName());  // getName() 源自於物件原型下
+    console.log(b.toString());
+  }
 
   </script>
 </head>

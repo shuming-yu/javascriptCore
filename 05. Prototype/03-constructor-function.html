@@ -8,49 +8,56 @@
   <title>Document</title>
   <script>
     
-    var Bibi = {
-      name: '比比',
-      color: '棕色',
-      size: '小',
-      bark: function () {
-        console.log(this.name + ' 吠叫');
-      }
-    }
+    // var Bibi = {
+    //   name: '比比',
+    //   color: '棕色',
+    //   size: '小',
+    //   bark: function () {
+    //     console.log(this.name + ' 吠叫');
+    //   }
+    // }
 
-    var Pupu = {
-      name: '噗噗',
-      color: '白',
-      size: '大',
-      bark: function () {
-        console.log(this.name + ' 吠叫');
-      }
-    }
+    // var Pupu = {
+    //   name: '噗噗',
+    //   color: '白',
+    //   size: '大',
+    //   bark: function () {
+    //     console.log(this.name + ' 吠叫');
+    //   }
+    // }
+    
     
     // 建構函式
-    function Dog(name, color, size) {
+    function Dog(name, color, size) { // 藍圖
+      // 屬性
       this.name = name;
       this.color = color;
       this.size = size;
     }
-
+    
+    // Bibi 透過 Dog 建構函式產生新物件
     var Bibi = new Dog('比比', '棕色', '小');
-    console.log(Bibi);
+    console.log("Bibi:", Bibi);
     
     var Pupu = new Dog('噗噗', '白', '大');
-    console.log(Pupu);
+    console.log("Pupu:", Pupu);
     
 
-    console.dir(Dog);
+    console.dir(Dog); // 檢視 Dog 函式
+    // 函式本身是一個物件, 函式物件內特有的屬性 prototype, 透過 prototype 新增屬性就會作為原型上面的方法
     Dog.prototype.bark = function() {
       console.log(this.name + ' 吠叫');
     }
-    console.log(Bibi, Pupu);  // 檢視物件下 Prototype 內的 bark
+    console.log("Bibi:", Bibi, "Pupu:", Pupu);  // 檢視物件下 Prototype 內的 bark
     Bibi.bark();
     Pupu.bark();
 
-    // __proto__ 物件上
-    // prototype 函式
-    console.log(Dog.prototype === Bibi.__proto__)
+
+
+    // __proto__ 物件上連結原型的屬性 ( 並非正式屬性 )
+    // prototype 函式上
+    // 補充 : 如果原型上新增方法時, 最好的方式從它的函式本身的原型屬性 ( prototype ) 做調整. 若從任意新增物件上去調整他的原型的話, 在維護上會有很大的問題.
+    console.log(Dog.prototype === Bibi.__proto__) // true
     
   </script>
 </head>
@@ -62,6 +69,11 @@
   <h2>2. prototype 函式</h2>
 
   <h3>new operator : <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new</a></h3>
+  <ul>
+    <li>new 運算子會產生新的空白物件</li>
+    <li>並且連結原本建構物件 ( Dog 函式 )</li>
+    <li>把新產生物件的 this 綁定在函式上</li>
+  </ul>
 </body>
 
 </html>
