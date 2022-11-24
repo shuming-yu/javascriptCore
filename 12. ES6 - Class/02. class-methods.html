@@ -25,7 +25,7 @@
         subtotal = 0; // 小計
         total = 0;  // 總價
         serviceFee = 0.05;  // 小費
-        #shopName = '卡斯伯商行'; // # 私有變數
+        #shopName = '卡斯伯商行'; // # 私有變數, 外層無法讀取
         constructor(items) {
           this.items = items;
           this.orderName = this.items[0].name;  // 第一個商品名稱作為訂單名稱
@@ -75,11 +75,11 @@
           return a + b;
         }
         // 靜態變數
-        static className = '卡斯伯棒棒的 Class'
+        static className = '卡斯伯棒棒的 Class';
       }
 
-      console.log(Calculator.add(1, 2));  // 建構函式直接呼叫方法
-      console.log(Calculator.className);
+      console.log("Calculator.add(1, 2):", Calculator.add(1, 2));  // 建構函式直接呼叫方法
+      console.log("Calculator.className:", Calculator.className);
 
       const order = new Calculator([
         {
@@ -87,7 +87,7 @@
           price: 150,
         },
       ]);
-      console.log(order);
+      console.log("order:", order);
       order.addNoddles();
 
       // class 內的變數
@@ -95,12 +95,12 @@
       // order.withServiceFee();
       order.createOrder();
 
-      // console.log(order.#shopName);  // undefined
+      // console.log("order.shopName:", order.shopName);  // # 私有變數, 外層無法讀取, undefined
 
 
       // get, setter
       order.fee = 20;
-      console.log(order.fee); // 無 get 情況下顯示 undefined
+      console.log("order.fee:", order.fee); // 無 get 情況下顯示 undefined
 
 
       
