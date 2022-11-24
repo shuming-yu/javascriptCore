@@ -6,77 +6,110 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script>
-    
-    // 申論題
-    function samle_arrFun(){
-      function arrFunction() {
-        var arr = [];
-        for (var i = 0; i < 3; i++) {
-          // 1. 立即函式 限制作用域
-          (function(j) {
-            arr.push(function () {
-              console.log(j);
-            });
-          })(i)
-          
-          // 2. ES6寫法 -> let
-          // arr.push(function () {  
-          //     console.log(i);
-          // });
-        }
-        // console.log("arr:", arr); // 陣列結構
-        // console.log('i', i); // let -> var
-        return arr;
-      }
-      var fn = arrFunction();
-      fn[0]();
-      fn[1]();
-      fn[2]();
-    }
-
-
-    // 函式工廠
-    // 私有方法
-    function samle_sotreMoney(){
-      function storeMoney(initValue) {
-        var money = initValue || 1000;  // 設定預設值, 若無參數則自動給 1000
-        return {
-          increase: function(price) { // 增加
-            money += price;
-          },
-          decrease: function(price) { // 減少
-            money -= price;
-          },
-          value: function() { // 讀取值
-            return money;
-          }
-        }
-      }
-      console.log("storeMoney:", storeMoney);
-      var MingMoney = storeMoney(100);
-      
-      MingMoney.increase(50);
-      // MingMoney.increase(100);
-      MingMoney.decrease(25);
-      MingMoney.decrease(96);
-      console.log('MingMoney : ', MingMoney.value());
-  
-      var JayMoney = storeMoney(1000);
-      JayMoney.increase(1000);
-      JayMoney.decrease(250);
-      console.log('JayMoney : ', JayMoney.value());
-    }
-    
-  </script>
 </head>
 
 <body>
   <h1>閉包進階：工廠模式及私有方法</h1>
+  <h3>參考 : <a href="https://hsuchihting.github.io/javascript/20200812/3642687092/">JS 核心觀念筆記 - 閉包基本認識、工廠模式與私有方法</a></h3>
+
   <ul>
-    <li>工廠模式 - 依據傳入的變數來定義它的初始值</li>
-    <li>私有方法 - 透過物件形式來對初始值做不同的操作, 大幅增加函式可用性</li>
+    <li>工廠模式 :</li>
+      <ul>
+        <li>不會直接呼叫，而是讓函式賦予在另一個變數上。</li>
+        <li>使其可以不斷的反覆呼叫，在內層記憶體沒有被釋放的情況下，變數會不斷的被更新。</li>
+        <li>透過給予預設值與固定流程，帶入參數後會得到值的執行過程，類似工廠一樣。</li>
+      </ul>
+    <li>私有方法 :</li>
+      <ul>
+        <li>別於工廠模式只有單一種方法，私有方法是將結果傳入到另一個物件內，物件內的屬性都是一段函式。</li>
+        <li>在將要使用的方法寫入其內，並可在外部取用該方法得到想要的運算結果。</li>
+        <li>透過物件形式來對初始值做不同的操作，大幅增加函式可用性。</li>
+      </ul>
   </ul>
 </body>
 
 </html>
+
+<script>
+  
+  // 申論題
+  function samle_arrFun(){
+    function arrFunction() {
+      var arr = [];
+      for (var i = 0; i < 3; i++) {
+        // 1. 立即函式 限制作用域
+        (function(j) {
+          arr.push(function () {
+            console.log(j);
+          });
+        })(i)
+        
+        // 2. ES6寫法 -> let
+        // arr.push(function () {  
+        //     console.log(i);
+        // });
+      }
+      // console.log("arr:", arr); // 陣列結構
+      // console.log('i', i); // let -> var
+      return arr;
+    }
+    var fn = arrFunction();
+    fn[0]();
+    fn[1]();
+    fn[2]();
+  }
+
+
+  // 函式工廠 - 同樣是使用 storeMoney 但是使用不同的參數
+  function storeMoney() {
+    var money = 1000;
+    return function(price){
+      money += price;
+      console.log("money:", money);
+      return money;
+    }
+  }
+
+  function sample_factory(){
+      var aFactory = storeMoney();
+      aFactory(100);
+      aFactory(350);
+
+      var bFactory = storeMoney();
+      bFactory(123);
+      bFactory(5);
+    }
+
+
+  // 私有方法
+  function samle_sotreMoney(){
+    function storeMoney(initValue) {
+      var money = initValue || 1000;  // 設定預設值, 若無參數則自動給 1000
+      return {
+        increase: function(price) { // 增加
+          money += price;
+        },
+        decrease: function(price) { // 減少
+          money -= price;
+        },
+        value: function() { // 讀取值
+          return money;
+        }
+      }
+    }
+    console.log("storeMoney:", storeMoney);
+    var MingMoney = storeMoney(100);
+    
+    MingMoney.increase(50);
+    // MingMoney.increase(100);
+    MingMoney.decrease(25);
+    MingMoney.decrease(96);
+    console.log('MingMoney : ', MingMoney.value());
+
+    var JayMoney = storeMoney(1000);
+    JayMoney.increase(1000);
+    JayMoney.decrease(250);
+    console.log('JayMoney : ', JayMoney.value());
+  }
+  
+</script>

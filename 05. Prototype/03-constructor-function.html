@@ -36,6 +36,7 @@
     }
     
     // Bibi 透過 Dog 建構函式產生新物件
+    // 建立 Bibi 並且把指定的值代入給它自己的屬性
     var Bibi = new Dog('比比', '棕色', '小');
     console.log("Bibi:", Bibi);
     
@@ -57,7 +58,7 @@
     // __proto__ 物件上連結原型的屬性 ( 並非正式屬性 )
     // prototype 函式上
     // 補充 : 如果原型上新增方法時, 最好的方式從它的函式本身的原型屬性 ( prototype ) 做調整. 若從任意新增物件上去調整他的原型的話, 在維護上會有很大的問題.
-    console.log(Dog.prototype === Bibi.__proto__) // true
+    console.log("Dog.prototype === Bibi.__proto__:", Dog.prototype === Bibi.__proto__) // true
     
   </script>
 </head>
@@ -70,9 +71,10 @@
 
   <h3>new operator : <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new</a></h3>
   <ul>
-    <li>new 運算子會產生新的空白物件</li>
-    <li>並且連結原本建構物件 ( Dog 函式 )</li>
-    <li>把新產生物件的 this 綁定在函式上</li>
+    <li>1. 編寫建構子函數以完成物件類型的定義。 ( 名稱通常開頭為 "大寫" )</li>
+    <li>2. 定義物件類型，就指定物件類型的名稱、屬性、方法並建立函數。</li>
+    <li>3. 使用 new 建立物件的實體。</li>
+    <li>4. 注意 : this 是用來把傳送給函數的值代入給物件的屬性。</li>
   </ul>
 </body>
 
