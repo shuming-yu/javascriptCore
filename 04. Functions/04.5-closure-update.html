@@ -112,4 +112,37 @@
     console.log('JayMoney : ', JayMoney.value());
   }
   
+
+  // new operator 寫法
+  function sample_sotreMoney2(){
+    function storeMoney() {
+      console.log("this:", this);
+      this.total = 0;
+  
+      this.increase = function(price) { // 增加
+        this.total += price;
+      },
+      this.decrease = function(price) { // 減少
+        this.total -= price;
+      },
+      this.value = function() { // 讀取值
+        console.log(this.total);
+        return this.total;
+      }
+    }
+    console.log("storeMoney():", storeMoney());
+    
+    
+    // 藉由呼叫 new 來建立許多個 storeMoney 的物件
+    var o1 = new storeMoney();
+    var o2 = new storeMoney();
+    
+    o2.increase(10);
+    o2.value();
+    console.log("o2:", o2);
+  
+    o1.decrease(200);
+    console.log("o1:", o1);
+
+  }
 </script>
