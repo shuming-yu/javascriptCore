@@ -57,10 +57,14 @@
         }
       }
 
-      // extends 繼承結構
+      // extends 繼承結構, 用來建立擴展子類別
+      // Dog
       class Dog extends Animal {
-        constructor(name, color, size) {
+        constructor(name, color, size) {  // 一個 class 只能有一個稱為 constructor 的特殊物件
           super('狗科');  // super() 將資料傳到上層
+          // 用來提供一個類別呼叫其父類別的函數
+          // 注意 : 若在子類別中有建構子(constructor)，要使用 this 前則必須先呼叫 super()函式，不這樣的話會發生錯誤。
+
           this.name = name;
           this.color = color;
           this.size = size;
@@ -75,6 +79,27 @@
       console.log("Bibi:", Bibi);
       Bibi.bark();
       Bibi.move();
+
+
+      // Cat
+      class Cat extends Animal{
+        constructor(name, color, size){
+          super('貓科');
+
+          this.name = name;
+          this.color = color;
+          this.size = size;
+        }
+
+        moew(){
+          console.log(`${this.name} 喵喵叫`);
+        }
+      }
+
+      const Mimi = new Cat('小米', '白色', '小');
+      console.log("Mimi:", Mimi);
+      Mimi.moew();
+      Mimi.bark();
     </script>
   </body>
 </html>
