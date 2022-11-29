@@ -23,7 +23,7 @@
   }
   
   function sample_addNewMethodarr(){
-    // 新增一個方法在原型鍊上, 取得最後一數值
+    // 新增一個方法在原型鏈上, 取得最後一數值
     // __proto__ 並非正式寫法
     a.__proto__.getLast = function () {
       console.log("this:", this);   // array
@@ -64,9 +64,9 @@
   <div>
     <img src="./PrototypeProp1.png" alt="">
     <ul>
-      <li>繼承的部分, 可以一段一段向上繼承, 稱為 原型鍊</li>
+      <li>繼承的部分, 可以一段一段向上繼承, 稱為 原型鏈</li>
       <li>取用原本的實體裡面的屬性, 使用點運算值去取用它 ( ex. obj.Prop1 )</li>
-      <li>原型取用方式也是相同概念, 取用屬性內容時, 可透過原型鍊的方式向上查找, 直到原型鍊的頂端為止</li>
+      <li>原型取用方式也是相同概念, 取用屬性內容時, 可透過原型鏈的方式向上查找, 直到原型鏈的頂端為止</li>
     </ul>
   
     <img src="./PrototypeProp2.png" alt="">
