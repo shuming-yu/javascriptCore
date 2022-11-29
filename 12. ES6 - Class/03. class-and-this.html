@@ -64,16 +64,20 @@
 
         // 帶入 其餘參數
         limitFields(...fields) {
+          console.log("...fields:", ...fields);
+          
           this.items = this.items.map((item) => {
-            console.log(Object.keys(item)); // 取出欄位名稱 ['name', 'like', 'age']
+            console.log("Object.keys(item):", Object.keys(item)); // 取出欄位名稱 ['name', 'like', 'age']
 
             Object.keys(item).forEach((key) => {  // key = 單一的'name', 'like', 'age'
               if (!fields.includes(key)) {  // 外部傳入的 fields 做比對, 沒有的話將屬性清除
                 delete item[key];
               }
             });
+            
             return item;
           });
+
           return this;
         }
       }
@@ -87,7 +91,7 @@
         .sortItems('age') // 排序 age
         .limitFields('name', 'like');
 
-      console.log(newData);
+      console.log("newData:", newData);
     </script>
   </body>
 </html>

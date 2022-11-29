@@ -8,6 +8,9 @@
   </head>
   <body>
     <h1>使用 Class 擴充原始陣列方法</h1>
+    <h3>參考 : <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce">Array.prototype.reduce() : 排序</a></h3>
+    <h3>參考 : <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/sort">Array.prototype.sort() : 排序</a></h3>
+
 
     <script>
       const data = [
@@ -40,7 +43,7 @@
 
       class CustomArray extends Array {
         constructor(items) {
-          // super(items)  // 錯誤顯示, 需展開
+          // super(items)  // 錯誤顯示, 需展開 - [ [ {},{},{} ] ]
           super(...items)
         }
 
@@ -54,16 +57,14 @@
       }
 
       const newData = new CustomArray(data);
-      newData.forEach(item => console.log(item)); // newData 繼承 Array 所有方法的新結構
+      newData.forEach(item => console.log("item:", item)); // newData 繼承 Array 所有方法的新結構
 
 
-      newData.sumValues('age');
-      console.log(newData.sumValues('age'));
-
-      console.log(newData.sortBy('age', false));
+      console.log("newData.sumValues('age'):", newData.sumValues('age'));
+      console.log("newData.sortBy('age', false):", newData.sortBy('age', false));
 
 
-      console.log(newData);
+      console.log("newData:", newData);
       
 
     </script>
