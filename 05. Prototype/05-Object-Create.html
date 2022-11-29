@@ -12,7 +12,7 @@
     // Object(頂層) > Array > a(實體)
 
     function sample_prototypeChain(){
-      // 原型鍊上新增層級
+      // 原型鏈上新增層級
       function Dog(name, color, size) {
         // 屬性
         this.name = name;
@@ -49,7 +49,7 @@
     
 
 
-
+    
     // Animal
     function Animal(family) {
       this.kingdom = '動物界';
@@ -69,7 +69,7 @@
       this.size = size || '小';
     }
     Dog.prototype = Object.create(Animal.prototype);  // Dog 建構函式繼承於 Animal 原型, 注意 會覆蓋掉 Dog constructor
-    // 2. 手動補回 Dog 原本的建構函式(constructor) - 可註解查看
+    // 2. 手動補回連結 Dog 原本的建構函式(constructor) - 可註解查看
     Dog.prototype.constructor = Dog;  // F12檢查 Dog.Prototype(Animal).constructor -> 因使用 Object.create 覆蓋掉, 後需補回
 
     Dog.prototype.bark = function () {
@@ -111,6 +111,8 @@
 
 <body>
   <h1>使用 Object.create 建立多層繼承</h1>
+  <h3>參考 : <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Expressions_and_Operators#%E9%81%8B%E7%AE%97%E5%BC%8F">MDN : 運算式與運算子</a></h3>
+
 
   <h3>原型鏈 :</h3>
   <img src="./Object-Create.png" alt="" style="width: 800px;">
