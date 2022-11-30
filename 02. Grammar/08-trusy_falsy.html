@@ -7,22 +7,28 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <script>
-    console.log(new Number(0));
+    console.log(new Number(0)); // 物件的形式, 物件為 Truthy
+    console.log(new Boolean(false));
+    // 應避免使用包裹物件的方式來建立原始型別
+    
 
-    if (true) {
+    if (new Boolean(false)) {
       console.log('執行程式');
     } else {
       console.log('執行 Else');
     }
     // 真值 truthy
-    // 假值 falsy
 
+    // 假值 falsy
+    // false, 0, "", null, undefined, NaN
   </script>
 </head>
 
 <body>
   <h1>Truthy 與 Falsy</h1>
-  <h3>Truthy（真值） : <a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Truthy">https://developer.mozilla.org/zh-CN/docs/Glossary/Truthy</a></h3>
+  <h3>Truthy（真值） : <a href="https://developer.mozilla.org/en-US/docs/Glossary/Truthy">https://developer.mozilla.org/en-US/docs/Glossary/Truthy</a></h3>
+  <h3>Falsy（假值） : <a href="https://developer.mozilla.org/en-US/docs/Glossary/Falsy">https://developer.mozilla.org/en-US/docs/Glossary/Falsy</a></h3>
+
   <h3>JS Comparison Table : <a href="https://dorey.github.io/JavaScript-Equality-Table/">https://dorey.github.io/JavaScript-Equality-Table/</a></h3>
 </body>
 
