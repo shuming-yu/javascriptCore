@@ -14,6 +14,7 @@
 
     console.log("1 || 0:", 1 || 0);
     console.log("0 || 1:", 0 || 1);
+    console.log("3 || 5:", 3 || 5);
     console.log("undefined || 1:", undefined || 1);
     console.log("0 || undefined:", 0 || undefined);   // 都為 false, 回傳第二個值
 
@@ -25,13 +26,14 @@
     // 1.
     var originCash1 = 500;
     function updateEasyCash1(cash1){
-      console.log("cash1:", cash1);
-      cash1 = cash1 || 50;
+      console.log("cash1:", cash1); // 未傳入值情況下為 undefined
+      // cash1 = cash1 || 50;
 
       var money = cash1 + originCash1;
       console.log('我有' + money + '元');
     }
-    updateEasyCash1();  // 0為假值, 無法輸入0帶入
+    updateEasyCash1();  // 0為假值, 無法輸入0帶入 ( || 0 帶入判斷為 false, 會帶入 50 )
+
 
 
     // 2. 預設值為 0 的解決方法, 使用三元運算子
@@ -56,9 +58,8 @@
   <h3>邏輯運算子 : <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Expressions_and_Operators#%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E5%AD%90">https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Expressions_and_Operators#%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E5%AD%90</a></h3>
 
   <ul>
-    <li>邏輯 AND (&&) - 只有在兩個運算元都是 True 時才會回傳 True，否則回傳 false</li>
-    <li>邏輯 OR (||) - 在兩個運算元有任一個是 True 時就會回傳 True，否則回傳 false</li>
-  </ul>
+    <li>邏輯 AND (&&) - 只有在兩個運算元都是 True 時才會回傳 True，否則回傳 false ( 若判斷第一個值為 true, 則會直接回傳第二個值 )</li>
+    <li>邏輯 OR (||) - 在兩個運算元有任一個是 True 時就會回傳 True，否則回傳 false ( 若判斷第一個值為 true 時會直接回傳, 否則會回傳第二個值 )</li>  </ul>
 </body>
 
 </html>
