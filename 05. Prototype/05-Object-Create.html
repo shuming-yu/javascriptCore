@@ -50,16 +50,17 @@
 
 
     
-    // Animal
+    // Animal - 父類別
     function Animal(family) {
       this.kingdom = '動物界';
       this.family = family || '人科';
     }
+    // 父類別的方法
     Animal.prototype.move = function() {
       console.log(this.name + ' 移動');
     }
 
-    // Dog
+    // Dog - 子類別
     function Dog(name, color, size) {
       console.log("this:", this);
       // 透過 call 將 Animal 的建構函式帶入
@@ -68,6 +69,7 @@
       this.color = color || '白色';
       this.size = size || '小';
     }
+    // 子類別擴展(extends)父類別
     Dog.prototype = Object.create(Animal.prototype);  // Dog 建構函式繼承於 Animal 原型, 注意 會覆蓋掉 Dog constructor
     // 2. 手動補回連結 Dog 原本的建構函式(constructor) - 可註解查看
     Dog.prototype.constructor = Dog;  // F12檢查 Dog.Prototype(Animal).constructor -> 因使用 Object.create 覆蓋掉, 後需補回
@@ -86,7 +88,7 @@
     console.log("newAnimal:", newAnimal);
     
 
-    // Cat
+    // Cat - 子類別
     function Cat(name, color, size) {
       Animal.call(this, '貓科');
       this.name = name;
@@ -112,6 +114,7 @@
 <body>
   <h1>使用 Object.create 建立多層繼承</h1>
   <h3>參考 : <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Expressions_and_Operators#%E9%81%8B%E7%AE%97%E5%BC%8F">MDN : 運算式與運算子</a></h3>
+  <h3>參考 : <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Object/create">MDN : Object.create()</a></h3>
 
 
   <h3>原型鏈 :</h3>
