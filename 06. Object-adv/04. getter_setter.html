@@ -6,54 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script>
-    
-  var wallet = {
-    total: 100,
-    // set save(price) {
-    //   this.total = this.total + price / 2;
-    // },
-    // get save() {
-    //   return this.total / 2;
-    // }
-  }
-  // console.log(wallet.save, wallet)
-  // Getter 取得特定值的方法, 不會傳入參數
-  // Setter 存值的方法
-  // wallet.save = 300;  // 使用 = 附值方式直接改變純值方式
-  // console.log(wallet.save);
-
-  
-
-  // Object.defineProperty(wallet, 'save', {
-  //   configurable: true,
-  //   enumerable: true,
-  //   set: function(price) {
-  //     this.total = this.total + price / 2;
-  //   },
-  //   get: function() {
-  //     return this.total / 2;
-  //   }
-  // });
-  // wallet.save = 300;
-
-  // console.log(wallet)
-  // console.log(Object.getOwnPropertyDescriptor(wallet, 'save'))
-
-
-  // get 方式取最後一數值
-  var a = [1, 2,  3];
-  Object.defineProperty(Array.prototype, 'latest', {
-    get: function() {
-      return this[this.length - 1];
-    }
-  })
-
-  console.log(a.latest);
-
-
-
-  </script>
 </head>
 
 <body>
@@ -64,3 +16,66 @@
 </body>
 
 </html>
+
+<script>
+  
+  // 1.
+  function sample_wallet(){
+    var wallet = {
+      total: 100,
+
+      set save(price) {
+        this.total = this.total + price / 2;
+      },
+      get save() {
+        return this.total / 2;
+      }
+    }
+    // Getter 取得特定值的方法, 不會傳入參數
+    // Setter 存值的方法
+    
+    // 等號右邊的執會透過參數的方式傳進來
+    wallet.save = 300;  // 使用 = 附值方式直接改變純值方式
+    console.log("wallet:", wallet)
+    console.log("wallet.save:", wallet.save);
+  }
+
+  // 2.
+  function sample_objWallet(){
+    var wallet = {
+      total: 100,
+    }
+    Object.defineProperty(wallet, 'save', {
+      // 維持原本屬性特徵, 手動設定為 true
+      // configurable: true,
+      // enumerable: true,
+      set: function(price) {
+        this.total = this.total + price / 2;
+      },
+      get: function() {
+        return this.total / 2;
+      }
+    });
+    wallet.save = 300;
+
+    console.log("wallet:", wallet)
+    console.log("Object.getOwnPropertyDescriptor(wallet, 'save'):",
+                  Object.getOwnPropertyDescriptor(wallet, 'save'))
+  }
+
+
+  // 3. get 方式取最後一數值
+  var a = [1, 2, 3];
+  Object.defineProperty(Array.prototype, 'latest', {
+    get: function() {
+      return this[this.length - 1];
+    }
+  })
+  console.log("a.latest:", a.latest);
+
+  // Array.prototype.latest = function(){
+  //   return this[this.length - 1];
+  // }
+  // console.log("a.latest:", a.latest());
+
+</script>

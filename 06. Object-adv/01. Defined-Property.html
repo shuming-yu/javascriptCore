@@ -6,44 +6,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script>
-    
+</head>
+
+<body>
+  <h1>物件屬性延伸章節：屬性的特徵</h1>
+
+  <h2><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty#%E8%AA%9E%E6%B3%95">Object.defineProperty</a>(物件, 屬性, 參數)</h2>
+  <!-- Object.defineProperty - 針對物件內的屬性做操作 -->
+
+  <h3>屬性，調整屬性的特徵 :</h3>
+  <ul>
+    <li>1. value : 值</li>
+    <li>2. writable : 可否寫入</li>
+    <li>-> 禁止寫入限制於 'x' 屬性, 但可對裡面值做額外設定 ( 淺層保護 )</li>
+    <li>-> 'use strict' 設定 嚴謹模式 ( 跳出錯誤 )</li>
+    <li>3. configurable : 可否被刪除</li>
+    <li>4. enumerable : 可否被列舉</li>
+  </ul>
+</body>
+
+</html>
+
+<script>
+
   var person = {
     a: 1,
     b: 2,
     c: 3
   }
+  console.log('person 的屬性特徵', Object.getOwnPropertyDescriptor(window, 'person'));
+  console.log('person a 的屬性特徵', Object.getOwnPropertyDescriptor(person, 'a'));
 
-  console.log(person);
+  function sample_checkDefault(){
+    Object.defineProperty(person, 'check', {
+      // default
+      // value: undefined,  // 1. 值
+      // writable: false, // 2. 可否寫入
+      // configurable: false, // 3. 可否被刪除
+      // enumerable: false  // 4. 可否被列舉
+    })
+    console.log('person check 的屬性特徵', Object.getOwnPropertyDescriptor(person, 'check'));
+  }
+
 
   // Object.defineProperty(物件, 屬性, 參數)
   // 屬性，調整屬性的特徵
-  // 1. 值、 2. 可否寫入、3. 可否被刪除、4. 可否被列舉
   Object.defineProperty(person, 'a', {
-    value: 4,
-    writable: false,
-    configurable: true,
-    enumerable: true
+    value: 15,
+
+    // 1. Object.defineProperty 可修改 value a:14
+    writable: true,
+    configurable: false,
+    
+    // 2. Object.defineProperty 會報錯
+    // writable: false,
+    // configurable: false,
+
+    // 3. Object.defineProperty 可修改 value a:14
+    // writable: false,
+    // configurable: true,
   });
 
-  person.a = 5; // writable 設定 false, 值不會改變 (靜默錯誤)
+  Object.defineProperty(person, 'a', {
+    value: 1000,
+  });
 
-  console.log(person);
+  // 1.
+  person.a = 5; // writable 設定 false, 值不會改變 ( 靜默錯誤 )
+  console.log('person a 的屬性特徵', Object.getOwnPropertyDescriptor(person, 'a'));
+  console.log("person_writable:", person);
 
+
+  // 2.
   // (function() {
   //   'use strict'; // 嚴謹模式 (跳出錯誤)
   //   person.a = 5;
   // }());
 
+
+  // 3.
   Object.defineProperty(person, 'b', {
     configurable: false // 限制不可刪除
   });
 
   // delete person.a;
   delete person.b;
+  console.log("person_configurable:", person);
 
-  console.log(person);
-
+  
+  // 4.
   Object.defineProperty(person, 'c', {
     enumerable: false // 限制不可列舉
   });
@@ -51,44 +102,16 @@
   for (var key in person) {
     console.log('列舉',  key)
   }
-  
-  // 淺層保護
+
+  // 5.新增屬性, 但只能做到 淺層保護
   Object.defineProperty(person, 'd', {
     value: {},
-    writable: false // 禁止寫入限制於 'd' 屬性
+    // writable: false // 禁止寫入限制於 'd' 屬性
   });
 
-  person.d.a = 6  // 但可對裡面值做額外設定
-  console.log(person);
+  // 巢狀屬性調整
+  person.d = { test: 'test' };
+  person.d.d1 = 666;  // 但可對裡面值做額外設定
+  console.log("person_writable:", person);
 
-  // Object.defineProperties(person, {
-  //   a: {
-
-  //   },
-  //   b: {
-      
-  //   }
-  // })
-
-
-
-
-  // console.log(person);
-
-  </script>
-</head>
-
-<body>
-  <h1>物件屬性延伸章節：屬性的特徵</h1>
-
-  <h2>Object.defineProperty(物件, 屬性, 參數)</h2>
-  <h3>屬性，調整屬性的特徵 :</h3>
-  <ul>
-    <li>1. value : 值</li>
-    <li>2. writable : 可否寫入 -> 'use strict' 設定 嚴謹模式 ( 跳出錯誤 )</li>
-    <li>3. configurable : 可否被刪除</li>
-    <li>4. enumerable : 可否被列舉 -> 禁止寫入限制於 'x' 屬性, 但可對裡面值做額外設定 ( 淺層保護 )</li>
-  </ul>
-</body>
-
-</html>
+</script>

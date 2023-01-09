@@ -6,38 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script>
-    
-  function Person() { };
-  Person.prototype.name = '人類';
-  // Object.defineProperty(Person.prototype, 'name', {
-  //   enumerable: false
-  // })
-
-  var casper = new Person();
-  casper.a = undefined;
-
-  console.log(casper);
-
-  // console.log(casper.hasOwnProperty('a'));
-  // console.log(casper.hasOwnProperty('b'));
-  // console.log(casper.hasOwnProperty('name')); // hasOwnProperty 查看當前屬性
-
-  for (const key in casper) {
-    console.log(key);
-    if (casper.hasOwnProperty(key)) { 
-      
-    }
-  }
-
-  console.log(Object.getOwnPropertyDescriptor(casper.__proto__, 'name'))
-  console.log(Object.getOwnPropertyDescriptor(
-    casper.__proto__.__proto__,
-    'toString')
-  )
-
-
-  </script>
 </head>
 
 <body>
@@ -47,3 +15,55 @@
 </body>
 
 </html>
+
+<script>
+  
+  function Dog(name, color, size) {
+    this.name = name;
+    this.color = color || '白色';
+    this.size = size || '小';
+  }
+  Dog.prototype.aaa = 'aaa';
+  Dog.prototype.bark = function () {
+    console.log(this.name + ' 吠叫');
+  }
+  // console.log("Dog.prototype:", Dog.prototype);
+
+  // 2.
+  // Object.defineProperty(Dog.prototype, 'bark', {
+  //   enumerable: false
+  // })
+
+  var Bibi = new Dog('比比', '棕色', '小');
+  console.log('Bibi:', Bibi);
+  console.log('Bibi size 的屬性特徵', Object.getOwnPropertyDescriptor(Bibi, 'size'));
+
+  console.log('Dog.prototype bark 的屬性特徵', Object.getOwnPropertyDescriptor(Dog.prototype, 'bark'));
+
+  // 1.
+  for (const key in Bibi) {
+    console.log("key:", key);
+  }
+  // for (const key in object) {
+  //   if (Object.hasOwnProperty.call(object, key)) {
+  //     const element = object[key];
+      
+  //   }
+  // }
+  
+  // 3. Object.keys()
+  console.log(Object.keys(Bibi));
+
+
+
+  console.log("Bibi.hasOwnProperty('color'):", Bibi.hasOwnProperty('color'));
+  // 雖然原型鍊的概念會不斷向上查找, hasOwnProperty 查看當前屬性
+  console.log("Bibi.hasOwnProperty('bark'):", Bibi.hasOwnProperty('bark'));
+
+  // console.log(Bibi.__proto__.__proto__);
+  // console.log(Object.getOwnPropertyDescriptor(
+  //   Bibi.__proto__.__proto__,
+  //   'toString')
+  // )
+
+</script>

@@ -6,79 +6,134 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script>
-    
-    var person = {
+</head>
+
+<body>
+  <h1>物件屬性不可寫入？物件擴充的修改與調整</h1>
+  <h2><a href="https://blog.boggy.tw/2021/10/27/freeze-seal-preventextensions/">參考 : JavaScript的 - freeze,seal,preventextensions/</a></h2>
+
+  <h2>延伸的三個物件方法 preventExtensions、seal、freeze</h2>
+  <h2>中文語意分別表示 防止擴充、封裝、凍結</h2>
+  <!-- 三個 Object 方法 - 針對物件本身做操作 -->
+
+  <h3>1. <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Object/preventExtensions">preventExtensions</a> : 防止擴充</h3>
+  <h3>2. <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/seal">seal</a> :</h3>
+  <!-- 會將 configurable 改為 false ( 若修改 configurable 則報錯 ) -->
+  <ul>
+    <li>物件屬性無法新增刪除，也無法重新配置特徵，但是可以調整目前屬性值</li>
+    <li>物件會被加上 preventExtensions</li>
+  </ul>
+  <h3>3. <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze">freeze</a> : 物件會加上 seal，並且無法調整值</h3>
+  <!-- 會將 writable, configurable 改為 false -->
+  <ul>
+    <li>物件屬性無法新增刪除，也無法重新配置特徵</li>
+    <li>物件會被加上 preventExtensions、seal</li>
+  </ul>
+
+  <h3>補充 : Object.getOwnPropertyDescriptor 方法, 查看物件內屬性特徵</h3>
+</body>
+
+</html>
+
+<script>
+
+  var person = {
       a: 1,
       b: 2,
       c: {}
     }
+  Object.defineProperty(person, 'x', {
+    // writable: true,
+    // configurable: true,
+    // enumerable: true
+  })
 
-    // 延伸的三個物件方法 preventExtensions、seal、Freeze
-    // 中文語意分別表示 防止擴充、封裝、凍結
+  // 延伸的三個物件方法 preventExtensions、seal、Freeze
+  // 中文語意分別表示 防止擴充、封裝、凍結
 
-    // // 1. preventExtensions
-    // // 防止擴充
-    // Object.preventExtensions(person);
-    // console.log('是否可被擴充', Object.isExtensible(person));  // isExtensible 驗證
-    // console.log('person a 的屬性特徵', Object.getOwnPropertyDescriptor(person, 'a'));  // getOwnPropertyDescriptor 方法, 查看物件內屬性特徵
+  // 1. preventExtensions
+  // 防止擴充
+  function sample_preventExtensions(){
+    Object.preventExtensions(person); // 直接針對物件來做限制
+    console.log('是否可被擴充', Object.isExtensible(person));  // isExtensible 驗證
+    console.log('person a 的屬性特徵', Object.getOwnPropertyDescriptor(person, 'a'));  // getOwnPropertyDescriptor 方法, 查看物件內屬性特徵
+    
+    // 調整屬性
+    person.a = 'a';
+    person.c.name = 'name';
 
-    // // 調整屬性
-    // person.a = 'a';
+    // 新增屬性
+    person.d = 'd';
 
-    // // 新增屬性
-    // person.d = 'd';
+    // 巢狀屬性調整
+    person.c.a = 'ca';
 
-    // // 巢狀屬性調整
-    // person.c.a = 'ca';
+    // 調整特徵
+    Object.defineProperty(person, 'a', {
+      configurable: false
+    });
 
-    // // 調整特徵
-    // Object.defineProperty(person, 'a', {
-    //   configurable: false
-    // });
-
-    // // 刪除
-    // delete person.b;
-
-    // // 結果
-    // console.log('person 物件', person);
-    // console.log('person a 屬性特徵(嘗試修改後)', Object.getOwnPropertyDescriptor(person, 'a'));
-
-
-
-    // // 2. seal
-    // // 物件屬性無法新增刪除，也無法重新配置特徵，但是可以調整目前屬性值
-    // // 物件會被加上 preventExtensions
-    // Object.seal(person);
-    // console.log('是否可被 封裝', Object.isSealed(person));
-    // console.log('person a 的屬性特徵', Object.getOwnPropertyDescriptor(person, 'a'));
-
-    // // 調整屬性
-    // person.a = 'a';
-
-    // // 新增屬性
-    // person.d = 'd';
-
-    // // 巢狀屬性調整
-    // person.c.a = 'ca';
-
-    // // 調整特徵
-    // Object.defineProperty(person, 'a', {
-    //   writable: false
-    // });
-
-    // // 刪除
-    // delete person.b;
-
-    // // 結果
-    // console.log('person 物件', person);
-    // console.log('person a 屬性特徵(嘗試修改後)', Object.getOwnPropertyDescriptor(person, 'a'));
+    // 刪除
+    // delete person.a;
+    delete person.b;
+    
+    // 結果
+    console.log('person 物件', person);
+    console.log('person a 屬性特徵(嘗試修改後)', Object.getOwnPropertyDescriptor(person, 'a'));
+  }
 
 
 
-    // 3. freeze
-    // 物件會加上 seal，並且無法調整值
+  // 2. seal
+  // 物件屬性無法新增刪除，也無法重新配置特徵，但是可以調整目前屬性值
+  // 物件會被加上 preventExtensions
+  function sample_seal(){
+    Object.seal(person);
+    console.log('是否可被擴充', Object.isExtensible(person)); // false ( 物件會被加上 preventExtensions )
+    console.log('是否可被 封裝', Object.isSealed(person));
+    console.log('1 person a 的屬性特徵', Object.getOwnPropertyDescriptor(person, 'a'));
+    console.log('2 person x 的屬性特徵', Object.getOwnPropertyDescriptor(person, 'x'));
+
+    // 調整屬性
+    person.a = 'a';
+
+    // 新增屬性
+    person.d = 'd';
+
+    // 巢狀屬性調整
+    person.c.a = 'ca';
+    
+    // 調整特徵
+    // 注意 : 當前屬性特徵 writable,enumerable 若原本為true, 就可以改變
+    Object.defineProperty(person, 'a', {
+      // writable: false, // 可修改
+      // configurable: true
+    });
+    Object.defineProperty(person, 'x', {
+      // 不可修改
+      // x : writable 為 true 情況下, defineProperty 可調整為 false ( 其他接報錯 )
+      // writable: true,
+      // configurable: true,
+      // enumerable: true
+    });
+
+    // 刪除
+    delete person.b;
+
+    // 結果
+    console.log('person 物件', person);
+    console.log('person a 屬性特徵(嘗試修改後)', Object.getOwnPropertyDescriptor(person, 'a'));
+    console.log('person x 屬性特徵(嘗試修改後)', Object.getOwnPropertyDescriptor(person, 'x'));
+  }
+
+
+
+  // 3. freeze
+  // 物件會加上 seal，並且無法調整值
+  function sample_freeze(){
     Object.freeze(person);
+    console.log('是否可被擴充', Object.isExtensible(person)); // false ( 物件會被加上 preventExtensions )
+    console.log('是否可被 封裝', Object.isSealed(person));
     console.log('是否被凍結', Object.isFrozen(person));
     console.log('person a 的屬性特徵', Object.getOwnPropertyDescriptor(person, 'a'));
 
@@ -93,7 +148,9 @@
 
     // 調整特徵
     Object.defineProperty(person, 'a', {
-      // configurable: true  // 無法定義屬性特徵
+      // writable: true,
+      // configurable: true  // 無法定義屬性特徵 ( 跳出錯誤 )
+      // enumerable: false
     });
 
     // 刪除
@@ -102,25 +159,6 @@
     // 結果
     console.log('person 物件', person);
     console.log('person a 屬性特徵(嘗試修改後)', Object.getOwnPropertyDescriptor(person, 'a'));
+  }
 
-  </script>
-</head>
-
-<body>
-  <h1>物件屬性不可寫入？物件擴充的修改與調整</h1>
-
-  <h2>延伸的三個物件方法 preventExtensions、seal、Freeze</h2>
-  <h2>中文語意分別表示 防止擴充、封裝、凍結</h2>
-
-  <h3>1. preventExtensions : 防止擴充</h3>
-  <h3>2. seal :</h3>
-  <ul>
-    <li>物件屬性無法新增刪除，也無法重新配置特徵，但是可以調整目前屬性值</li>
-    <li>物件會被加上 preventExtensions</li>
-  </ul>
-  <h3>3. Freeze : 物件會加上 seal，並且無法調整值</h3>
-  
-  <h3>補充 : Object.getOwnPropertyDescriptor 方法, 查看物件內屬性特徵</h3>
-</body>
-
-</html>
+</script>
