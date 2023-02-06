@@ -19,64 +19,79 @@
   </ul>
 
   <script>
-    // 常見錯誤
 
-    // 1.
-    // 無法直接回傳物件 ()=> {data: 1};
-    // const arrFn = ()=> ({data: 1});
-    // console.log(arrFn())
-
-
-    // 2.
-    // 搭配判斷式時, 後面不能直接接箭頭函式 (結構錯誤)
-    // let num = 0;
-
-    // const numFn1 = num || function () { return 1 };
-    // const numFn2 = num || (() => 1);
-    // console.log(numFn1(), numFn2());
+    // 1.無法直接回傳物件 ()=> {data: 1};
+    function sample_NumObj(){
+      const arrNum = () => 123;
+      console.log("arrNum():", arrNum())
+  
+      // const arrFn = () => { 
+      //   return {data : 1};
+      // };  
+      const arrFn = () => {data: 1}; // ({data: 1})
+      console.log("arrFn():", arrFn())
+    }
 
 
-    // 3.
-    // 物件內使用方法, 請使用 傳統函式
-    // const person = {
-    //   myName: '小明',
-    //   callName1: () => {
-    //     console.log(this.myName);
-    //   },
-    //   callName2: function () {
-    //     console.log(this.myName);
-    //   },
-    // }
-    // person.callName1(); // undefined
-    // person.callName2(); // 小明
+    // 2.搭配判斷式時, 後面不能直接接箭頭函式 (結構錯誤)
+    function sample_Operators(){
+      let num = 0;
+      const numFn1 = num || function () { return 1 };
+      const numFn2 = num || (() => { return 1 });
+      const numFn3 = num || (() => 1);  // (() => 1)
+      
+      console.log("numFn1():", numFn1());
+      console.log("numFn2():", numFn2());
+      console.log("numFn3():", numFn3());
+    }
+
+
+    // 3.物件內使用方法, 請使用 傳統函式
+    function sample_Obj(){
+      const person = {
+        myName: '小明',
+        callName1: () => {
+          console.log(this.myName);
+        },
+        callName2: function () {
+          console.log(this.myName);
+        },
+      }
+      person.callName1(); // undefined
+      person.callName2(); // 小明
+    }
 
 
 
-    // 4.
-    // const app = new Vue({
-    //   data: {
-    //     num: 1
-    //   },
-    //   created: function() {
-    //     console.log(this.num) //1
-    //   }
-    //   // created: ()=> {
-    //   //   console.log(this.num)  // undefined
-    //   // }
-    // })
+    // 4.Vue
+    function sample_Vue(){
+      const app = new Vue({
+        data: {
+          num: 1
+        },
+        created: function() {
+          console.log(this.num) //1
+        }
+        // created: ()=> {
+        //   console.log(this.num)  // undefined
+        // }
+      })
+    }
 
 
     // 5.
-    const Fn2 = function (a) {
-      this.name = a;
+    function sample_Proto(){
+      const Fn2 = function (a) {
+        this.name = a;
+      }
+      Fn2.prototype.protoFn = () => {
+        // return this.name; // 空值
+        return this;  // 指向全域
+      }
+  
+      const newObj = new Fn2('函式');
+      console.log(newObj.protoFn());
     }
-    Fn2.prototype.protoFn = () => {
-      // return this.name; // 空值
-      return this;  // 指向全域
-    }
-
-    const newObj = new Fn2('函式');
-    console.log(newObj.protoFn());
     
   </script>
 </body>

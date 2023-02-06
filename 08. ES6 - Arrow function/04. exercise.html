@@ -22,58 +22,70 @@
 
     // 陣列內所有值都需要調整時, 可使用 map
     // 1. 陣列雙倍
-    // const arr = [15, 12, 63, 67, 1421, 124, 567, 235, 12, 45];
-    // // const arrDouble = arr.map(function(num) {
-    // //   return num * 2;
-    // // })
-    // const arrDouble = arr.map(num => num * 2);
-    // console.log(arrDouble);
+    function sample_arrDouble(){
+      const arr = [15, 12, 63, 67, 1421, 124, 567, 235, 12, 45];
+      // 1. 傳統函式
+      // const arrDouble = arr.map(function(num) {
+      //   return num * 2;
+      // })
+
+      // 2. 箭頭函式
+      const arrDouble = arr.map(num => num * 2);
+      console.log("arrDouble:", arrDouble);
+    }
 
 
     // 2. 平均數
-    // // const average = function () {
-    // //   const nums = Array.from(arguments);
-    // //   const total = nums.reduce(function (acc, val) {
-    // //     return acc + val
-    // //   }, 0);
-    // //   console.log(total);
+    function sample_ave(){
+      // 1. 傳統函式
+      const average = function () {
+        const nums = Array.from(arguments);
+        const total = nums.reduce(function (acc, val) {
+          return acc + val
+        }, 0);
+        console.log(total);
+  
+        return total / nums.length;
+      }
 
-    // //   return total / nums.length;
-    // // }
-    // const average = (...num) => num.reduce((acc, val) => acc + val, 0) / num.length;
-    // console.log(average(1, 2, 3, 4, 5, 10));
+      // 2. 箭頭函式
+      // const average = (...num) => num.reduce((acc, val) => acc + val, 0) / num.length;
 
-    // 方法參考：https://30secondsofknowledge.com/
+      console.log(average(1, 2, 3, 4, 5, 10));
+    }
 
 
-    // 3.
-    // 物件內 this
-    // const person = {
-    //   data: {
-    //   },
-    //   getData: function() {
-    //     // const vm = this;
-    //     $.ajax({
-    //       url: 'https://randomuser.me/api/',
-    //       dataType: 'json',
+    // 3.物件內 this
+    function sample_this(){
+      const person = {
+        keepData: {},
 
-    //       // 傳統函式
-    //       // success: function(data) {
-    //       //   console.log(data);
-    //       //   vm.data = data.results[0];
-    //       //   console.log('person.data', person.data);
-    //       // }
-
-    //       // 箭頭函式
-    //       success: (data) => {
-    //         console.log(data);
-    //         this.data = data.results[0];
-    //         console.log('person.data', person.data);
-    //       }
-    //     });
-    //   }
-    // }
-    // person.getData();
+        getData: function() {
+          const vm = this;
+          $.ajax({
+            url: 'https://randomuser.me/api/',
+            dataType: 'json',
+  
+            // 1. 傳統函式
+            success: function(data) {
+              console.log("this", this);
+              console.log("data:", data);
+              vm.keepData = data.results[0];
+              console.log('person.keepData', person.keepData);
+            }
+  
+            // 2. 箭頭函式
+            // success: (data) => {
+            //   console.log("this", this);
+            //   console.log("data:", data);
+            //   this.keepData = data.results[0];
+            //   console.log('person.keepData', person.keepData);
+            // }
+          });
+        }
+      }
+      person.getData();
+    }
 
 
 
