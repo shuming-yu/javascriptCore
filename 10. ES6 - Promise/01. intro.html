@@ -21,9 +21,9 @@
   <br>
   <h3>常見的非同步問題（不限於 Ajax）</h3>
   <ul>
-    <li>回呼地獄</li>
-    <li>寫法不一致</li>
-    <li>無法同時執行（jQuery 有並行寫法，但不直覺）</li>
+    <li>回呼地獄 ( 非同步行為結束後插入另外一個非同步, 巢狀越來越嚴重 )</li>
+    <li>寫法不一致 ( .done & success )</li>
+    <li>無法同時執行（jQuery 有並行寫法，但不直覺）, ( 非同步行為執行時, 無法確保在什麼時間點開始&結束 )</li>
   </ul>
 
   <img src="./Promise.PNG" alt="" style="width: 600px;">
@@ -35,55 +35,65 @@
 
     let data = {};
 
-    // // 1. Promise 狀況
-    // $.ajax({
-    //   url: url,
-    // }).done(function (res) {
-    //   data = res.results;
-    //   console.log(res);
-    // });
-    // console.log(data);
+    // 1. 非同步行為, 等所有程式碼執行完後才執行
+    function sample_ajax(){
+      $.ajax({
+        url: url,
+      }).done(function (res) {
+        data = res.results;
+        console.log("res:", res);
+      });
+
+      console.log("data:", data);
+    }
 
 
-    // // 2. 
-    // $.ajax({
-    //   url: url,
-    // }).done(function (res) {
-    //   // console.log(res);
-    //   const seed = res.info.seed; // 取出 seed
-    //   console.log(seed, res);
-
-    //   // 參考 : https://randomuser.me/documentation#seeds
-    //   $.ajax({
-    //         // 變數    帶入 const seed 值
-    //     url: `${url}?seed=${seed}`,
-    //   }).done(function(res2) {
-    //     console.log(res2);
-    //   })
-    // });
+    // 2. 參考 : https://randomuser.me/documentation#seeds
+    function sample_ajax2(){
+      $.ajax({
+        url: url,
+      }).done(function (res) {
+        const seed = res.info.seed; // 取出 seed 值
+        console.log("res:", res);
+        console.log("seed:", seed);
+  
+        $.ajax({
+              // 變數    帶入 const seed 值
+          url: `${url}?seed=${seed}`,
+        }).done(function(res2) {
+          console.log("res2:", res2);
+        })
+  
+      });
+    }
 
 
     // 常見的非同步問題（不限於 Ajax）
-    // 1. 回呼地獄
-    // 2. 寫法不一致
-    // 3. 無法同時執行（jQuery 有並行寫法，但不直覺）
+    // 1. 回呼地獄, 非同步行為結束後插入另外一個非同步, 巢狀越來越嚴重
+    // 2. 寫法不一致, .done & success
+    // 3. 無法同時執行（jQuery 有並行寫法，但不直覺）, 非同步行為執行時, 無法確保在什麼時間點開始&結束
     
-    // // 3. 
-    // axios.get(url)
-    //   .then((res) => {
-    //     console.log(1, res)
-    //     const seed = res.data.info.seed;
-    //     return axios.get(`${url}?seed=${seed}`) // return 行為會由下一個 .then 接收
-    //   })
-    //   .then((res) => {
-    //     console.log(2, res)
-    //   });
+    // 3. 
+    function sample_axios(){
+      axios.get(url)
+        .then((res) => {  // (1) 所有 Promise 都是使用 then 串接 (解決寫法不一致)
+          console.log(1, "res:", res)
+          const seed = res.data.info.seed;
+          return axios.get(`${url}?seed=${seed}`) // (2) return 行為會由下一個 then 接收 (解決回呼地獄)
+        })
+        .then((res) => {
+          console.log(2, "res:", res)
+        });
+    }
 
-    // 發出多個請求
-    Promise.all([axios.get(url), axios.get(url)])
-      .then(([res1, res2]) => {
-        console.log('res1:', res1, 'res2', res2)
-      })
+    // 4. (3) 同時發出多個請求 (解決無法同時執行)
+    function sample_promise(){
+      Promise.all( [ axios.get(url), axios.get(url) ] )
+        .then( ( [res1, res2] ) => {
+          console.log('res1:', res1);
+          console.log('res2:', res2);
+        })
+    }
 
 
 
