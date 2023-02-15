@@ -17,6 +17,7 @@
 
     function promiseFn(num) {
       return new Promise((resolve, reject) => {
+
         setTimeout(() => {
           if (num) {
             resolve(`成功 ${num}`);
@@ -27,43 +28,61 @@
       })
     }
 
-    // // 1. Promise Chain
-    // promiseFn(1)
-    //   .then(res => {
-    //     console.log(res);
-    //     return promiseFn(0); // 失敗直接轉到 .catch 繼續執行 return
-    //   })
-    //   .then(res => {
-    //     console.log(res)
-    //     return promiseFn(3); // 透過 return 進行串接
-    //   })
-    //   .then(res => {
-    //     console.log(res)
-    //   })
-    //   .catch(res => {
-    //     console.log('catch', res);
-    //     return promiseFn(4);
-    //   })
-    //   .then(res => {
-    //     console.log(res)
-    //   })
+    // 1. Promise Chain
+    function sample_promiseChain(){
+      promiseFn(1)
+        // 1.
+        // .then(res => {
+        //     console.log("res:", res);
+        //     return promiseFn(2); // 透過 return 進行串接
+        //   })
+        // .then(res => {
+        //   console.log("res:", res);
+        //   return promiseFn(3);
+        // })
+        // .then(res => {
+        //   console.log("res:", res);
+        // })
 
 
-    // 2. 同時接收成功 & 失敗 結果
-    promiseFn(1)
-      .then((res)=> { // 成功執行 return promiseFn(3)
-        console.log('success', res)
-        return promiseFn(3)
-      }, (rej)=> {  // 失敗執行 return promiseFn(4)
-        console.log('fail', rej)
-        return promiseFn(4)
-      })
+        // 2.
+        .then(res => {
+          console.log("res:", res);
+          return promiseFn(0); // 失敗直接轉到 .catch 繼續執行 return
+        })
+        .then(res => {
+          console.log("res:", res);
+          return promiseFn(2);
+        })
+        .catch(rej => {
+          console.log('catch -', rej);
+          return promiseFn(4);  // 新的Promise行為會屬於另一個鏈
+        })
+        .then(res => {
+          console.log("res:", res);
+        })
+    }
 
-      .then((res) => {
-        console.log('success', res)
-      }, (rej) => {
-        console.log('fail', rej)
-      })
+
+    // 2. then 同時接收成功 & 失敗 結果
+    function sample_promiseChain2(){
+      promiseFn(0)
+        .then(
+          (res)=> { // 成功執行 return promiseFn(3)
+          console.log('success -', res);
+          return promiseFn(3);
+        }, (rej)=> {  // 失敗執行 return promiseFn(4)
+          console.log('fail -', rej);
+          return promiseFn(4);
+        })
+  
+        .then(
+          (res) => {
+          console.log('success -', res);
+        }, (rej) => {
+          console.log('fail -', rej);
+        })
+    }
 
   </script>
 </body>

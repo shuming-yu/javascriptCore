@@ -11,57 +11,76 @@
 <body>
 <h1>創立自己的 Promise</h1>
 
+<h3>MDN - Promise : <a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Promise">https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Promise</a></h3>
+
+<h4>一個 Promise 物件處於以下幾種狀態：</h4>
+<ul>
+  <li>擱置（pending）：初始狀態，不是 fulfilled 與 rejected。</li>
+  <li>實現（fulfilled）：表示操作成功完成。</li>
+  <li>拒絕（rejected）：表示操作失敗了。</li>
+</ul>
+
   <script>
 
-    // console.dir(Promise);
+    // console.log("Promise:", Promise); // function
+    // console.dir(Promise);  // 屬性和屬性值
 
-    // // 注意 : 一次只會執行其中一個
-    // const a = new Promise((resolve, reject) => {
-    //   // resolve('success')
-    //   reject('fail')
-    // });
-    
-    // console.log(a);
-    // a.then((res)=> {
-    //   console.log(res)
-    // }).catch((res) => {
-    //   console.log(res)
-    // })
-
-    
-    // 1. 第一種寫法
-    function promiseFn(num) {
-      console.log(1)
-      return new Promise((resolve, reject) => {
-        console.log(2)
-        setTimeout(() => {
-          if (num) {
-            resolve('成功');
-          } else {
-            reject('失敗')
-          }
-        }, 0);
+    // 1.
+    function sample_newPromise(){
+      // 注意 : resolve, reject 一次只會執行其中一個
+      const a = new Promise((resolve, reject) => {
+        // resolve('success')
+        // reject('fail')
+      });
+      console.log("a:", a);
+      
+      // a 物件沒辦法傳入參數
+      a.then((res)=> {
+        console.log("res:", res)
+      }).catch((rej) => {
+        console.log("rej:", rej)
       })
     }
 
-    // 2. 第二種寫法
-    // const promiseFn2 = () => {
-    //   return new Promise((resolve, reject) => {
-
-    //   })
-    // } 
-
-
-    promiseFn(0)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(res => {
-        console.log('catch', res);
-      })
     
-    console.log('程式碼結束')
+    // 2.
+    function sample_fnPromise(){
+      // 1. 函式陳述式
+      function promiseFn(num) {
+        console.log(1);
+  
+        return new Promise((resolve, reject) => {
+          console.log(2);
+  
+          setTimeout(() => {
+            if (num) {
+              resolve('成功');
+            } else {
+              reject('失敗')
+            }
+          }, 1000);
+        })
+      }
+  
+      promiseFn(1)
+        .then(res => {
+          console.log('then -', res);
+        })
+        .catch(rej => {
+          console.log('catch -', rej);
+        })
+      
+      console.log('程式碼結束');
 
+
+      // 2. 函式表達式
+      const promiseFn2 = () => {
+        return new Promise((resolve, reject) => {
+  
+        })
+      } 
+  
+    }
 
 
   </script>

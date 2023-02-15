@@ -14,10 +14,9 @@
 <body>
   <h1>Promise 基礎概念</h1>
 
-  <h3>jQuery: <a href="https://jquery.com/download/">https://jquery.com/download/</a></h3>
-  <div>search -> ajax -> jQuery.ajax()</div>
+  <h3>jQuery.ajax(): <a href="https://api.jquery.com/jQuery.ajax/">https://api.jquery.com/jQuery.ajax/</a></h3>
   <h3>Axios: <a href="https://github.com/axios/axios">https://github.com/axios/axios</a></h3>
-  <h3>Random User Generator: <a href="https://randomuser.me/documentation#seeds">https://randomuser.me/documentation#seeds</a></h3>
+  <h3>假資料參考 Random User Generator: <a href="https://randomuser.me/documentation">https://randomuser.me/documentation</a></h3>
   <br>
   <h3>常見的非同步問題（不限於 Ajax）</h3>
   <ul>
@@ -37,12 +36,22 @@
 
     // 1. 非同步行為, 等所有程式碼執行完後才執行
     function sample_ajax(){
+      // 1. .done
       $.ajax({
         url: url,
       }).done(function (res) {
         data = res.results;
         console.log("res:", res);
       });
+
+      // 2. success
+      // $.ajax({
+      //   url: url,
+      //   success: function(res){
+      //     data = res.results;
+      //     console.log("res:", res);
+      //   }
+      // });
 
       console.log("data:", data);
     }
