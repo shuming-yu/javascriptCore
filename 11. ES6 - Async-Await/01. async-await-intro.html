@@ -11,78 +11,87 @@
   <body>
     <h1>使用 Async 與基本介紹</h1>
 
-    <div>Async 傳統函式，加入 await 逐行執行</div>
+    <div>Async 傳統函式，加入 await 逐行執行 ( 未加上 await, 只顯示 Promise 函式 )</div>
     <div>Async Function 錯誤捕捉， try , catch</div>
 
     <div id="list"></div>
-    <script>
-      // 建立具有 Promise 的函式（可帶參數）
-      function promiseFn(num) {
-        // 這裡可以插入其它程式碼
-        return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            if (num) {
-              resolve('成功');
-            } else {
-              reject(new Error('失敗'));
-            }
-          }, 0);
-        });
-      }
-
-      // Promise 寫法
-      // promiseFn(1)
-      //   .then((res) => {
-      //     console.log(res);
-      //     return promiseFn(1);  // 透過 return 進行串接
-      //   })
-      //   .then((res) => {
-      //     console.log(2, res);
-      //   })
-      //   .catch((err)=> {
-      //     console.log(err);
-      //     // alert(err);
-      //   })
-
-
-      // Async 傳統函式
-      // 加入 await 逐行執行
-      // async function asyncFn() {
-      //   console.log(1);
-      //   const res = await promiseFn(1); // Promise
-      //   console.log(2, res);
-      //   const res2 = await promiseFn(1);
-      //   console.log(3, res2);
-      // }
-      // asyncFn();
-
-
-      // Async 箭頭函式
-      // const asyncArrowFn = async () => {
-
-      // }
-
-
-
-      // Async Function 錯誤捕捉
-      (async () => {
-        try {
-          const res = await promiseFn(0);
-          console.log(res);
-        } catch (error) {
-          console.log('error:', error);
-          // alert(error);
-        }
-      })(); // IIFE 立即函式
-
-      // (async () => {
-      //   try {
-          
-      //   } catch (error) {
-          
-      //   }
-      // })();
-
-    </script>
   </body>
 </html>
+
+<script>
+  // 建立具有 Promise 的函式（可帶參數）
+  function promiseFn(num) {
+    // 這裡可以插入其它程式碼
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (num) {
+          resolve('成功');
+        } else {
+          reject(new Error('失敗'));
+        }
+      }, 0);
+    });
+  }
+
+  // Promise 寫法
+  function sample_promise(){
+    promiseFn(1)
+      .then((res) => {
+        console.log("res:", res);
+        return promiseFn(0);  // 透過 return 進行串接
+      })
+      .then((res) => {
+        console.log(2, res);
+      })
+      .catch((err)=> {
+        // 1.
+        console.log(err);
+        // 2.
+        // alert(err);
+      })
+  }
+
+
+  // Async 傳統函式, 加入 await 逐行執行
+  function sample_async(){
+    async function asyncFn() {
+      console.log(1);
+      const res1 = await promiseFn(1); // Promise
+      console.log(2, res1);
+      const res2 = await promiseFn(0);
+      console.log(3, res2);
+    }
+    asyncFn();
+  
+  
+    // Async 箭頭函式
+    const asyncArrowFn = async () => {
+      
+    }
+  }
+
+
+  // Async Function 錯誤捕捉
+  function sample_tryCatch(){
+    (async () => {
+      try {
+        const res1 = await promiseFn(1);
+        console.log("res:", res1);
+        const res2 = await promiseFn(0);
+        console.log("res:", res2);
+      } catch (error) {
+        console.log("error:", error);
+        // alert(error);
+      }
+    })(); // IIFE 立即函式
+  }
+
+  // (async () => {
+  //   try {
+      
+  //   } catch (error) {
+      
+  //   }
+  // })();
+
+</script>

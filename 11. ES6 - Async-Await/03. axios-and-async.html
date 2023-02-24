@@ -15,61 +15,78 @@
       // https://jsonplaceholder.typicode.com/todos/2
 
       // 1.
-      // axios
-      //   .get('https://jsonplaceholder.typicode.com/todo/2')
-      //   .then((res) => {
-      //     console.log(res);
-      //   })
-      //   .catch((err) => {
-      //     console.log('err:', err);
-      //   });
+      function sample_axios(){
+        axios
+          .get('https://jsonplaceholder.typicode.com/todo/2')
+          .then((res) => {
+            console.log("res:", res);
+          })
+          .catch((err) => {
+            console.log("err", err);
+          });
+      }
       
 
       // 2.
-      // Promise.all([
-      //   axios.get('https://jsonplaceholder.typicode.com/todos/1'),
-      //   axios.get('https://jsonplaceholder.typicode.com/todos/2')
-      // ])
-      //   .then(res => {
-      //     console.log(res);
-      //   })
-
-
-      // 3.
-      // const getData = async () => {
-      //   try {
-      //     const res = await Promise.all([
-      //       axios.get('https://jsonplaceholder.typicode.com/todos/1'),
-      //       axios.get('https://jsonplaceholder.typicode.com/todos/2')
-      //     ])
-      //     return res;
-      //   } catch (error) {
-      //     // console.log('錯誤:', error);
-      //     throw new Error(error);
-      //   }
-      // }
-      
-      // 4.
-      async function getData() {
-        try {
-          const res = await Promise.all([
-            axios.get('https://jsonplaceholder.typicode.com/todos/1'),
-            axios.get('https://jsonplaceholder.typicode.com/todos/2')
-          ]);
-          return res;
-        } catch (error) {
-          throw new Error(error);
-        }
+      function sample_promiseAll(){
+        Promise.all([
+          axios.get('https://jsonplaceholder.typicode.com/todos/1'),
+          axios.get('https://jsonplaceholder.typicode.com/todos/2')
+        ])
+          .then(res => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log("err", err);
+          });
       }
 
-      // getData().then(res => {
-      //   console.log(res);
-      // })
-
-      (async () => {
-        const res = await getData();
-        console.log(res);
-      })();
+      function sample_getData(){
+        // 3. 傳統函式
+        // async function getData() {
+        //   try {
+        //     const res = await Promise.all([
+        //       axios.get('https://jsonplaceholder.typicode.com/todos/1'),
+        //       axios.get('https://jsonplaceholder.typicode.com/todos/2')
+        //     ]);
+        //     return res;
+        //   }
+        //   catch (error) {
+        //       throw new Error(error);
+        //     }
+        // }
+  
+        // 4. 箭頭函式
+        const getData = async () => {
+          try {
+            const res = await Promise.all([
+              axios.get('https://jsonplaceholder.typicode.com/todos/1'),
+              axios.get('https://jsonplaceholder.typicode.com/todos/2')
+            ])
+            // console.log("res:", res);
+            return res;
+          }
+          catch (error) {
+            // console.log('error:', error);
+            throw new Error(error);
+          }
+        }
+        // 1.
+        console.log(getData());
+        getData();
+  
+        // 2.
+        // getData().then(res => {
+        //   console.log("res:", res);
+        // })
+  
+        // 3.
+        // (async () => {
+        //   // const res = getData(); // 查看結果 - Promise
+        //   const res = await getData();
+        //   console.log("res:", res);
+        // })();
+      }
     </script>
   </body>
 </html>
